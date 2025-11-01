@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Enum\Gender;
 use App\Enum\UserRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -26,6 +27,7 @@ class User extends Authenticatable
         'password',
         'role',
         'date_of_birth',
+        'gender'
     ];
 
     /**
@@ -50,6 +52,7 @@ class User extends Authenticatable
             'date_of_birth' => 'datetime',
             'password' => 'hashed',
             'role' => UserRole::class,
+            'gender' => Gender::class,
         ];
     }
 
