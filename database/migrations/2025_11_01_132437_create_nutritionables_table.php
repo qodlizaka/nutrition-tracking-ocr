@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nutritionables', function (Blueprint $table) {
+        Schema::create('nutrientables', function (Blueprint $table) {
             $table->foreignId('nutrition_id')->constrained()->cascadeOnDelete();
-            $table->morphs('nutritionable');
+            $table->morphs('nutrientable');
             $table->unsignedInteger('value');
             $table->unsignedInteger('percentage')->nullable();
         });
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nutritionables');
+        Schema::dropIfExists('nutrientables');
     }
 };
