@@ -11,6 +11,7 @@ class Nutrition extends Model
 {
     /** @use HasFactory<\Database\Factories\NutritionFactory> */
     use HasFactory;
+    protected $guarded = ['id'];
 
     public function casts(): array
     {

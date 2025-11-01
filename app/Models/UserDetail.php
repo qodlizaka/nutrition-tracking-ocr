@@ -12,6 +12,8 @@ class UserDetail extends Model
     /** @use HasFactory<\Database\Factories\UserDetailFactory> */
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     public function casts(): array
     {
         return [
