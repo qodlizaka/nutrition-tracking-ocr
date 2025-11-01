@@ -17,7 +17,10 @@ class FoodFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->words(rand(1, 3), true),
+            'image' => fake()->imageUrl(),
+            'total_servings' => (int) rand(20, 200) / 10 * 10,
+            'unit' => fake()->randomElement(['gr', 'ml']),
         ];
     }
 }
