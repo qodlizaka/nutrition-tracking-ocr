@@ -17,4 +17,10 @@ class Food extends Model
     {
         return $this->morphToMany(Category::class, 'categorizeable');
     }
+
+    public function nutritions(): MorphToMany
+    {
+        return $this->morphToMany(Nutrition::class, 'nutrientable')
+            ->withPivot(['value']);
+    }
 }
