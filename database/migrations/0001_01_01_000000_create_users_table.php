@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->unsignedTinyInteger('role')->default(UserRole::User->value);
             $table->date('date_of_birth')->nullable();
+            $table->unsignedTinyInteger('gender');
             $table->rememberToken();
             $table->timestamps();
         });
