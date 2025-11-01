@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Intake extends Model
 {
@@ -13,9 +13,9 @@ class Intake extends Model
 
     protected $guarded = ['id'];
 
-    public function nutritions(): BelongsToMany
+    public function nutritions(): MorphToMany
     {
-        return $this->belongsToMany(related:Nutrition::class)
+        return $this->morphToMany(Nutrition::class, 'nutrientable')
             ->withPivot(['value']);
     }
 }
