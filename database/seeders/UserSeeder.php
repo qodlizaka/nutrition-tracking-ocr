@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Enum\Gender;
 use App\Enum\UserRole;
 use App\Models\User;
+use App\Models\UserDetail;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -38,6 +39,9 @@ class UserSeeder extends Seeder
             ])
             ->create();
 
-        User::factory()->count(10)->create();
+        User::factory()
+            ->has(UserDetail::factory()->count(10))
+            ->count(10)
+            ->create();
     }
 }
