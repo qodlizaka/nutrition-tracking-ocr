@@ -1,167 +1,233 @@
 [
-  {
-    "name": "energy",
-    "category": "energy",
-    "unit": "kcal"
-  },
-  {
-    "name": "total fat",
-    "category": "macro",
-    "unit": "g"
-  },
-  {
-    "name": "saturated fat",
-    "category": "macro",
-    "unit": "g"
-  },
-  {
-    "name": "protein",
-    "category": "macro",
-    "unit": "g"
-  },
-  {
-    "name": "total carbohydrate",
-    "category": "macro",
-    "unit": "g"
-  },
-  {
-    "name": "sugar",
-    "category": "macro",
-    "unit": "g"
-  },
-  {
-    "name": "sodium",
-    "category": "micro",
-    "unit": "mg"
-  },
-  {
-    "name": "vitamin a",
-    "category": "micro",
-    "unit": "mcg"
-  },
-  {
-    "name": "vitamin d",
-    "category": "micro",
-    "unit": "mcg"
-  },
-  {
-    "name": "vitamin e",
-    "category": "micro",
-    "unit": "mg"
-  },
-  {
-    "name": "vitamin k",
-    "category": "micro",
-    "unit": "mcg"
-  },
-  {
-    "name": "vitamin b1",
-    "category": "micro",
-    "unit": "mg"
-  },
-  {
-    "name": "vitamin b2",
-    "category": "micro",
-    "unit": "mg"
-  },
-  {
-    "name": "vitamin b3",
-    "category": "micro",
-    "unit": "mg"
-  },
-  {
-    "name": "vitamin b5",
-    "category": "micro",
-    "unit": "mg"
-  },
-  {
-    "name": "vitamin b6",
-    "category": "micro",
-    "unit": "mg"
-  },
-  {
-    "name": "folate",
-    "category": "micro",
-    "unit": "mcg"
-  },
-  {
-    "name": "vitamin b12",
-    "category": "micro",
-    "unit": "mcg"
-  },
-  {
-    "name": "biotin",
-    "category": "micro",
-    "unit": "mcg"
-  },
-  {
-    "name": "choline",
-    "category": "micro",
-    "unit": "mg"
-  },
-  {
-    "name": "vitamin c",
-    "category": "micro",
-    "unit": "mg"
-  },
-  {
-    "name": "calcium",
-    "category": "micro",
-    "unit": "mg"
-  },
-  {
-    "name": "phosphorus",
-    "category": "micro",
-    "unit": "mg"
-  },
-  {
-    "name": "magnesium",
-    "category": "micro",
-    "unit": "mg"
-  },
-  {
-    "name": "potassium",
-    "category": "micro",
-    "unit": "mg"
-  },
-  {
-    "name": "manganese",
-    "category": "micro",
-    "unit": "mcg"
-  },
-  {
-    "name": "copper",
-    "category": "micro",
-    "unit": "mcg"
-  },
-  {
-    "name": "chromium",
-    "category": "micro",
-    "unit": "mcg"
-  },
-  {
-    "name": "iron",
-    "category": "micro",
-    "unit": "mg"
-  },
-  {
-    "name": "iodine",
-    "category": "micro",
-    "unit": "mcg"
-  },  
-  {
-    "name": "zinc",
-    "category": "micro",
-    "unit": "mg"
-  },
-  {
-    "name": "selenium",
-    "category": "micro",
-    "unit": "mcg"
-  },
-  {
-    "name": "fluoride",
-    "category": "micro",
-    "unit": "mg"
-  }
+    {
+        "name": "energy",
+        "category": "energy",
+        "unit": "kcal",
+        "group": "Energy",
+        "description": "Sumber tenaga utama yang dibutuhkan tubuh untuk beraktivitas."
+    },
+    {
+        "name": "total fat",
+        "category": "macro",
+        "unit": "g",
+        "group": "Fat",
+        "description": "Cadangan energi tubuh, pelindung organ vital, dan pembantu penyerapan vitamin."
+    },
+    {
+        "name": "saturated fat",
+        "category": "macro",
+        "unit": "g",
+        "group": "Fat",
+        "description": "Jenis lemak padat yang konsumsinya perlu dibatasi untuk kesehatan jantung."
+    },
+    {
+        "name": "protein",
+        "category": "macro",
+        "unit": "g",
+        "group": "Protein",
+        "description": "Zat pembangun yang penting untuk pertumbuhan dan perbaikan sel tubuh."
+    },
+    {
+        "name": "total carbohydrate",
+        "category": "macro",
+        "unit": "g",
+        "group": "Carbohydrate",
+        "description": "Sumber bahan bakar utama bagi otak dan otot tubuh."
+    },
+    {
+        "name": "sugar",
+        "category": "macro",
+        "unit": "g",
+        "group": "Carbohydrate",
+        "description": "Karbohidrat sederhana yang memberikan energi instan namun perlu dibatasi."
+    },
+    {
+        "name": "sodium",
+        "category": "micro",
+        "unit": "mg",
+        "group": "Minerals",
+        "description": "Mineral yang menjaga keseimbangan cairan tubuh dan fungsi saraf."
+    },
+    {
+        "name": "vitamin a",
+        "category": "micro",
+        "unit": "mcg",
+        "group": "Vitamin",
+        "description": "Penting untuk kesehatan mata, sistem kekebalan tubuh, dan pertumbuhan sel."
+    },
+    {
+        "name": "vitamin d",
+        "category": "micro",
+        "unit": "mcg",
+        "group": "Vitamin",
+        "description": "Membantu penyerapan kalsium untuk kesehatan tulang dan gigi."
+    },
+    {
+        "name": "vitamin e",
+        "category": "micro",
+        "unit": "mg",
+        "group": "Vitamin",
+        "description": "Antioksidan kuat yang melindungi sel-sel tubuh dari kerusakan."
+    },
+    {
+        "name": "vitamin k",
+        "category": "micro",
+        "unit": "mcg",
+        "group": "Vitamin",
+        "description": "Berperan penting dalam proses pembekuan darah dan kesehatan tulang."
+    },
+    {
+        "name": "vitamin b1",
+        "category": "micro",
+        "unit": "mg",
+        "group": "Vitamin",
+        "description": "Membantu mengubah karbohidrat menjadi energi dan menjaga fungsi saraf."
+    },
+    {
+        "name": "vitamin b2",
+        "category": "micro",
+        "unit": "mg",
+        "group": "Vitamin",
+        "description": "Penting untuk produksi energi dan kesehatan kulit serta mata."
+    },
+    {
+        "name": "vitamin b3",
+        "category": "micro",
+        "unit": "mg",
+        "group": "Vitamin",
+        "description": "Mendukung fungsi sistem pencernaan, kulit, dan saraf."
+    },
+    {
+        "name": "vitamin b5",
+        "category": "micro",
+        "unit": "mg",
+        "group": "Vitamin",
+        "description": "Membantu memproduksi sel darah dan hormon tubuh."
+    },
+    {
+        "name": "vitamin b6",
+        "category": "micro",
+        "unit": "mg",
+        "group": "Vitamin",
+        "description": "Penting untuk perkembangan otak normal dan menjaga sistem saraf."
+    },
+    {
+        "name": "folate",
+        "category": "micro",
+        "unit": "mcg",
+        "group": "Vitamin",
+        "description": "Krusial untuk pembentukan DNA dan pembelahan sel, terutama pada ibu hamil."
+    },
+    {
+        "name": "vitamin b12",
+        "category": "micro",
+        "unit": "mcg",
+        "group": "Vitamin",
+        "description": "Menjaga kesehatan sel saraf dan membantu pembentukan sel darah merah."
+    },
+    {
+        "name": "biotin",
+        "category": "micro",
+        "unit": "mcg",
+        "group": "Vitamin",
+        "description": "Mendukung kesehatan rambut, kulit, dan kuku serta metabolisme energi."
+    },
+    {
+        "name": "choline",
+        "category": "micro",
+        "unit": "mg",
+        "group": "Vitamin",
+        "description": "Nutrisi penting untuk fungsi otak, pergerakan otot, dan metabolisme."
+    },
+    {
+        "name": "vitamin c",
+        "category": "micro",
+        "unit": "mg",
+        "group": "Vitamin",
+        "description": "Meningkatkan daya tahan tubuh dan membantu penyembuhan luka."
+    },
+    {
+        "name": "calcium",
+        "category": "micro",
+        "unit": "mg",
+        "group": "Minerals",
+        "description": "Mineral utama pembentuk struktur tulang dan gigi yang kuat."
+    },
+    {
+        "name": "phosphorus",
+        "category": "micro",
+        "unit": "mg",
+        "group": "Minerals",
+        "description": "Bekerja sama dengan kalsium untuk membangun tulang dan gigi sehat."
+    },
+    {
+        "name": "magnesium",
+        "category": "micro",
+        "unit": "mg",
+        "group": "Minerals",
+        "description": "Mendukung fungsi otot, saraf, dan produksi energi."
+    },
+    {
+        "name": "potassium",
+        "category": "micro",
+        "unit": "mg",
+        "group": "Minerals",
+        "description": "Menjaga keseimbangan cairan, fungsi otot, dan irama jantung."
+    },
+    {
+        "name": "manganese",
+        "category": "micro",
+        "unit": "mcg",
+        "group": "Minerals",
+        "description": "Berperan dalam pembentukan tulang dan metabolisme karbohidrat."
+    },
+    {
+        "name": "copper",
+        "category": "micro",
+        "unit": "mcg",
+        "group": "Minerals",
+        "description": "Membantu tubuh membentuk sel darah merah dan menjaga kesehatan tulang."
+    },
+    {
+        "name": "chromium",
+        "category": "micro",
+        "unit": "mcg",
+        "group": "Minerals",
+        "description": "Meningkatkan kinerja insulin dan metabolisme makronutrien."
+    },
+    {
+        "name": "iron",
+        "category": "micro",
+        "unit": "mg",
+        "group": "Minerals",
+        "description": "Komponen utama sel darah merah yang membawa oksigen ke seluruh tubuh."
+    },
+    {
+        "name": "iodine",
+        "category": "micro",
+        "unit": "mcg",
+        "group": "Minerals",
+        "description": "Penting untuk fungsi kelenjar tiroid yang mengatur metabolisme."
+    },
+    {
+        "name": "zinc",
+        "category": "micro",
+        "unit": "mg",
+        "group": "Minerals",
+        "description": "Mendukung sistem kekebalan tubuh dan proses penyembuhan luka."
+    },
+    {
+        "name": "selenium",
+        "category": "micro",
+        "unit": "mcg",
+        "group": "Minerals",
+        "description": "Antioksidan yang melindungi sel dan mendukung fungsi tiroid."
+    },
+    {
+        "name": "fluoride",
+        "category": "micro",
+        "unit": "mg",
+        "group": "Minerals",
+        "description": "Mencegah kerusakan gigi dan memperkuat email gigi."
+    }
 ]
