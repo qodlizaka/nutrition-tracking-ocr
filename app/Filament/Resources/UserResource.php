@@ -5,10 +5,11 @@ namespace App\Filament\Resources;
 use App\Enum\Gender;
 use App\Enum\UserRole;
 use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
+use App\Filament\Resources\UserResource\RelationManagers\UserDetailsRelationManager;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Enums\ActionsPosition;
@@ -120,7 +121,7 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            UserDetailsRelationManager::class
         ];
     }
 
