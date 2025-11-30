@@ -2,8 +2,12 @@
 
 namespace App\Enum;
 
+use App\Traits\EnumToArray;
+
 enum PhysicalActivityLevel: int
 {
+    use EnumToArray;
+
     case Sedentary = 1;
     case LightlyActive = 2;
     case ModeratelyActive = 3;

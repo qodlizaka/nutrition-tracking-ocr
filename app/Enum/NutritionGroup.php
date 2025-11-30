@@ -2,8 +2,12 @@
 
 namespace App\Enum;
 
+use App\Traits\EnumToArray;
+
 enum NutritionGroup: int
 {
+    use EnumToArray;
+
     case Macro = 1;
     case Fat = 2;
     case Carbohydrate = 3;
