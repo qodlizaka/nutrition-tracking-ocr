@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enum\PhysicalActivityLevel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,10 @@ class UserDetailFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'weight' => fake()->randomFloat(2, 20, 100),
+            'height' => fake()->randomFloat(2, 100, 200),
+            'activity_level' => fake()->randomElement(PhysicalActivityLevel::cases()),
+            'created_at' => now()->subDays(rand(7, 365)),
         ];
     }
 }
