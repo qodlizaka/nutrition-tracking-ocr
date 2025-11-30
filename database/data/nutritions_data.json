@@ -1,0 +1,167 @@
+[
+  {
+    "name": "energy",
+    "category": "energy",
+    "unit": "kcal"
+  },
+  {
+    "name": "total fat",
+    "category": "macro",
+    "unit": "g"
+  },
+  {
+    "name": "saturated fat",
+    "category": "macro",
+    "unit": "g"
+  },
+  {
+    "name": "protein",
+    "category": "macro",
+    "unit": "g"
+  },
+  {
+    "name": "total carbohydrate",
+    "category": "macro",
+    "unit": "g"
+  },
+  {
+    "name": "sugar",
+    "category": "macro",
+    "unit": "g"
+  },
+  {
+    "name": "sodium",
+    "category": "micro",
+    "unit": "mg"
+  },
+  {
+    "name": "vitamin a",
+    "category": "micro",
+    "unit": "mcg"
+  },
+  {
+    "name": "vitamin d",
+    "category": "micro",
+    "unit": "mcg"
+  },
+  {
+    "name": "vitamin e",
+    "category": "micro",
+    "unit": "mg"
+  },
+  {
+    "name": "vitamin k",
+    "category": "micro",
+    "unit": "mcg"
+  },
+  {
+    "name": "vitamin b1",
+    "category": "micro",
+    "unit": "mg"
+  },
+  {
+    "name": "vitamin b2",
+    "category": "micro",
+    "unit": "mg"
+  },
+  {
+    "name": "vitamin b3",
+    "category": "micro",
+    "unit": "mg"
+  },
+  {
+    "name": "vitamin b5",
+    "category": "micro",
+    "unit": "mg"
+  },
+  {
+    "name": "vitamin b6",
+    "category": "micro",
+    "unit": "mg"
+  },
+  {
+    "name": "folate",
+    "category": "micro",
+    "unit": "mcg"
+  },
+  {
+    "name": "vitamin b12",
+    "category": "micro",
+    "unit": "mcg"
+  },
+  {
+    "name": "biotin",
+    "category": "micro",
+    "unit": "mcg"
+  },
+  {
+    "name": "choline",
+    "category": "micro",
+    "unit": "mg"
+  },
+  {
+    "name": "vitamin c",
+    "category": "micro",
+    "unit": "mg"
+  },
+  {
+    "name": "calcium",
+    "category": "micro",
+    "unit": "mg"
+  },
+  {
+    "name": "phosphorus",
+    "category": "micro",
+    "unit": "mg"
+  },
+  {
+    "name": "magnesium",
+    "category": "micro",
+    "unit": "mg"
+  },
+  {
+    "name": "potassium",
+    "category": "micro",
+    "unit": "mg"
+  },
+  {
+    "name": "manganese",
+    "category": "micro",
+    "unit": "mcg"
+  },
+  {
+    "name": "copper",
+    "category": "micro",
+    "unit": "mcg"
+  },
+  {
+    "name": "chromium",
+    "category": "micro",
+    "unit": "mcg"
+  },
+  {
+    "name": "iron",
+    "category": "micro",
+    "unit": "mg"
+  },
+  {
+    "name": "iodine",
+    "category": "micro",
+    "unit": "mcg"
+  },  
+  {
+    "name": "zinc",
+    "category": "micro",
+    "unit": "mg"
+  },
+  {
+    "name": "selenium",
+    "category": "micro",
+    "unit": "mcg"
+  },
+  {
+    "name": "fluoride",
+    "category": "micro",
+    "unit": "mg"
+  }
+]
