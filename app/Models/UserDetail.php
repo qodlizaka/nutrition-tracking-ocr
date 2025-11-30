@@ -17,8 +17,8 @@ class UserDetail extends Model
     public function casts(): array
     {
         return [
-            'weight' => 'integer',
-            'height' => 'integer',
+            'weight' => 'float',
+            'height' => 'float',
             'activity_level' => PhysicalActivityLevel::class,
         ];
     }
