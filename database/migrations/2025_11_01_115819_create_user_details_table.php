@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('user_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->unsignedSmallInteger('weight');
-            $table->unsignedSmallInteger('height');
+            $table->float('weight', 4)->unsigned();
+            $table->float('height', 4)->unsigned();
             $table->unsignedTinyInteger('activity_level');
             $table->timestamps();
         });
