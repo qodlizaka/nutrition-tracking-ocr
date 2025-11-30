@@ -2,7 +2,7 @@
 
 namespace App\Enum;
 
-use App\Traits\EnumToArray;
+use App\Trait\EnumToArray;
 
 enum UserRole: int
 {
