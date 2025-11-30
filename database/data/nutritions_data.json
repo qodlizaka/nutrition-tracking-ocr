@@ -3,7 +3,7 @@
         "name": "energy",
         "category": "energy",
         "unit": "kcal",
-        "group": "Energy",
+        "group": "Macro",
         "description": "Sumber tenaga utama yang dibutuhkan tubuh untuk beraktivitas."
     },
     {
@@ -24,7 +24,7 @@
         "name": "protein",
         "category": "macro",
         "unit": "g",
-        "group": "Protein",
+        "group": "Macro",
         "description": "Zat pembangun yang penting untuk pertumbuhan dan perbaikan sel tubuh."
     },
     {
