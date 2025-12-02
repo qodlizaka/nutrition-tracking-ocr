@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Enum\Gender;
 use App\Filament\Resources\AkgResource\Pages;
 use App\Filament\Resources\AkgResource\RelationManagers;
+use App\Filament\Resources\AkgResource\RelationManagers\NutritionsRelationManager;
 use App\Models\Akg;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -88,7 +89,7 @@ class AkgResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            NutritionsRelationManager::class,
         ];
     }
 
