@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             NutritionSeeder::class,
             AlgSeeder::class,
             AkgSeeder::class,
+            FoodSeeder::class,
         ]);
     }
 }
