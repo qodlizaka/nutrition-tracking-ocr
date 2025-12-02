@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedSmallInteger('min_age');
             $table->unsignedSmallInteger('max_age');
-            $table->unsignedTinyInteger('gender');
+            $table->unsignedTinyInteger('gender')->nullable();
             $table->timestamps();
         });
     }
