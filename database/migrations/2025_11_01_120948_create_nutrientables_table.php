@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('nutrientables', function (Blueprint $table) {
             $table->foreignId('nutrition_id')->constrained()->cascadeOnDelete();
             $table->morphs('nutrientable');
-            $table->unsignedInteger('value')->nullable();
+            $table->float('value', 8)->nullable();
             $table->unsignedInteger('percentage')->nullable();
         });
     }
