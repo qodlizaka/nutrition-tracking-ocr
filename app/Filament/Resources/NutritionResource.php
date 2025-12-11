@@ -2,16 +2,29 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\SelectColumn;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Tables\Enums\RecordActionsPosition;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use App\Filament\Resources\NutritionResource\Pages\ListNutrition;
+use App\Filament\Resources\NutritionResource\Pages\CreateNutrition;
+use App\Filament\Resources\NutritionResource\Pages\EditNutrition;
 use App\Enum\NutritionCategory;
 use App\Enum\NutritionGroup;
 use App\Filament\Resources\NutritionResource\Pages;
 use App\Filament\Resources\NutritionResource\RelationManagers;
 use App\Models\Nutrition;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Enums\ActionsPosition;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -20,17 +33,17 @@ class NutritionResource extends Resource
 {
     protected static ?string $model = Nutrition::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
+        return $schema
+            ->components([
+                TextInput::make('name')
                     ->required()
                     ->maxLength(255)
                     ->translateLabel(),
-                Forms\Components\TextInput::make('unit')
+                TextInput::make('unit')
                     ->required()
                     ->datalist([
                         'mg',
@@ -43,15 +56,15 @@ class NutritionResource extends Resource
                     ])
                     ->maxLength(50)
                     ->translateLabel(),
-                Forms\Components\Select::make('category')
+                Select::make('category')
                     ->required()
                     ->options(NutritionCategory::translatedArray())
                     ->translateLabel(),
-                Forms\Components\Select::make('group')
+                Select::make('group')
                     ->required()
                     ->options(NutritionGroup::translatedArray())
                     ->translateLabel(),
-                Forms\Components\Textarea::make('description')
+                Textarea::make('description')
                     ->required()
                     ->maxLength(1024)
                     ->translateLabel(),
@@ -62,29 +75,29 @@ class NutritionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->searchable()
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('unit')
+                TextColumn::make('unit')
                     ->searchable()
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('description')
+                TextColumn::make('description')
                     ->searchable()
                     ->translateLabel(),
-                Tables\Columns\SelectColumn::make('category')
+                SelectColumn::make('category')
                     ->options(NutritionCategory::translatedArray())
                     ->sortable()
                     ->translateLabel(),
-                Tables\Columns\SelectColumn::make('group')
+                SelectColumn::make('group')
                     ->options(NutritionGroup::translatedArray())
                     ->sortable()
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true)
@@ -93,15 +106,15 @@ class NutritionResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\ActionGroup::make([
-                    Tables\Actions\EditAction::make(),
-                    Tables\Actions\DeleteAction::make(),
+            ->recordActions([
+                ActionGroup::make([
+                    EditAction::make(),
+                    DeleteAction::make(),
                 ]),
-            ], ActionsPosition::BeforeCells)
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ], RecordActionsPosition::BeforeCells)
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -116,9 +129,9 @@ class NutritionResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListNutrition::route('/'),
-            'create' => Pages\CreateNutrition::route('/create'),
-            'edit' => Pages\EditNutrition::route('/{record}/edit'),
+            'index' => ListNutrition::route('/'),
+            'create' => CreateNutrition::route('/create'),
+            'edit' => EditNutrition::route('/{record}/edit'),
         ];
     }
 }

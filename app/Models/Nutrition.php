@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\NutritionFactory;
 use App\Enum\NutritionCategory;
 use App\Enum\NutritionGroup;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Nutrition extends Model
 {
-    /** @use HasFactory<\Database\Factories\NutritionFactory> */
+    /** @use HasFactory<NutritionFactory> */
     use HasFactory;
     protected $guarded = ['id'];
 

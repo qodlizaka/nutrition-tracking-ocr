@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Database\Factories\IntakeFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Intake extends Model
 {
-    /** @use HasFactory<\Database\Factories\IntakeFactory> */
+    /** @use HasFactory<IntakeFactory> */
     use HasFactory;
 
     protected $guarded = ['id'];

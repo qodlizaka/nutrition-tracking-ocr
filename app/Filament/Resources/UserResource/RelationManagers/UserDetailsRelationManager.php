@@ -2,13 +2,18 @@
 
 namespace App\Filament\Resources\UserResource\RelationManagers;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\CreateAction;
+use Filament\Support\Enums\Width;
+use Filament\Actions\BulkActionGroup;
 use App\Enum\PhysicalActivityLevel;
 use App\Models\User;
 use App\Models\UserDetail;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,23 +25,23 @@ class UserDetailsRelationManager extends RelationManager
 {
     protected static string $relationship = 'userDetails';
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('weight')
+        return $schema
+            ->components([
+                TextInput::make('weight')
                     ->numeric()
                     ->maxValue(1000)
                     ->minValue(0)
                     ->required()
                     ->translateLabel(),
-                Forms\Components\TextInput::make('height')
+                TextInput::make('height')
                     ->required()
                     ->maxValue(1000)
                     ->minValue(0)
                     ->numeric()
                     ->translateLabel(),
-                Forms\Components\Select::make('activity_level')
+                Select::make('activity_level')
                     ->required()
                     ->options(PhysicalActivityLevel::translatedArray())
                     ->translateLabel(),
@@ -49,14 +54,14 @@ class UserDetailsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute(fn(UserDetail $record) => $record->created_at->diffForHumans())
             ->columns([
-                Tables\Columns\TextColumn::make('weight')
+                TextColumn::make('weight')
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('height')
+                TextColumn::make('height')
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('activity_level')
+                TextColumn::make('activity_level')
                     ->formatStateUsing(fn(PhysicalActivityLevel $state) => __(Str::headline($state->name)))
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->since()
                     ->translateLabel(),
             ])
@@ -64,15 +69,15 @@ class UserDetailsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make()
-                    ->modalWidth(MaxWidth::Small),
+                CreateAction::make()
+                    ->modalWidth(Width::Small),
             ])
-            ->actions([
+            ->recordActions([
                 // Tables\Actions\EditAction::make(),
                 // Tables\Actions\DeleteAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
+            ->toolbarActions([
+                BulkActionGroup::make([
                     // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])

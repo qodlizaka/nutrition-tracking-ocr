@@ -2,13 +2,19 @@
 
 namespace App\Filament\Resources\AlgResource\RelationManagers;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\AttachAction;
+use Filament\Support\Enums\Width;
+use Filament\Actions\EditAction;
+use Filament\Actions\DetachAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DetachBulkAction;
 use App\Models\Nutrition;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
-use Filament\Tables\Actions\AttachAction;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -17,11 +23,11 @@ class NutritionsRelationManager extends RelationManager
 {
     protected static string $relationship = 'nutritions';
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('value')
+        return $schema
+            ->components([
+                TextInput::make('value')
                     ->required()
                     ->numeric()
                     ->maxLength(255)
@@ -35,35 +41,35 @@ class NutritionsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('name')
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('value')
+                TextColumn::make('value')
                     ->translateLabel(),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\AttachAction::make()
+                AttachAction::make()
                     ->form(fn (AttachAction $action): array => [
                         $action->getRecordSelect()
                             ->options(Nutrition::pluck('name', 'id')),
-                        Forms\Components\TextInput::make('value')
+                        TextInput::make('value')
                             ->required()
                             ->numeric()
                             ->maxLength(255)
                             ->translateLabel(),
                     ])
-                    ->modalWidth(MaxWidth::Small),
+                    ->modalWidth(Width::Small),
             ])
-            ->actions([
-                Tables\Actions\EditAction::make()
-                    ->modalWidth(MaxWidth::Small),
-                Tables\Actions\DetachAction::make(),
+            ->recordActions([
+                EditAction::make()
+                    ->modalWidth(Width::Small),
+                DetachAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DetachBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DetachBulkAction::make(),
                 ]),
             ]);
     }

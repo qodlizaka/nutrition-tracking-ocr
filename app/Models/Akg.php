@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\AkgFactory;
 use App\Enum\Gender;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Akg extends Model
 {
-    /** @use HasFactory<\Database\Factories\AkgFactory> */
+    /** @use HasFactory<AkgFactory> */
     use HasFactory;
 
     protected $guarded = ['id'];

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-
+use Database\Factories\UserFactory;
 use App\Enum\Gender;
 use App\Enum\UserRole;
 use Filament\Models\Contracts\FilamentUser;
@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 
 class User extends Authenticatable implements FilamentUser
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
     /**

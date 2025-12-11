@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Database\Factories\AlgFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Alg extends Model
 {
-    /** @use HasFactory<\Database\Factories\AlgFactory> */
+    /** @use HasFactory<AlgFactory> */
     use HasFactory;
 
     protected $guarded = ['id'];

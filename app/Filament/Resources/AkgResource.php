@@ -2,13 +2,23 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\SelectColumn;
+use Filament\Actions\EditAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use App\Filament\Resources\AkgResource\Pages\ListAkgs;
+use App\Filament\Resources\AkgResource\Pages\CreateAkg;
+use App\Filament\Resources\AkgResource\Pages\EditAkg;
 use App\Enum\Gender;
 use App\Filament\Resources\AkgResource\Pages;
 use App\Filament\Resources\AkgResource\RelationManagers;
 use App\Filament\Resources\AkgResource\RelationManagers\NutritionsRelationManager;
 use App\Models\Akg;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -19,25 +29,25 @@ class AkgResource extends Resource
 {
     protected static ?string $model = Akg::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
+        return $schema
+            ->components([
+                TextInput::make('name')
                     ->required()
                     ->maxLength(255)
                     ->translateLabel(),
-                Forms\Components\TextInput::make('min_age')
+                TextInput::make('min_age')
                     ->required()
                     ->numeric()
                     ->translateLabel(),
-                Forms\Components\TextInput::make('max_age')
+                TextInput::make('max_age')
                     ->required()
                     ->numeric()
                     ->translateLabel(),
-                Forms\Components\Select::make('gender')
+                Select::make('gender')
                     ->options(Gender::translatedArray())
                     ->translateLabel(),
             ]);
@@ -47,27 +57,27 @@ class AkgResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->searchable()
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('min_age')
+                TextColumn::make('min_age')
                     ->sortable()
                     ->formatStateUsing(fn(float $state) => $state . " " . __('years'))
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('max_age')
+                TextColumn::make('max_age')
                     ->sortable()
                     ->formatStateUsing(fn(float $state) => $state . " " . __('years'))
                     ->translateLabel(),
-                Tables\Columns\SelectColumn::make('gender')
+                SelectColumn::make('gender')
                     ->options(Gender::translatedArray())
                     ->sortable()
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->translateLabel(),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true)
@@ -76,12 +86,12 @@ class AkgResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -96,9 +106,9 @@ class AkgResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAkgs::route('/'),
-            'create' => Pages\CreateAkg::route('/create'),
-            'edit' => Pages\EditAkg::route('/{record}/edit'),
+            'index' => ListAkgs::route('/'),
+            'create' => CreateAkg::route('/create'),
+            'edit' => EditAkg::route('/{record}/edit'),
         ];
     }
 }
