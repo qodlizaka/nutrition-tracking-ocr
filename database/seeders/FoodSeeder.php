@@ -22,7 +22,7 @@ class FoodSeeder extends Seeder
         $data = json_decode(File::get($jsonPath), true);
 
         $test = collect($data)
-            ->take(3)
+            ->take(100)
             ->map(function (array $food) use ($nutritions) {
                 $mappedNutritions = collect($food['nutritions'])
                     ->mapWithKeys(function (array $n) use ($nutritions): array {
@@ -42,7 +42,7 @@ class FoodSeeder extends Seeder
                 $model = Food::query()
                     ->create([
                         'name' => $name,
-                        'image' => $image,
+                        'image' => "images/foods/$image",
                         'total_servings' => $serving_size,
                         'unit' => $unit,
                     ]);
