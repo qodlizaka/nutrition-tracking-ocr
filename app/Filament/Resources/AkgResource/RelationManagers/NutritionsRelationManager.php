@@ -51,7 +51,7 @@ class NutritionsRelationManager extends RelationManager
             ])
             ->headerActions([
                 AttachAction::make()
-                    ->form(fn (AttachAction $action): array => [
+                    ->schema(fn (AttachAction $action): array => [
                         $action->getRecordSelect()
                             ->options(Nutrition::pluck('name', 'id')),
                         TextInput::make('value')
