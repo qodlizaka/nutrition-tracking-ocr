@@ -42,7 +42,6 @@ class FoodResource extends Resource
                     ->maxLength(255)
                     ->translateLabel(),
                 FileUpload::make('image')
-                    ->required()
                     ->disk('public')
                     ->directory('images/foods')
                     ->visibility('public')
