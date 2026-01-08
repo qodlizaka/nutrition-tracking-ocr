@@ -40,6 +40,7 @@ class UserSeeder extends Seeder
             ->create();
 
         User::factory()
+            ->state(['role' => UserRole::User])
             ->has(UserDetail::factory()->count(10))
             ->count(10)
             ->create();
