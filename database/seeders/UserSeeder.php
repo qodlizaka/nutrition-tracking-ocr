@@ -30,6 +30,17 @@ class UserSeeder extends Seeder
 
         User::factory()
             ->state([
+                'name' => 'Test User',
+                'email' => 'text@example.com',
+                'password' => bcrypt('password'),
+                'role' => UserRole::User,
+                'gender' => Gender::Male,
+                'date_of_birth' => Carbon::createFromDate(rand(1990, 2010), rand(1, 12), rand(1, 20)),
+            ])
+            ->create();
+
+        User::factory()
+            ->state([
                 'name' => 'Qodli Zaka',
                 'email' => 'qodlizaka513@gmail.com',
                 'password' => bcrypt('Halisah.Zaka.2330'),
