@@ -4,13 +4,14 @@ namespace App\Measurements;
 
 use App\Interfaces\Measurement;
 use App\Models\Food;
+use Livewire\Wireable;
 
-abstract class Base implements Measurement
+abstract class Base implements Measurement, Wireable
 {
     public string $name;
     public string $unit;
     public string $icon;
-    public float $value;
+    public float $value = 1;
 
     /**
      * Create a new class instance.
@@ -19,6 +20,31 @@ abstract class Base implements Measurement
         public Food $food,
     )
     {
+    }
+
+    public function toLivewire(): array
+    {
+        return [
+            'food_id' => $this->food->id,
+            'name' => $this->name,
+            'unit' => $this->unit,
+            'icon' => $this->icon,
+            'value' => $this->value,
+        ];
+    }
+
+    public static function fromLivewire($payload): static
+    {
+        $food = Food::findOrFail($payload['food_id']);
+
+        $instance = new static($food);
+
+        $instance->value = $payload['value'];
+        $instance->name = $payload['name'];
+        $instance->unit = $payload['unit'];
+        $instance->icon = $payload['icon'];
+
+        return $instance;
     }
 
     public function getName(): string
@@ -36,9 +62,11 @@ abstract class Base implements Measurement
         return $this->icon;
     }
 
-    public function setValue(float $value): void
+    public function setValue(float $value): static
     {
         $this->value = $value;
+
+        return $this;
     }
 
     abstract public function getMultiplier(): float;
