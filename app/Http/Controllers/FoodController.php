@@ -9,7 +9,8 @@ class FoodController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Food::query();
+        $query = Food::query()
+            ->with(['nutritions']);
 
         if ($search = $request->input('search')) {
             $query->where('name', 'like', "%{$search}%");
