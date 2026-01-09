@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\FoodController;
-use App\Livewire\Food\Index;
+use App\Livewire\Food\Index as FoodIndex;
+use App\Livewire\Food\Show as FoodShow;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -20,8 +21,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::group(['prefix' => 'foods'], function () {
 
-        Route::get('/', Index::class)
+        Route::get('/', FoodIndex::class)
             ->name('foods.index');
+
+        Route::get('/{food}', FoodShow::class)
+            ->name('foods.show');
 
     });
 
