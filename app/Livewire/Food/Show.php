@@ -2,6 +2,9 @@
 
 namespace App\Livewire\Food;
 
+use App\Measurements\Base as BaseMeasurement;
+use App\Measurements\Quantity;
+use App\Measurements\Weight;
 use App\Models\Food;
 use Livewire\Component;
 use Illuminate\Support\Collection;
@@ -9,35 +12,33 @@ use Illuminate\Support\Collection;
 class Show extends Component
 {
     public Food $food;
+    public Collection $measurements;
+    public BaseMeasurement $measure;
+    public float $amount;
 
     public function mount(Food $food): void
     {
         $this->food = $food->load(['nutritions']);
+
+        $this->measurements = collect([
+            new Weight($this->food),
+            new Quantity($this->food),
+        ])->keyBy('name');
+
+        $this->measure = $this->measurements->first();
+        $this->amount = $this->measure->value;
     }
 
-    /**
-     * Creates a keyed collection of nutritions for easy access by name.
-     * e.g. $this->nutritionMap->get('energy')
-     */
-    public function getNutritionMapProperty(): Collection
+    public function setMeasure(string $name): void
     {
-        return $this->food->nutritions->keyBy(fn($n) => strtolower($n->name));
-    }
-
-    /**
-     * Get vitamins and minerals only (excluding the main macros displayed at the top).
-     */
-    public function getMicrosProperty(): Collection
-    {
-        $mainSections = ['energy', 'total fat', 'total carbohydrate', 'protein', 'sodium'];
-
-        return $this->food->nutritions
-            ->filter(fn($n) => !in_array(strtolower($n->name), $mainSections))
-            ->sortBy('name');
+        $this->measure = $this->measurements
+            ->get($name)
+            ->setValue($this->amount);
     }
 
     public function render()
     {
+        $this->measure->setValue($this->amount ?? 0);
         return view('livewire.food.show');
     }
 }
