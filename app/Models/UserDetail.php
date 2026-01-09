@@ -46,6 +46,13 @@ class UserDetail extends Model
         ];
     }
 
+    public function isIdenticalTo(?float $weight, ?float $height, ?PhysicalActivityLevel $activity): bool
+    {
+        return $this->weight === $weight
+            && $this->height === $height
+            && $this->activity_level === $activity;
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(related:User::class);
