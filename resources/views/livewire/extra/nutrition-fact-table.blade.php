@@ -56,7 +56,7 @@
                     {{ Str::title($micro->name) }}
                 </span>
                 <span>
-                    {{ ($micro->pivot->value) * $multiplier }} <span class="text-xs text-zinc-500">{{ $micro->unit }}</span>
+                    {{ ($micro?->pivot?->value) * $multiplier }} <span class="text-xs text-zinc-500">{{ $micro->unit }}</span>
                 </span>
             </div>
         @endforeach
