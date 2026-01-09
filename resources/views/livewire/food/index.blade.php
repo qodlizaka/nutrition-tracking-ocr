@@ -68,8 +68,10 @@
 
                 <div class="flex flex-1 flex-col p-4">
                     <div class="flex items-start justify-between gap-4">
-                        <h3 class="line-clamp-1 text-base font-semibold text-zinc-900 dark:text-zinc-100" title="{{ $food->name }}">
-                            {{ $food->name }}
+                        <h3 class="line-clamp-1 text-base font-semibold text-zinc-900 dark:text-zinc-100 hover:underline" title="{{ $food->name }}">
+                            <a href="{{ route('foods.show', $food->id) }}">
+                                {{ $food->name }}
+                            </a>
                         </h3>
                     </div>
 
