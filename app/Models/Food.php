@@ -7,6 +7,31 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string|null $image
+ * @property int $total_servings
+ * @property string $unit
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Category> $categories
+ * @property-read int|null $categories_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Nutrition> $nutritions
+ * @property-read int|null $nutritions_count
+ * @method static \Database\Factories\FoodFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Food newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Food newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Food query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Food whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Food whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Food whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Food whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Food whereTotalServings($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Food whereUnit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Food whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Food extends Model
 {
     /** @use HasFactory<FoodFactory> */
