@@ -37,6 +37,7 @@ class UserSeeder extends Seeder
                 'gender' => Gender::Male,
                 'date_of_birth' => Carbon::createFromDate(rand(1990, 2010), rand(1, 12), rand(1, 20)),
             ])
+            ->has(UserDetail::factory(4))
             ->create();
 
         User::factory()
