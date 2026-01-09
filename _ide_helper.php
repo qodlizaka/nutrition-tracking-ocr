@@ -27293,6 +27293,10 @@ namespace App\Livewire\Settings {
      */
     class Appearance extends \Livewire\Component {
             }
+    /**
+     */
+    class UserDetail extends \Livewire\Component {
+            }
     }
 
 namespace App\Livewire\Auth {
