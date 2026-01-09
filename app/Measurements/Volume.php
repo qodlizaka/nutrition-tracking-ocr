@@ -15,6 +15,6 @@ class Volume extends Base
         if ($this->food->unit !== $this->unit)
             return 0;
 
-        return $this->value / $this->food->total_servings;
+        return $this->value / $this->food->total_servings; # times the density of the food
     }
 }
