@@ -8,4 +8,5 @@ interface Measurement
     public function getMultiplier(): float;
     public function getUnit(): string;
     public function getIcon(): string;
+    public function setValue(float $value): void;
 }
