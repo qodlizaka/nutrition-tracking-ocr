@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FoodController;
+use App\Livewire\Food\Index;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -16,7 +17,14 @@ Route::view('dashboard', 'dashboard')
     ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
-    Route::resource('foods', FoodController::class)->only(['index']);
+
+    Route::group(['prefix' => 'foods'], function () {
+
+        Route::get('/', Index::class)
+            ->name('foods.index');
+
+    });
+
 
     Route::redirect('settings', 'settings/profile');
 
