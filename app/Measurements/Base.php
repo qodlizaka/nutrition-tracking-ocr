@@ -10,13 +10,13 @@ abstract class Base implements Measurement
     public string $name;
     public string $unit;
     public string $icon;
+    public float $value;
 
     /**
      * Create a new class instance.
      */
     public function __construct(
         public Food $food,
-        public float $value,
     )
     {
     }
@@ -34,6 +34,11 @@ abstract class Base implements Measurement
     public function getIcon(): string
     {
         return $this->icon;
+    }
+
+    public function setValue(float $value): void
+    {
+        $this->value = $value;
     }
 
     abstract public function getMultiplier(): float;
