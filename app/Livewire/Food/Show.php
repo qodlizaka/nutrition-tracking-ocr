@@ -29,12 +29,11 @@ class Show extends Component
      */
     public function getMicrosProperty(): Collection
     {
-        // Define names already shown in the main section to exclude them
         $mainSections = ['energy', 'total fat', 'total carbohydrate', 'protein', 'sodium'];
 
         return $this->food->nutritions
             ->filter(fn($n) => !in_array(strtolower($n->name), $mainSections))
-            ->sortBy('name'); // Or sort by Group enum if preferred
+            ->sortBy('name');
     }
 
     public function render()
