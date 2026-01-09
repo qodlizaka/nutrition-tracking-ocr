@@ -4,12 +4,14 @@ namespace App\Livewire\Extra;
 
 use App\Models\Food;
 use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Reactive;
 use Livewire\Component;
 
 class NutritionFactTable extends Component
 {
     public Food $food;
     public Collection $nutritions;
+    #[Reactive]
     public float $multiplier;
 
     public function mount(Food $food, float $multiplier): void
