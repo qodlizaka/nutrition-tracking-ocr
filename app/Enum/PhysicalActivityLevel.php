@@ -14,6 +14,17 @@ enum PhysicalActivityLevel: int
     case VeryActive = 4;
     case ExtraActive = 5;
 
+    public function getLabel(): string
+    {
+        return match($this) {
+            self::Sedentary => __('Sedentary'),
+            self::LightlyActive => __('Lightly Active'),
+            self::ModeratelyActive => __('Moderately Active'),
+            self::VeryActive => __('Very Active'),
+            self::ExtraActive => __('Extra Active'),
+        };
+    }
+
     public function getDescription(): string
     {
         return match ($this) {
