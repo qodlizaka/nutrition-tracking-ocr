@@ -4,38 +4,17 @@ namespace App\Measurements;
 
 use App\Models\Food;
 
-class Weight
+class Weight extends Base
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct(
-        private Food $food,
-        private float $value,
-    )
-    {
-    }
-
-    public function getName(): string
-    {
-        return __('Weight');
-    }
+    public string $name = 'Weight';
+    public string $unit = 'g';
+    public string $icon = 'scale';
 
     public function getMultiplier(): float
     {
-        if (!$this->food->unit === 'g')
+        if ($this->food->unit !== $this->unit)
             return 0;
 
         return $this->value / $this->food->total_servings;
-    }
-
-    public function getUnit(): string
-    {
-        return __('gram');
-    }
-
-    public function getIcon(): string
-    {
-        return 'scale';
     }
 }
