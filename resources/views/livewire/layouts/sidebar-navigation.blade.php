@@ -6,7 +6,7 @@
 
     <flux:navlist.group :heading="__('Intake')" class="grid">
         <flux:sidebar.item icon="utensils" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('My Intake') }}</flux:sidebar.item>
-        <flux:sidebar.item icon="hamburger" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Foods') }}</flux:sidebar.item>
+        <flux:sidebar.item icon="hamburger" :href="route('foods.index')" :current="request()->routeIs('foods.index')" wire:navigate>{{ __('Foods') }}</flux:sidebar.item>
     </flux:navlist.group>
 
     <div class="mt-4 px-2">
@@ -40,6 +40,20 @@
                         {{ __('No foods found.') }}
                     </div>
                 @endforelse
+
+                @if ($foods->count() >= 5)
+                    <div class="pt-2 mt-1 border-t border-zinc-200 dark:border-zinc-700">
+                        <flux:button
+                            href="{{ route('foods.index', ['search' => $search]) }}"
+                            variant="ghost"
+                            size="sm"
+                            class="w-full justify-center text-xs"
+                            wire:navigate
+                        >
+                            {{ __('Show all results') }}
+                        </flux:button>
+                    </div>
+                @endif
             </div>
         @endif
     </div>
