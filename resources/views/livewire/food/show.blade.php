@@ -60,7 +60,7 @@
                             placeholder="0" />
 
                         <flux:modal.trigger name="edit-profile">
-                            <flux:button variant="primary" class="w-full">{{ __('Eat/Drink') }}</flux:button>
+                            <flux:button variant="primary" class="w-full">{{ __('Consume') }}</flux:button>
                         </flux:modal.trigger>
                     </div>
                 </div>
