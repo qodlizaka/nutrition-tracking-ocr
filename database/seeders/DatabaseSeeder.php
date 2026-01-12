@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             AkgSeeder::class,
             FoodSeeder::class,
             UserSeeder::class,
+            IntakeSeeder::class,
         ]);
     }
 }
