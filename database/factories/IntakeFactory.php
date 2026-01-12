@@ -17,7 +17,7 @@ class IntakeFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'notes' => fake()->words(rand(2, 5), true),
         ];
     }
 }
