@@ -47,6 +47,8 @@ use Illuminate\Support\Str;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Intake> $intakes
+ * @property-read int|null $intakes_count
  * @mixin \Eloquent
  */
 class User extends Authenticatable implements FilamentUser
@@ -129,5 +131,10 @@ class User extends Authenticatable implements FilamentUser
     public function detail(): HasOne
     {
         return $this->hasOne(UserDetail::class)->latestOfMany();
+    }
+
+    public function intakes(): HasMany
+    {
+        return $this->hasMany(Intake::class);
     }
 }
