@@ -7,8 +7,8 @@
 
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mt-4">
         <div>
-            <flux:heading size="xl">{{ __('Select a food') }}</flux:heading>
-            <flux:subheading>{{ __('Choose a food to add to your intake.') }}</flux:subheading>
+            <flux:heading size="xl">{{ __('Your Intake') }}</flux:heading>
+            <flux:subheading>{{ __('Track your daily food consumption and nutritional intake.') }}</flux:subheading>
         </div>
     </div>
 
