@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Database\Factories\IntakeFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
@@ -24,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Intake whereNotes($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Intake whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Intake whereUserId($value)
+ * @method static Builder<static>|Intake today()
  * @mixin \Eloquent
  */
 class Intake extends Model
@@ -37,5 +39,10 @@ class Intake extends Model
     {
         return $this->morphToMany(Nutrition::class, 'nutrientable')
             ->withPivot(['value']);
+    }
+
+    public function scopeToday(Builder $query): void
+    {
+        $query->whereDate('created_at', today());
     }
 }
