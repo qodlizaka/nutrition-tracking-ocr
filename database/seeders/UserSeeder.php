@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Enum\Gender;
 use App\Enum\UserRole;
+use App\Models\Intake;
+use App\Models\Nutrition;
 use App\Models\User;
 use App\Models\UserDetail;
 use Carbon\Carbon;
@@ -30,6 +32,17 @@ class UserSeeder extends Seeder
 
         User::factory()
             ->state([
+                'name' => 'Qodli Zaka',
+                'email' => 'qodlizaka513@gmail.com',
+                'password' => bcrypt('Halisah.Zaka.2330'),
+                'role' => UserRole::Admin,
+                'gender' => Gender::Male,
+                'date_of_birth' => Carbon::createFromDate(2004, 3, 23),
+            ])
+            ->create();
+
+        $testUser = User::factory()
+            ->state([
                 'name' => 'Test User',
                 'email' => 'text@example.com',
                 'password' => bcrypt('password'),
@@ -40,16 +53,19 @@ class UserSeeder extends Seeder
             ->has(UserDetail::factory(4))
             ->create();
 
-        User::factory()
-            ->state([
-                'name' => 'Qodli Zaka',
-                'email' => 'qodlizaka513@gmail.com',
-                'password' => bcrypt('Halisah.Zaka.2330'),
-                'role' => UserRole::Admin,
-                'gender' => Gender::Male,
-                'date_of_birth' => Carbon::createFromDate(2004, 3, 23),
-            ])
-            ->create();
+        $nutritions = Nutrition::all();
+
+        Intake::factory(1500)
+            ->state(['user_id' => $testUser->id])
+            ->create()
+            ->each(function($intake) use ($nutritions) {
+                $intake->nutritions()->attach(
+                    $nutritions->shuffle()
+                        ->take(rand(15, 25))
+                        ->mapWithKeys(fn($n) => [$n->id => ['value' => fake()->randomFloat(2, 10, 900)]])
+                        ->toArray()
+                );
+            });
 
         User::factory()
             ->state(['role' => UserRole::User])
