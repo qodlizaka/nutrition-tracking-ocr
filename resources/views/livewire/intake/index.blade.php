@@ -1,58 +1,149 @@
-<x-table>
-    <x-slot name="header">
-        <x-table.heading>Customer</x-table.heading>
+<div class="w-full">
 
-        <x-table.heading sortable wire:click="sort('date')" :direction="$sortBy === 'date' ? $sortDirection : null">
-            Date
-        </x-table.heading>
+    <flux:breadcrumbs>
+        <flux:breadcrumbs.item href="{{ route('dashboard') }}" icon="home" />
+        <flux:breadcrumbs.item href="{{ route('foods.index') }}">{{ __('Foods') }}</flux:breadcrumbs.item>
+    </flux:breadcrumbs>
 
-        <x-table.heading sortable wire:click="sort('status')" :direction="$sortBy === 'status' ? $sortDirection : null">
-            Status
-        </x-table.heading>
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mt-4">
+        <div>
+            <flux:heading size="xl">{{ __('Select a food') }}</flux:heading>
+            <flux:subheading>{{ __('Choose a food to add to your intake.') }}</flux:subheading>
+        </div>
+    </div>
 
-        <x-table.heading sortable wire:click="sort('amount')" :direction="$sortBy === 'amount' ? $sortDirection : null">
-            Amount
-        </x-table.heading>
+    <flux:separator class="my-6" />
 
-        <x-table.heading /> </x-slot>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
 
-    @foreach ($this->orders as $order)
-        <x-table.row wire:key="{{ $order->id }}">
-            <x-table.cell class="flex items-center gap-3">
-                <img src="{{ $order->customer_avatar }}" class="w-6 h-6 rounded-full bg-zinc-200" alt="">
-                <span class="font-medium text-zinc-900">{{ $order->customer }}</span>
-            </x-table.cell>
+        <div class="flex items-center gap-2 w-full sm:max-w-md">
+            <flux:button
+                wire:click="previousDate"
+                icon="chevron-left"
+                variant="subtle"
+                square
+                aria-label="Previous Day"
+            />
 
-            <x-table.cell class="whitespace-nowrap text-zinc-500">
-                {{ $order->date }}
-            </x-table.cell>
+            <div class="flex-1">
+                <flux:input
+                    type="date"
+                    wire:model.live="date"
+                    max="{{ now()->format('Y-m-d') }}"
+                    class="w-full"
+                />
+            </div>
 
-            <x-table.cell>
-                <span @class([
-                    'inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ring-1 ring-inset',
-                    'bg-green-50 text-green-700 ring-green-600/20' => $order->status === 'Paid',
-                    'bg-yellow-50 text-yellow-700 ring-yellow-600/20' => $order->status === 'Pending',
-                    'bg-red-50 text-red-700 ring-red-600/20' => $order->status === 'Failed',
-                ])>
-                    {{ $order->status }}
-                </span>
-            </x-table.cell>
+            <flux:button
+                wire:click="nextDate"
+                icon="chevron-right"
+                variant="subtle"
+                square
+                :disabled="\Carbon\Carbon::parse($date)->isToday()"
+                aria-label="Next Day"
+            />
+        </div>
 
-            <x-table.cell class="font-medium text-zinc-900">
-                {{ $order->amount }}
-            </x-table.cell>
+        <flux:dropdown>
+            <flux:button icon-trailing="chevron-down">
+                {{ __('Nutrition') }}
+                <span class="ml-1 text-zinc-400 text-xs">({{ count($activeNutritions) }})</span>
+            </flux:button>
 
-            <x-table.cell class="text-right">
-                <button class="text-zinc-400 hover:text-zinc-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11.5 15.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z" />
-                    </svg>
-                </button>
-            </x-table.cell>
-        </x-table.row>
-    @endforeach
-</x-table>
+            <flux:menu keep-open>
+                @foreach ($nutritions as $nutri)
+                    @php
+                        $isSelected = in_array($nutri->id, $activeNutritions);
+                        $isLimitReached = count($activeNutritions) >= 5;
+                        $shouldDisable = $isLimitReached && !$isSelected;
+                    @endphp
 
-<div class="mt-4">
-    {{ $this->orders->links() }}
+                    <flux:menu.checkbox
+                        wire:click="toggleNutrition({{ $nutri->id }})"
+                        :checked="$isSelected"
+                        :disabled="$shouldDisable"
+                    >
+                        {{ ucfirst($nutri->name) }}
+
+                        @if($shouldDisable)
+                            <span class="ml-auto text-xs text-zinc-400 font-normal">{{ __('Max 5') }}</span>
+                        @endif
+                    </flux:menu.checkbox>
+                @endforeach
+            </flux:menu>
+        </flux:dropdown>
+    </div>
+
+    <x-table.index>
+        <x-slot name="header">
+            <x-table.heading>No.</x-table.heading>
+
+            <x-table.heading
+                sortable
+                wire:click="sort('created_at')"
+                :direction="$sortBy === 'created_at' ? $sortDirection : null"
+            >
+                {{ __('Time') }}
+            </x-table.heading>
+
+            <x-table.heading>{{ __('Notes') }}</x-table.heading>
+
+            @foreach ($this->nutritions as $nutri)
+                @if(in_array($nutri->id, $activeNutritions))
+                    @php
+                        $sortKey = 'nutrition_' . $nutri->id;
+                    @endphp
+
+                    <x-table.heading
+                        sortable
+                        wire:click="sort('{{ $sortKey }}')"
+                        :direction="$sortBy === '{{ $sortKey }}' ? $sortDirection : null"
+                    >
+                        {{ __($nutri->name) }}
+                    </x-table.heading>
+                @endif
+            @endforeach
+        </x-slot>
+
+        @forelse ($intakes as $intake)
+            <x-table.row wire:key="{{ $intake->id }}">
+                <x-table.cell>
+                    {{ $loop->iteration + ($intakes->currentPage() - 1) * $intakes->perPage() }}
+                </x-table.cell>
+
+                <x-table.cell>
+                    {{ $intake->created_at->format('H:i') }}
+                </x-table.cell>
+
+                <x-table.cell>
+                    {{ $intake->notes ?? '-' }}
+                </x-table.cell>
+
+                @foreach ($this->nutritions as $nutri)
+                    @if(in_array($nutri->id, $activeNutritions))
+                        <x-table.cell>
+                            {{ $intake->nutritions->find($nutri->id)?->pivot->value ?? '-' }}
+                        </x-table.cell>
+                    @endif
+                @endforeach
+
+            </x-table.row>
+        @empty
+            <x-table.row>
+                <x-table.cell colspan="{{ 2 + count($activeNutritions) }}" class="text-center py-12">
+                    <div class="flex flex-col items-center justify-center text-zinc-500">
+                        <flux:icon.no-symbol class="size-12" />
+
+                        <span class="font-medium text-zinc-900 dark:text-zinc-100">{{ __('No intakes found') }}</span>
+                        <p class="text-xs mt-1">{{ __('You haven\'t added any food for this date.') }}</p>
+                    </div>
+                </x-table.cell>
+            </x-table.row>
+        @endforelse
+    </x-table.index>
+
+    <div class="mt-4">
+        {{ $intakes->links('pagination::tailwind') }}
+    </div>
+
 </div>
