@@ -27,10 +27,10 @@ class Index extends Component
 
     public function toggleNutrition(string $name): void
     {
-        if (in_array($name, $this->activeNutritions)) {
+        if (\in_array($name, $this->activeNutritions)) {
             $this->activeNutritions = array_values(array_diff($this->activeNutritions, [$name]));
         } else {
-            if (count($this->activeNutritions) < 4) {
+            if (\count($this->activeNutritions) < 4) {
                 $this->activeNutritions[] = $name;
             }
         }

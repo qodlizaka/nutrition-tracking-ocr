@@ -16,9 +16,6 @@ abstract class Base implements Measurement, Wireable
 
     public float $value = 1;
 
-    /**
-     * Create a new class instance.
-     */
     public function __construct(
         public Food $food,
     ) {}

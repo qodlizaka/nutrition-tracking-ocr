@@ -59,7 +59,7 @@ class Index extends Component
     {
         if (\in_array($id, $this->activeNutritions)) {
             if (\count($this->activeNutritions) > 1) {
-                $this->activeNutritions = array_diff($this->activeNutritions, [$id]);
+                $this->activeNutritions = \array_diff($this->activeNutritions, [$id]);
             }
         } else {
             if (\count($this->activeNutritions) < 5) {
