@@ -143,7 +143,7 @@
     </x-table.index>
 
     <div class="mt-4">
-        {{ $intakes->links('pagination::tailwind') }}
+        {{ $intakes->withQueryString()->links('pagination::tailwind') }}
     </div>
 
 </div>
