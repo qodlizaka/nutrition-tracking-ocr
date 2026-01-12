@@ -34,7 +34,7 @@ class NutritionFactTable extends Component
         $mainSections = ['energy', 'total fat', 'total carbohydrate', 'protein', 'sodium'];
 
         return $this->nutritions
-            ->filter(fn ($n) => ! in_array(strtolower($n->name), $mainSections))
+            ->filter(fn ($n) => ! \in_array(strtolower($n->name), $mainSections))
             ->sortBy('name');
     }
 
