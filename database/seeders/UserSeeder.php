@@ -52,20 +52,6 @@ class UserSeeder extends Seeder
             ->has(UserDetail::factory(4))
             ->create();
 
-        $nutritions = Nutrition::all();
-
-        Intake::factory(1500)
-            ->state(['user_id' => $testUser->id])
-            ->create()
-            ->each(function ($intake) use ($nutritions) {
-                $intake->nutritions()->attach(
-                    $nutritions->shuffle()
-                        ->take(rand(15, 25))
-                        ->mapWithKeys(fn ($n) => [$n->id => ['value' => fake()->randomFloat(2, 10, 900)]])
-                        ->toArray()
-                );
-            });
-
         User::factory()
             ->state(['role' => UserRole::User])
             ->has(UserDetail::factory()->count(10))
