@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\FoodStatus;
 use App\Models\Food;
 use Illuminate\Http\Request;
 
@@ -10,6 +11,7 @@ class FoodController extends Controller
     public function index(Request $request)
     {
         $query = Food::query()
+            ->ofStatus(FoodStatus::Active)
             ->with(['nutritions']);
 
         if ($search = $request->input('search')) {
