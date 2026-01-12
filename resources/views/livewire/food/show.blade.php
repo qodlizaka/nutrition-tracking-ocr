@@ -58,6 +58,10 @@
                             min="0"
                             icon:trailing="{{ $measure->getIcon() }}"
                             placeholder="0" />
+
+                        <flux:modal.trigger name="edit-profile">
+                            <flux:button variant="primary" class="w-full">{{ __('Eat/Drink') }}</flux:button>
+                        </flux:modal.trigger>
                     </div>
                 </div>
             </div>
@@ -69,4 +73,50 @@
                 />
         </div>
     </div>
+    <flux:modal name="edit-profile" class="md:w-96">
+        <div class="space-y-6">
+            <div>
+                <flux:heading size="lg">{{ __('Consume the Food') }}</flux:heading>
+                <flux:text class="mt-2">{{ __('This action will record your food intake. It`s irreversible. Are you sure?') }}</flux:text>
+            </div>
+
+            <div>
+                <flux:label class="block">{{ __('Amount') }}</flux:label>
+                <flux:input.group class="mt-1.5">
+                    <flux:input
+                        type="text"
+                        wire:model="amount"
+                        min="0"
+                        placeholder="0"
+                        disabled
+                        readonly
+                    />
+
+                    <flux:input.group.suffix>{{ $this->measure->getUnit() }}</flux:input.group.suffix>
+                </flux:input.group>
+            </div>
+
+            <flux:input
+                label="{{ __('Consumed at') }}"
+                type="datetime-local"
+                wire:model="consumedAt"
+                value="{{ now()->format('Y-m-d H:i') }}"
+            />
+
+            <div class="flex">
+                <flux:spacer />
+
+                <flux:button
+                    type="button"
+                    variant="primary"
+                    wire:click="consumeFood()"
+                >
+                    {{ __('Confirm Consumption') }}
+                </flux:button>
+            </div>
+        </div>
+    </flux:modal>
 </div>
+
+
+
