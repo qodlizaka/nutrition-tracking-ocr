@@ -17,11 +17,9 @@ class Index extends Component
 
     public Collection $nutritions;
 
-    // Filters & UI State
     public string $date;
     public array $activeNutritions = [];
 
-    // Sorting
     public $sortBy = 'created_at';
     public $sortDirection = 'desc';
 
@@ -29,16 +27,13 @@ class Index extends Component
     {
         $this->nutritions = Nutrition::all();
 
-        // Initialize Date to Today
         $this->date = today()->format('Y-m-d');
 
-        // Initialize with first 5 nutritions
-        $this->activeNutritions = $this->nutritions->take(5)->pluck('id')->toArray();
+        $this->activeNutritions = $this->nutritions->take(10)->pluck('id')->toArray();
     }
 
     public function updatedDate()
     {
-        // Reset pagination when date changes
         $this->resetPage();
     }
 
@@ -50,7 +45,6 @@ class Index extends Component
 
     public function nextDate()
     {
-        // Prevent going into the future
         if (Carbon::parse($this->date)->isToday()) {
             return;
         }
@@ -61,12 +55,12 @@ class Index extends Component
 
     public function toggleNutrition($id)
     {
-        if (in_array($id, $this->activeNutritions)) {
-            if (count($this->activeNutritions) > 1) {
+        if (\in_array($id, $this->activeNutritions)) {
+            if (\count($this->activeNutritions) > 1) {
                 $this->activeNutritions = array_diff($this->activeNutritions, [$id]);
             }
         } else {
-            if (count($this->activeNutritions) < 5) {
+            if (\count($this->activeNutritions) < 5) {
                 $this->activeNutritions[] = $id;
             }
         }
@@ -87,9 +81,8 @@ class Index extends Component
         $query = Auth::user()
             ->intakes()
             ->with(['nutritions'])
-            ->whereDate('created_at', $this->date); // Filter by selected date
+            ->whereDate('created_at', $this->date);
 
-        // --- Sorting Logic ---
         if (str_starts_with($this->sortBy, 'nutrition_')) {
             $nutritionId = str_replace('nutrition_', '', $this->sortBy);
 
