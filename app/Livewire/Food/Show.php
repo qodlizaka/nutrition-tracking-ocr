@@ -6,8 +6,10 @@ use App\Measurements\Base as BaseMeasurement;
 use App\Measurements\Quantity;
 use App\Measurements\Weight;
 use App\Models\Food;
+use App\Models\Intake;
 use Livewire\Component;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class Show extends Component
 {
@@ -15,6 +17,7 @@ class Show extends Component
     public Collection $measurements;
     public BaseMeasurement $measure;
     public float $amount;
+    public string $notes = '';
 
     public function mount(Food $food): void
     {
@@ -34,6 +37,23 @@ class Show extends Component
         $this->measure = $this->measurements
             ->get($name)
             ->setValue($this->amount);
+    }
+
+    public function consumeFood()
+    {
+        $nutritions = $this->food
+            ->nutritions
+            ->mapWithKeys(fn($n) => [$n->id => ['value' => $n->pivot->value * $this->measure->getMultiplier()]])
+            ->toArray();
+
+        $intake = Intake::create([
+            'user_id' => Auth::id(),
+            'notes' => empty($this->notes) ? '-' : $this->notes,
+        ]);
+
+        $intake->nutritions()->attach($nutritions);
+
+        return $this->redirect(route('intakes.index'), navigate: true);
     }
 
     public function render()
