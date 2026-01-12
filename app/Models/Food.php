@@ -32,6 +32,9 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Food whereTotalServings($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Food whereUnit($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Food whereUpdatedAt($value)
+ * @property FoodStatus $status
+ * @method static Builder<static>|Food ofStatus(\App\Enum\FoodStatus $status)
+ * @method static Builder<static>|Food whereStatus($value)
  * @mixin \Eloquent
  */
 class Food extends Model
