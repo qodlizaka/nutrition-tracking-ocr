@@ -14,7 +14,7 @@
 
     <flux:separator class="my-6" />
 
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
 
         <div class="flex items-center gap-2 w-full sm:max-w-md">
             <flux:button
