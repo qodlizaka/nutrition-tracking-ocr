@@ -10,7 +10,9 @@ use Livewire\Component;
 class NutritionFactTable extends Component
 {
     public Food $food;
+
     public Collection $nutritions;
+
     #[Reactive]
     public float $multiplier;
 
@@ -24,7 +26,7 @@ class NutritionFactTable extends Component
     public function getNutritionMapProperty(): Collection
     {
         return $this->nutritions
-            ->keyBy(fn($n) => strtolower($n->name));
+            ->keyBy(fn ($n) => strtolower($n->name));
     }
 
     public function getMicrosProperty(): Collection
@@ -32,7 +34,7 @@ class NutritionFactTable extends Component
         $mainSections = ['energy', 'total fat', 'total carbohydrate', 'protein', 'sodium'];
 
         return $this->nutritions
-            ->filter(fn($n) => !in_array(strtolower($n->name), $mainSections))
+            ->filter(fn ($n) => ! in_array(strtolower($n->name), $mainSections))
             ->sortBy('name');
     }
 

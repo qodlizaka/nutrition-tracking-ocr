@@ -2,31 +2,25 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Schemas\Schema;
-use Filament\Forms\Components\TextInput;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Actions\EditAction;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
-use App\Filament\Resources\AlgResource\Pages\ListAlgs;
 use App\Filament\Resources\AlgResource\Pages\CreateAlg;
 use App\Filament\Resources\AlgResource\Pages\EditAlg;
-use App\Filament\Resources\AlgResource\Pages;
-use App\Filament\Resources\AlgResource\RelationManagers;
+use App\Filament\Resources\AlgResource\Pages\ListAlgs;
 use App\Filament\Resources\AlgResource\RelationManagers\NutritionsRelationManager;
 use App\Models\Alg;
-use Filament\Forms;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Schemas\Schema;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AlgResource extends Resource
 {
     protected static ?string $model = Alg::class;
 
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Schema $schema): Schema
     {
@@ -55,7 +49,7 @@ class AlgResource extends Resource
                 TextColumn::make('energy')
                     ->numeric()
                     ->sortable()
-                    ->formatStateUsing(fn(int $state) => $state . " " . __('kcal'))
+                    ->formatStateUsing(fn (int $state) => $state.' '.__('kcal'))
                     ->translateLabel(),
                 TextColumn::make('created_at')
                     ->dateTime()

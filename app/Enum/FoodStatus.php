@@ -14,7 +14,7 @@ enum FoodStatus: int
 
     public function getLabel(): string
     {
-        return match($this) {
+        return match ($this) {
             self::Inactive => 'Inactive',
             self::Pending => 'Pending',
             self::Active => 'Active',
@@ -23,7 +23,7 @@ enum FoodStatus: int
 
     public function getDescription(): string
     {
-        return match($this) {
+        return match ($this) {
             self::Inactive => __('Deleted after 24 hours of creation.'),
             self::Pending => __('Waiting for Admin review.'),
             self::Active => __('Available for other User.'),

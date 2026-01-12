@@ -40,6 +40,7 @@ class UserDetail extends Component
 
         if ($latest?->isIdenticalTo($this->weight, $this->height, $this->activityLevel)) {
             $this->dispatch('personal-info-updated');
+
             return;
         }
 

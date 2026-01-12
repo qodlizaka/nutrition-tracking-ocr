@@ -2,23 +2,19 @@
 
 namespace App\Filament\Resources\UserResource\RelationManagers;
 
-use Filament\Schemas\Schema;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Select;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Actions\CreateAction;
-use Filament\Support\Enums\Width;
-use Filament\Actions\BulkActionGroup;
 use App\Enum\PhysicalActivityLevel;
-use App\Models\User;
 use App\Models\UserDetail;
-use Filament\Forms;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\CreateAction;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Schemas\Schema;
+use Filament\Support\Enums\Width;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 
 class UserDetailsRelationManager extends RelationManager
@@ -52,14 +48,14 @@ class UserDetailsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute(fn(UserDetail $record) => $record->created_at->diffForHumans())
+            ->recordTitleAttribute(fn (UserDetail $record) => $record->created_at->diffForHumans())
             ->columns([
                 TextColumn::make('weight')
                     ->translateLabel(),
                 TextColumn::make('height')
                     ->translateLabel(),
                 TextColumn::make('activity_level')
-                    ->formatStateUsing(fn(PhysicalActivityLevel $state) => __(Str::headline($state->name)))
+                    ->formatStateUsing(fn (PhysicalActivityLevel $state) => __(Str::headline($state->name)))
                     ->translateLabel(),
                 TextColumn::make('created_at')
                     ->since()

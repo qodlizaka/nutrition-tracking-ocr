@@ -2,9 +2,8 @@
 
 namespace App\Filament\Resources\FoodResource\Pages;
 
-use Filament\Actions\CreateAction;
 use App\Filament\Resources\FoodResource;
-use Filament\Actions;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListFood extends ListRecords

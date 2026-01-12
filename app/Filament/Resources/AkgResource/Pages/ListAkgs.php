@@ -2,9 +2,8 @@
 
 namespace App\Filament\Resources\AkgResource\Pages;
 
-use Filament\Actions\CreateAction;
 use App\Filament\Resources\AkgResource;
-use Filament\Actions;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListAkgs extends ListRecords

@@ -9,8 +9,11 @@ use Livewire\Wireable;
 abstract class Base implements Measurement, Wireable
 {
     public string $name;
+
     public string $unit;
+
     public string $icon;
+
     public float $value = 1;
 
     /**
@@ -18,9 +21,7 @@ abstract class Base implements Measurement, Wireable
      */
     public function __construct(
         public Food $food,
-    )
-    {
-    }
+    ) {}
 
     public function toLivewire(): array
     {

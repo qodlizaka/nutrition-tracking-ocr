@@ -17,6 +17,7 @@ class Index extends Component
     public string $search = '';
 
     public Collection $nutritions;
+
     public array $activeNutritions = ['energy'];
 
     public function mount(): void
@@ -44,12 +45,12 @@ class Index extends Component
     {
         $foods = Food::query()
             ->with(['nutritions'])
-            ->when($this->search, fn($q) => $q->where('name', 'like', '%' . $this->search . '%'))
+            ->when($this->search, fn ($q) => $q->where('name', 'like', '%'.$this->search.'%'))
             ->latest()
             ->paginate(16);
 
         return view('livewire.food.index', [
-            'foods' => $foods
+            'foods' => $foods,
         ]);
     }
 }

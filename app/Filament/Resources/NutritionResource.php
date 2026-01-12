@@ -2,38 +2,32 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Schemas\Schema;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\SelectColumn;
-use Filament\Actions\ActionGroup;
-use Filament\Actions\EditAction;
-use Filament\Actions\DeleteAction;
-use Filament\Tables\Enums\RecordActionsPosition;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
-use App\Filament\Resources\NutritionResource\Pages\ListNutrition;
-use App\Filament\Resources\NutritionResource\Pages\CreateNutrition;
-use App\Filament\Resources\NutritionResource\Pages\EditNutrition;
 use App\Enum\NutritionCategory;
 use App\Enum\NutritionGroup;
-use App\Filament\Resources\NutritionResource\Pages;
-use App\Filament\Resources\NutritionResource\RelationManagers;
+use App\Filament\Resources\NutritionResource\Pages\CreateNutrition;
+use App\Filament\Resources\NutritionResource\Pages\EditNutrition;
+use App\Filament\Resources\NutritionResource\Pages\ListNutrition;
 use App\Models\Nutrition;
-use Filament\Forms;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Schemas\Schema;
+use Filament\Tables\Columns\SelectColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\RecordActionsPosition;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class NutritionResource extends Resource
 {
     protected static ?string $model = Nutrition::class;
 
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Schema $schema): Schema
     {
@@ -52,7 +46,7 @@ class NutritionResource extends Resource
                         'kcal',
                         '%',
                         'ml',
-                        'l'
+                        'l',
                     ])
                     ->maxLength(50)
                     ->translateLabel(),

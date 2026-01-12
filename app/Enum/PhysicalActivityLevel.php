@@ -16,7 +16,7 @@ enum PhysicalActivityLevel: int
 
     public function getLabel(): string
     {
-        return match($this) {
+        return match ($this) {
             self::Sedentary => __('Sedentary'),
             self::LightlyActive => __('Lightly Active'),
             self::ModeratelyActive => __('Moderately Active'),

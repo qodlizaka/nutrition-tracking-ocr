@@ -4,7 +4,6 @@ namespace App\Trait;
 
 trait EnumToArray
 {
-
     public static function names(): array
     {
         return array_column(self::cases(), 'name');
@@ -22,7 +21,6 @@ trait EnumToArray
 
     public static function translatedArray(): array
     {
-        return array_map(fn($name) => __($name), self::array());
+        return array_map(fn ($name) => __($name), self::array());
     }
-
 }

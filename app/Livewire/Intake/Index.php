@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Intake;
 
-use App\Models\Nutrition;
 use App\Models\Intake;
+use App\Models\Nutrition;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -18,9 +18,11 @@ class Index extends Component
     public Collection $nutritions;
 
     public string $date;
+
     public array $activeNutritions = [];
 
     public $sortBy = 'created_at';
+
     public $sortDirection = 'desc';
 
     public function mount(): void
@@ -100,7 +102,7 @@ class Index extends Component
         }
 
         return view('livewire.intake.index', [
-            'intakes' => $query->paginate(10)
+            'intakes' => $query->paginate(10),
         ]);
     }
 }

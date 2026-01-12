@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\FoodController;
-use App\Http\Controllers\IntakeController;
 use App\Livewire\Food\Index as FoodIndex;
 use App\Livewire\Food\Show as FoodShow;
 use App\Livewire\Intake\Index as IntakeIndex;
@@ -28,7 +26,7 @@ Route::middleware(['auth'])->group(function () {
             ->name('foods.show');
     });
 
-    Route::group(['prefix' => 'intakes'], function() {
+    Route::group(['prefix' => 'intakes'], function () {
         Route::get('/', IntakeIndex::class)
             ->name('intakes.index');
     });

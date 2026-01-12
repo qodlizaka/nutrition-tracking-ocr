@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Enum\FoodStatus;
 use App\Models\Food;
 use App\Models\Nutrition;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -31,7 +30,9 @@ class FoodSeeder extends Seeder
 
                         $id = $nutritions->get(Str::lower($name));
 
-                        if (!$id) return [];
+                        if (! $id) {
+                            return [];
+                        }
 
                         return [$id => ['value' => $value]];
                     });

@@ -9,7 +9,6 @@ use App\Models\Nutrition;
 use App\Models\User;
 use App\Models\UserDetail;
 use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -58,11 +57,11 @@ class UserSeeder extends Seeder
         Intake::factory(1500)
             ->state(['user_id' => $testUser->id])
             ->create()
-            ->each(function($intake) use ($nutritions) {
+            ->each(function ($intake) use ($nutritions) {
                 $intake->nutritions()->attach(
                     $nutritions->shuffle()
                         ->take(rand(15, 25))
-                        ->mapWithKeys(fn($n) => [$n->id => ['value' => fake()->randomFloat(2, 10, 900)]])
+                        ->mapWithKeys(fn ($n) => [$n->id => ['value' => fake()->randomFloat(2, 10, 900)]])
                         ->toArray()
                 );
             });

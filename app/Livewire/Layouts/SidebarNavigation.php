@@ -14,13 +14,13 @@ class SidebarNavigation extends Component
         $foods = $this->search === ''
             ? collect()
             : Food::query()
-                ->where('name', 'like', '%' . $this->search . '%')
+                ->where('name', 'like', '%'.$this->search.'%')
                 ->with(['nutritions'])
                 ->limit(5)
                 ->get();
 
         return view('livewire.layouts.sidebar-navigation', [
-            'foods' => $foods
+            'foods' => $foods,
         ]);
     }
 }

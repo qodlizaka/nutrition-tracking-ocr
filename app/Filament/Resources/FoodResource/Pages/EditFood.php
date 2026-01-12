@@ -2,9 +2,8 @@
 
 namespace App\Filament\Resources\FoodResource\Pages;
 
-use Filament\Actions\DeleteAction;
 use App\Filament\Resources\FoodResource;
-use Filament\Actions;
+use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditFood extends EditRecord

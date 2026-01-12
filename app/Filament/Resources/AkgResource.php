@@ -2,34 +2,28 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Schemas\Schema;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Select;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\SelectColumn;
-use Filament\Actions\EditAction;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
-use App\Filament\Resources\AkgResource\Pages\ListAkgs;
+use App\Enum\Gender;
 use App\Filament\Resources\AkgResource\Pages\CreateAkg;
 use App\Filament\Resources\AkgResource\Pages\EditAkg;
-use App\Enum\Gender;
-use App\Filament\Resources\AkgResource\Pages;
-use App\Filament\Resources\AkgResource\RelationManagers;
+use App\Filament\Resources\AkgResource\Pages\ListAkgs;
 use App\Filament\Resources\AkgResource\RelationManagers\NutritionsRelationManager;
 use App\Models\Akg;
-use Filament\Forms;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Schemas\Schema;
+use Filament\Tables\Columns\SelectColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AkgResource extends Resource
 {
     protected static ?string $model = Akg::class;
 
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Schema $schema): Schema
     {
@@ -62,11 +56,11 @@ class AkgResource extends Resource
                     ->translateLabel(),
                 TextColumn::make('min_age')
                     ->sortable()
-                    ->formatStateUsing(fn(float $state) => $state . " " . __('years'))
+                    ->formatStateUsing(fn (float $state) => $state.' '.__('years'))
                     ->translateLabel(),
                 TextColumn::make('max_age')
                     ->sortable()
-                    ->formatStateUsing(fn(float $state) => $state . " " . __('years'))
+                    ->formatStateUsing(fn (float $state) => $state.' '.__('years'))
                     ->translateLabel(),
                 SelectColumn::make('gender')
                     ->options(Gender::translatedArray())

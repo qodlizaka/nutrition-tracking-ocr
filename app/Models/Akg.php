@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Database\Factories\AkgFactory;
 use App\Enum\Gender;
+use Database\Factories\AkgFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Nutrition> $nutritions
  * @property-read int|null $nutritions_count
+ *
  * @method static \Database\Factories\AkgFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Akg newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Akg newQuery()
@@ -29,6 +30,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Akg whereMinAge($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Akg whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Akg whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Akg extends Model

@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Enum\Gender;
 use App\Models\Akg;
 use App\Models\Nutrition;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 
@@ -27,7 +26,9 @@ class AkgSeeder extends Seeder
                 ->mapWithKeys(function (int $amount, string $name) use ($nutritions): array {
                     $id = $nutritions->get($name);
 
-                    if (!$id) return [];
+                    if (! $id) {
+                        return [];
+                    }
 
                     return [$id => ['value' => $amount]];
                 });
