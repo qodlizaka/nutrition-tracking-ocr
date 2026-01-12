@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\FoodController;
+use App\Http\Controllers\IntakeController;
 use App\Livewire\Food\Index as FoodIndex;
 use App\Livewire\Food\Show as FoodShow;
+use App\Livewire\Intake\Index as IntakeIndex;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -18,17 +20,18 @@ Route::view('dashboard', 'dashboard')
     ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
-
     Route::group(['prefix' => 'foods'], function () {
-
         Route::get('/', FoodIndex::class)
             ->name('foods.index');
 
         Route::get('/{food}', FoodShow::class)
             ->name('foods.show');
-
     });
 
+    Route::group(['prefix' => 'intakes'], function() {
+        Route::get('/', IntakeIndex::class)
+            ->name('intakes.index');
+    });
 
     Route::redirect('settings', 'settings/profile');
 
