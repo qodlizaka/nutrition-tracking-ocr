@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enum\FoodStatus;
 use Database\Factories\FoodFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
@@ -57,4 +58,10 @@ class Food extends Model
         return $this->morphToMany(Nutrition::class, 'nutrientable')
             ->withPivot(['value']);
     }
+
+    public function scopeOfStatus(Builder $query, FoodStatus $status): void
+    {
+        $query->where('status', $status);
+    }
+
 }
