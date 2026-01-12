@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enum\FoodStatus;
 use Database\Factories\FoodFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,6 +39,13 @@ class Food extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function casts()
+    {
+        return [
+            'status' => FoodStatus::class,
+        ];
+    }
 
     public function categories(): MorphToMany
     {
