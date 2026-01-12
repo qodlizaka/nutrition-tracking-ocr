@@ -6,11 +6,13 @@
             @if ($paginator->onFirstPage())
                 <flux:button disabled variant="subtle">{{ __('Previous') }}</flux:button>
             @else
-                <flux:button href="{{ $paginator->previousPageUrl() }}" variant="subtle">{{ __('Previous') }}</flux:button>
+                {{-- Changed href to wire:click --}}
+                <flux:button wire:click="previousPage" wire:loading.attr="disabled" variant="subtle">{{ __('Previous') }}</flux:button>
             @endif
 
             @if ($paginator->hasMorePages())
-                <flux:button href="{{ $paginator->nextPageUrl() }}" variant="subtle">{{ __('Next') }}</flux:button>
+                {{-- Changed href to wire:click --}}
+                <flux:button wire:click="nextPage" wire:loading.attr="disabled" variant="subtle">{{ __('Next') }}</flux:button>
             @else
                 <flux:button disabled variant="subtle">{{ __('Next') }}</flux:button>
             @endif
@@ -43,7 +45,8 @@
                 @if ($paginator->onFirstPage())
                     <flux:button disabled icon="chevron-left" variant="subtle" size="sm" square />
                 @else
-                    <flux:button href="{{ $paginator->previousPageUrl() }}" icon="chevron-left" variant="subtle" size="sm" square />
+                    {{-- Changed href to wire:click --}}
+                    <flux:button wire:click="previousPage" wire:loading.attr="disabled" icon="chevron-left" variant="subtle" size="sm" square />
                 @endif
 
                 {{-- Pagination Elements --}}
@@ -60,13 +63,13 @@
                     @if (is_array($element))
                         @foreach ($element as $page => $url)
                             @if ($page == $paginator->currentPage())
-                                {{-- Active Page: Primary/Filled --}}
+                                {{-- Active Page --}}
                                 <flux:button variant="primary" size="sm" square class="cursor-default">
                                     {{ $page }}
                                 </flux:button>
                             @else
-                                {{-- Inactive Page: Subtle/Ghost --}}
-                                <flux:button href="{{ $url }}" variant="subtle" size="sm" square>
+                                {{-- Inactive Page: Use wire:click="gotoPage" instead of href --}}
+                                <flux:button wire:click="gotoPage({{ $page }})" wire:loading.attr="disabled" variant="subtle" size="sm" square>
                                     {{ $page }}
                                 </flux:button>
                             @endif
@@ -76,7 +79,8 @@
 
                 {{-- Next Page Link --}}
                 @if ($paginator->hasMorePages())
-                    <flux:button href="{{ $paginator->nextPageUrl() }}" icon="chevron-right" variant="subtle" size="sm" square />
+                    {{-- Changed href to wire:click --}}
+                    <flux:button wire:click="nextPage" wire:loading.attr="disabled" icon="chevron-right" variant="subtle" size="sm" square />
                 @else
                     <flux:button disabled icon="chevron-right" variant="subtle" size="sm" square />
                 @endif
