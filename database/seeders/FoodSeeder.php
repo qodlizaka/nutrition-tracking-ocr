@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enum\FoodStatus;
 use App\Models\Food;
 use App\Models\Nutrition;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -45,6 +46,7 @@ class FoodSeeder extends Seeder
                         'image' => "images/foods/$image",
                         'total_servings' => $serving_size,
                         'unit' => $unit,
+                        'status' => FoodStatus::Active,
                     ]);
 
                 $model->nutritions()->attach($mappedNutritions);
