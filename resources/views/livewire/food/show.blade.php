@@ -103,6 +103,11 @@
                 value="{{ now()->format('Y-m-d H:i') }}"
             />
 
+            <flux:textarea
+                label="{{ __('Notes') }}"
+                placeholder="{{ __('Optional') }}..."
+            />
+
             <div class="flex">
                 <flux:spacer />
 
