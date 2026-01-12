@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\Attributes\Url;
 
 class Index extends Component
 {
@@ -17,6 +18,7 @@ class Index extends Component
 
     public Collection $nutritions;
 
+    #[Url]
     public string $date;
 
     public array $activeNutritions = [];
