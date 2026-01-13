@@ -9,7 +9,7 @@
         <flux:sidebar.item icon="hamburger" :href="route('foods.index')" :current="request()->routeIs('foods.index')" wire:navigate>{{ __('Foods') }}</flux:sidebar.item>
 
         <flux:sidebar.group expandable heading="{{ __('Food label') }}" class="grid">
-            <flux:sidebar.item icon="camera" :href="route('food.label.capture')" :current="request()->routeIs('food.label.capture')" wire:navigate>{{ __('Capture') }}</flux:sidebar.item>
+            <flux:sidebar.item icon="camera" :href="route('food.label.capture')" :current="request()->routeIs('food.label.capture')">{{ __('Capture') }}</flux:sidebar.item>
             <flux:sidebar.item icon="clock" href="">{{ __('History') }}</flux:sidebar.item>
         </flux:sidebar.group>
 
