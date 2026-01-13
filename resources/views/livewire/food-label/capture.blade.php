@@ -33,7 +33,7 @@
         </flux:radio.group>
 
         <div
-            class="relative w-full max-w-xl bg-black rounded-xl overflow-hidden shadow-lg border border-zinc-200 dark:border-zinc-700 transition-all duration-300 ease-in-out"
+            class="relative w-full max-w-xl bg-black rounded-xl overflow-hidden shadow-lg border border-zinc-200 dark:border-zinc-700 transition-all duration-300 ease-in-out group"
             :class="classes[currentRatio]"
         >
             <video
@@ -43,6 +43,25 @@
                 playsinline
                 class="w-full h-full object-cover"
             ></video>
+
+            {{-- VIEWFINDER OVERLAY START --}}
+            <div x-show="!photo && hasCamera" class="absolute inset-0 pointer-events-none p-4 sm:p-6 z-10 flex flex-col justify-between">
+                <div class="flex justify-between w-full">
+                    <div class="w-8 h-8 sm:w-12 sm:h-12 border-t-4 border-l-4 border-white/80 rounded-tl-lg drop-shadow-md"></div>
+                    <div class="w-8 h-8 sm:w-12 sm:h-12 border-t-4 border-r-4 border-white/80 rounded-tr-lg drop-shadow-md"></div>
+                </div>
+
+                <div class="absolute inset-0 flex items-center justify-center opacity-30">
+                     <div class="w-12 h-[2px] bg-white"></div>
+                     <div class="h-12 w-[2px] bg-white absolute"></div>
+                </div>
+
+                <div class="flex justify-between w-full">
+                    <div class="w-8 h-8 sm:w-12 sm:h-12 border-b-4 border-l-4 border-white/80 rounded-bl-lg drop-shadow-md"></div>
+                    <div class="w-8 h-8 sm:w-12 sm:h-12 border-b-4 border-r-4 border-white/80 rounded-br-lg drop-shadow-md"></div>
+                </div>
+            </div>
+            {{-- VIEWFINDER OVERLAY END --}}
 
             <img
                 x-show="photo"
@@ -86,17 +105,15 @@
                     currentRatio: @entangle('aspectRatio').live,
 
                     ratios: {
-                        '{{ AspectRatio::Square->value }}': {{ AspectRatio::Square->getMultiplier() }},
-                        '{{ AspectRatio::Standard->value }}': {{ AspectRatio::Standard->getMultiplier() }},
-                        '{{ AspectRatio::StandardHorizontal->value }}': {{ AspectRatio::StandardHorizontal->getMultiplier() }},
-                        '{{ AspectRatio::Portrait->value }}': {{ AspectRatio::Portrait->getMultiplier() }},
+                        @foreach(AspectRatio::cases() as $case)
+                            '{{ $case->value }}': {{ $case->getMultiplier() }},
+                        @endforeach
                     },
 
                     classes: {
-                        '{{ AspectRatio::Square->value }}': '{{ AspectRatio::Square->getCssClass() }}',
-                        '{{ AspectRatio::Standard->value }}': '{{ AspectRatio::Standard->getCssClass() }}',
-                        '{{ AspectRatio::StandardHorizontal->value }}': '{{ AspectRatio::StandardHorizontal->getCssClass() }}',
-                        '{{ AspectRatio::Portrait->value }}': '{{ AspectRatio::Portrait->getCssClass() }}',
+                        @foreach(AspectRatio::cases() as $case)
+                            '{{ $case->value }}': '{{ $case->getCssClass() }}',
+                        @endforeach
                     },
 
                     async startCamera() {
@@ -123,6 +140,9 @@
 
                         const videoW = video.videoWidth;
                         const videoH = video.videoHeight;
+
+                        if (videoW === 0 || videoH === 0) return;
+
                         const videoRatio = videoW / videoH;
 
                         const targetRatio = this.ratios[this.currentRatio];
