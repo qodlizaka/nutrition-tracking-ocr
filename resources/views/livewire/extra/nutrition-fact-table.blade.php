@@ -1,10 +1,20 @@
-<div class="w-full bg-white dark:bg-zinc-900 border-2 border-zinc-900 dark:border-zinc-100 p-6 font-sans text-zinc-900 dark:text-zinc-100 shadow-[4px_4px_0px_0px_rgba(24,24,27,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
+<form wire:submit.prevent="save" class="w-full bg-white dark:bg-zinc-900 border-2 border-zinc-900 dark:border-zinc-100 p-6 font-sans text-zinc-900 dark:text-zinc-100 shadow-[4px_4px_0px_0px_rgba(24,24,27,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
 
-    {{-- ... Header and Calories section remain unchanged ... --}}
-    <h2 class="text-4xl font-black border-b-[1px] border-zinc-900 dark:border-zinc-100 pb-2 mb-2 tracking-tight leading-none">
-        Nutrition Facts
-    </h2>
+    <div class="flex justify-between items-start border-b-[1px] border-zinc-900 dark:border-zinc-100 pb-2 mb-2">
+        <h2 class="text-4xl font-black tracking-tight leading-none">
+            Nutrition Facts
+        </h2>
+        <div class="flex flex-nowrap gap-1 items-center">
+            @if($editable)
+                <flux:button type="submit" size="sm" variant="primary">Save</flux:button>
+                <x-action-message on="nutritions-saved">
+                    {{ __('Saved.') }}
+                </x-action-message>
+            @endif
+        </div>
+    </div>
 
+    {{-- Serving Size Display (Static) --}}
     <div class="text-base font-bold border-b-[8px] border-zinc-900 dark:border-zinc-100 pb-2 mb-4">
         <div class="flex justify-between items-baseline">
             <span>Serving Size</span>
@@ -14,60 +24,90 @@
         </div>
     </div>
 
+    {{-- Calories Section --}}
     <div class="flex justify-between items-end border-b-[4px] border-zinc-900 dark:border-zinc-100 pb-4 mb-4">
         <div>
             <div class="text-sm font-bold">Amount Per Serving</div>
             <div class="text-3xl font-black">Calories</div>
         </div>
         <div class="text-5xl font-black leading-none tracking-tight">
-            {{ ($this->nutritionMap->get('energy')?->pivot->value ?? 0) * $multiplier }}
+            @if($editable && $id = $this->getIdFor('energy'))
+                <flux:input
+                    wire:model="form.{{ $id }}"
+                    type="number"
+                    step="0.1"
+                    class="!text-4xl !font-black !w-32 text-right !border-0 !p-0 !shadow-none focus:!ring-0"
+                />
+            @else
+                {{ number_format($this->calculate($this->nutritionMap->get('energy')), 0) }}
+            @endif
         </div>
     </div>
 
-    {{-- Main Macros List (Refactored) --}}
+    {{-- Main Macros List --}}
     <div class="space-y-1 text-sm border-b-[8px] border-zinc-900 dark:border-zinc-100 pb-4 mb-4">
 
         <x-nutrition-facts-table.nutrition-row
             label="Total Fat"
             :item="$this->nutritionMap->get('total fat')"
             :multiplier="$multiplier"
+            :editable="$editable"
+            :formKey="$this->getIdFor('total fat')"
         />
 
         <x-nutrition-facts-table.nutrition-row
             label="Sodium"
             :item="$this->nutritionMap->get('sodium')"
             :multiplier="$multiplier"
+            :editable="$editable"
+            :formKey="$this->getIdFor('sodium')"
         />
 
         <x-nutrition-facts-table.nutrition-row
             label="Total Carbohydrate"
             :item="$this->nutritionMap->get('total carbohydrate')"
             :multiplier="$multiplier"
+            :editable="$editable"
+            :formKey="$this->getIdFor('total carbohydrate')"
         />
 
         <x-nutrition-facts-table.nutrition-row
             label="Protein"
             :item="$this->nutritionMap->get('protein')"
             :multiplier="$multiplier"
+            :editable="$editable"
+            :formKey="$this->getIdFor('protein')"
         />
 
     </div>
 
-    {{-- Micros (Dynamic) --}}
+    {{-- Micros (Dynamic Loop) --}}
     <div class="space-y-1 text-sm">
         @foreach($this->micros as $micro)
             <div class="flex justify-between items-center border-b border-zinc-200 dark:border-zinc-800 py-1.5 last:border-0">
                 <span class="font-medium">
                     {{ Str::title($micro->name) }}
                 </span>
-                <span>
-                    {{ ($micro?->pivot?->value) * $multiplier }} <span class="text-xs text-zinc-500">{{ $micro->unit }}</span>
+                <span class="flex items-center gap-1">
+                    @if($editable)
+                         <flux:input
+                            wire:model="form.{{ $micro->id }}"
+                            type="number"
+                            step="any"
+                            size="sm"
+                            class="!w-24 !h-8 !text-right !text-xs"
+                        />
+                    @else
+                        {{ $this->calculate($micro) }}
+                    @endif
+                    <span class="text-xs text-zinc-500">{{ $micro->unit }}</span>
                 </span>
             </div>
         @endforeach
     </div>
 
-    <div class="mt-6 pt-4 border-t border-zinc-300 dark:border-zinc-700 text-[10px] leading-relaxed text-zinc-500">
-        * The % Daily Value (DV) tells you how much a nutrient in a serving of food contributes to a daily diet. 2,150 calories a day is used for general nutrition advice.
+    <div class="text-red-500 text-xs mt-2">
+        @error('form.*') <span class="error">{{ $message }}</span> @enderror
     </div>
-</div>
+
+</form>
