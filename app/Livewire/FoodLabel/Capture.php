@@ -10,7 +10,6 @@ use App\Actions\CompressImageForGeminiAction;
 
 class Capture extends Component
 {
-    // Default to Square
     public AspectRatio $aspectRatio = AspectRatio::Square;
 
     public function saveImage(CompressImageForGeminiAction $compressor, $dataUrl)
