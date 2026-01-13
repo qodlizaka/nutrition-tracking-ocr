@@ -27907,6 +27907,13 @@ namespace App\Livewire\Intake {
             }
     }
 
+namespace App\Livewire\FoodLabel {
+    /**
+     */
+    class Capture extends \Livewire\Component {
+            }
+    }
+
 namespace App\Livewire\Settings {
     /**
      */
