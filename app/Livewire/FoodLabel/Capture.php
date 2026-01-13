@@ -6,26 +6,27 @@ use Livewire\Component;
 use App\Enum\AspectRatio;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Actions\CompressImageForGeminiAction;
 
 class Capture extends Component
 {
     // Default to Square
     public AspectRatio $aspectRatio = AspectRatio::Square;
 
-    public function saveImage($dataUrl)
+    public function saveImage(CompressImageForGeminiAction $compressor, $dataUrl)
     {
         if (preg_match('/^data:image\/(\w+);base64,/', $dataUrl, $type)) {
             $dataUrl = substr($dataUrl, strpos($dataUrl, ',') + 1);
-            $type = strtolower($type[1]);
+            $inputType = strtolower($type[1]);
 
-            if (!in_array($type, ['jpg', 'jpeg', 'gif', 'png'])) {
+            if (! \in_array($inputType, ['jpg', 'jpeg', 'gif', 'png'])) {
                 $this->addError('image', 'Invalid image type');
                 return;
             }
 
-            $image = base64_decode($dataUrl);
+            $rawImage = base64_decode($dataUrl);
 
-            if ($image === false) {
+            if ($rawImage === false) {
                 $this->addError('image', 'Base64 decode failed');
                 return;
             }
@@ -34,8 +35,18 @@ class Capture extends Component
             return;
         }
 
-        $filename = 'images/food-label-test/' . Str::random(40) . '.' . $type;
-        Storage::disk('public')->put($filename, $image);
+        try {
+            $compressedBase64 = $compressor($rawImage);
+        } catch (\Exception $e) {
+            $this->addError('image', 'Image compression failed: ' . $e->getMessage());
+            return;
+        }
+
+        $finalImageBinary = base64_decode($compressedBase64);
+
+        $filename = 'images/food-label-test/' . Str::random(40) . '.jpg';
+
+        Storage::disk('public')->put($filename, $finalImageBinary);
 
         $this->redirect(route('dashboard'), navigate: true);
     }
