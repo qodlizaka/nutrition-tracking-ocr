@@ -39,8 +39,9 @@ class Show extends Component
     public function setMeasure(string $name): void
     {
         $this->measure = $this->measurements
-            ->get($name)
-            ->setValue($this->amount);
+            ->get($name);
+
+        $this->measure->setValue($this->measure->value);
     }
 
     public function consumeFood()
