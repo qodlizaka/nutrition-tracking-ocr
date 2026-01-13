@@ -2,6 +2,7 @@
 
 use App\Livewire\Food\Index as FoodIndex;
 use App\Livewire\Food\Show as FoodShow;
+use App\Livewire\FoodLabel\Capture as FoodLabelCapture;
 use App\Livewire\Intake\Index as IntakeIndex;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
@@ -29,6 +30,11 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'intakes'], function () {
         Route::get('/', IntakeIndex::class)
             ->name('intakes.index');
+    });
+
+    Route::group(['prefix' => 'food-label'], function () {
+        Route::get('/', FoodLabelCapture::class)
+            ->name('food.label.capture');
     });
 
     Route::redirect('settings', 'settings/profile');
