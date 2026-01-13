@@ -7,6 +7,13 @@
     <flux:navlist.group :heading="__('Intake')" class="grid">
         <flux:sidebar.item icon="utensils" :href="route('intakes.index')" :current="request()->routeIs('intakes.index')" wire:navigate>{{ __('My Intake') }}</flux:sidebar.item>
         <flux:sidebar.item icon="hamburger" :href="route('foods.index')" :current="request()->routeIs('foods.index')" wire:navigate>{{ __('Foods') }}</flux:sidebar.item>
+
+        <flux:sidebar.group expandable heading="{{ __('Food label') }}" class="grid">
+            <flux:sidebar.item icon="camera" :href="route('food.label.capture')" :current="request()->routeIs('food.label.capture')" wire:navigate>{{ __('Capture') }}</flux:sidebar.item>
+            <flux:sidebar.item icon="clock" href="">{{ __('History') }}</flux:sidebar.item>
+        </flux:sidebar.group>
+
+        <flux:sidebar.item >{{ __('') }}</flux:sidebar.item>
     </flux:navlist.group>
 
     <div class="mt-4 px-2">
