@@ -1,4 +1,6 @@
 <div class="w-full bg-white dark:bg-zinc-900 border-2 border-zinc-900 dark:border-zinc-100 p-6 font-sans text-zinc-900 dark:text-zinc-100 shadow-[4px_4px_0px_0px_rgba(24,24,27,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
+
+    {{-- ... Header and Calories section remain unchanged ... --}}
     <h2 class="text-4xl font-black border-b-[1px] border-zinc-900 dark:border-zinc-100 pb-2 mb-2 tracking-tight leading-none">
         Nutrition Facts
     </h2>
@@ -22,30 +24,33 @@
         </div>
     </div>
 
-    {{-- Main Macros List --}}
+    {{-- Main Macros List (Refactored) --}}
     <div class="space-y-1 text-sm border-b-[8px] border-zinc-900 dark:border-zinc-100 pb-4 mb-4">
-        @php
-            $renderRow = function($key, $label, $isBold = true, $indent = false) {
-                $item = $this->nutritionMap->get($key);
-                $value = ($item?->pivot->value ?? 0) * $this->multiplier;
-                $unit = $item?->unit ?? 'g';
-                return '
-                <div class="flex justify-between border-b border-zinc-200 dark:border-zinc-700 py-1.5 last:border-0">
-                    <div class="'.($indent ? 'pl-4' : '').'">
-                        <span class="'.($isBold ? 'font-black' : '').'">'.$label.'</span>
-                        '.$value.$unit.'
-                    </div>
-                    <div class="font-bold">
-                        '. ($value > 0 ? '' : '-') .'
-                    </div>
-                </div>';
-            };
-        @endphp
 
-        {!! $renderRow('total fat', 'Total Fat') !!}
-        {!! $renderRow('sodium', 'Sodium') !!}
-        {!! $renderRow('total carbohydrate', 'Total Carbohydrate') !!}
-        {!! $renderRow('protein', 'Protein') !!}
+        <x-nutrition-facts-table.nutrition-row
+            label="Total Fat"
+            :item="$this->nutritionMap->get('total fat')"
+            :multiplier="$multiplier"
+        />
+
+        <x-nutrition-facts-table.nutrition-row
+            label="Sodium"
+            :item="$this->nutritionMap->get('sodium')"
+            :multiplier="$multiplier"
+        />
+
+        <x-nutrition-facts-table.nutrition-row
+            label="Total Carbohydrate"
+            :item="$this->nutritionMap->get('total carbohydrate')"
+            :multiplier="$multiplier"
+        />
+
+        <x-nutrition-facts-table.nutrition-row
+            label="Protein"
+            :item="$this->nutritionMap->get('protein')"
+            :multiplier="$multiplier"
+        />
+
     </div>
 
     {{-- Micros (Dynamic) --}}
