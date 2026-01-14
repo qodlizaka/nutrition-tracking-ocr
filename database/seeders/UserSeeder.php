@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
             ])
             ->create();
 
-        $testUser = User::factory()
+        User::factory()
             ->state([
                 'name' => 'Test User',
                 'email' => 'text@example.com',
