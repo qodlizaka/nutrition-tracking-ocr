@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('image')->nullable();
-            $table->unsignedInteger('total_servings');
+            $table->float('total_servings', 4);
             $table->string('unit');
             $table->unsignedTinyInteger('status')->default(FoodStatus::Inactive);
             $table->timestamps();
