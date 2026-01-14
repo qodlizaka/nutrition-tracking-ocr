@@ -18,6 +18,7 @@ class UserDetailFactory extends Factory
     public function definition(): array
     {
         return [
+            'akg_id' => rand(1, 19),
             'weight' => fake()->randomFloat(2, 20, 100),
             'height' => fake()->randomFloat(2, 100, 200),
             'activity_level' => fake()->randomElement(PhysicalActivityLevel::cases()),
