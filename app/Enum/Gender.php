@@ -10,4 +10,15 @@ enum Gender: int
 
     case Male = 1;
     case Female = 2;
+
+    public function isMale(): bool
+    {
+        return $this == Gender::Male;
+    }
+
+    public function isFemale(): bool
+    {
+        return $this == Gender::Female;
+    }
+
 }
