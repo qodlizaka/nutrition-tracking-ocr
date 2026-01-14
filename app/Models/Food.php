@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @property int $id
@@ -44,6 +45,13 @@ class Food extends Model
 
     protected $guarded = ['id'];
 
+    public static function booted(): void
+    {
+        static::deleted(function (Food $food) {
+            Storage::disk('public')->delete($food->image);
+        });
+    }
+
     public function casts()
     {
         return [
@@ -59,7 +67,7 @@ class Food extends Model
     public function nutritions(): MorphToMany
     {
         return $this->morphToMany(Nutrition::class, 'nutrientable')
-            ->withPivot(['value']);
+            ->withPivot(['value', 'percentage']);
     }
 
     public function scopeOfStatus(Builder $query, FoodStatus $status): void
