@@ -36,8 +36,6 @@
                 />
                 <span class="text-xs font-normal text-zinc-500">{{ $unit }}</span>
             </div>
-        @else
-             {{ $displayValue > 0 ? '' : '-' }}
         @endif
     </div>
 </div>
