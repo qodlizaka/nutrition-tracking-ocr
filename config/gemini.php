@@ -38,7 +38,7 @@ return [
                     'type' => 'object',
                     'description' => 'Object containing all nutrient values.',
                     'properties' => [
-                        'total_energy' => [
+                        'energy' => [
                             'type' => 'object',
                             'properties' => [
                                 'value' => ['type' => 'number'],
@@ -79,7 +79,7 @@ return [
                                 'unit' => ['type' => 'string'],
                             ],
                         ],
-                        'salt_sodium' => [
+                        'sodium' => [
                             'type' => 'object',
                             'properties' => [
                                 'value' => ['type' => 'number'],
@@ -151,10 +151,6 @@ return [
                             'properties' => ['percentage' => ['type' => 'number']],
                         ],
                         'magnesium' => [
-                            'type' => 'object',
-                            'properties' => ['percentage' => ['type' => 'number']],
-                        ],
-                        'sodium' => [
                             'type' => 'object',
                             'properties' => ['percentage' => ['type' => 'number']],
                         ],
