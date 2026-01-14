@@ -56,6 +56,7 @@ class Food extends Model
     {
         return [
             'status' => FoodStatus::class,
+            'total_servings' => 'float',
         ];
     }
 
