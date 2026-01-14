@@ -19,7 +19,7 @@ return [
             'required' => [
                 'serving_size',
                 'serving_unit',
-                'nutrition',
+                'nutritions',
             ],
             'properties' => [
                 'serving_size' => [
@@ -34,7 +34,7 @@ return [
                     'type' => 'number',
                     'description' => 'The number of servings in the package (Sajian per Kemasan).',
                 ],
-                'nutrition' => [
+                'nutritions' => [
                     'type' => 'object',
                     'description' => 'Object containing all nutrient values.',
                     'properties' => [
@@ -191,6 +191,74 @@ return [
                             'properties' => ['percentage' => ['type' => 'number']],
                         ],
                     ],
+                ],
+            ],
+        ],
+        'sample' => [
+            "serving_size" => 200,
+            "serving_unit" => "ml",
+            "serving_per_package" => 5,
+            "nutritions" => [
+                "energy" => [
+                    "value" => 180,
+                ],
+                "total_fat" => [
+                    "value" => 7,
+                    "unit" => "g",
+                ],
+                "saturated_fat" => [
+                    "value" => 4,
+                    "unit" => "g",
+                ],
+                "protein" => [
+                    "value" => 6,
+                    "unit" => "g",
+                ],
+                "total_carbohydrate" => [
+                    "value" => 24,
+                    "unit" => "g",
+                ],
+                "sugar" => [
+                    "value" => 16,
+                    "unit" => "g",
+                ],
+                "sodium" => [
+                    "value" => 95,
+                    "unit" => "mg",
+                    "percentage" => 6,
+                ],
+                "vitamin_d" => [
+                    "percentage" => 35,
+                ],
+                "vitamin_e" => [
+                    "percentage" => 20,
+                ],
+                "vitamin_b1" => [
+                    "percentage" => 35,
+                ],
+                "vitamin_b2" => [
+                    "percentage" => 25,
+                ],
+                "calcium" => [
+                    "percentage" => 30,
+                ],
+                "phosphorus" => [
+                    "percentage" => 25,
+                ],
+                "magnesium" => [
+                    "percentage" => 10,
+                ],
+                "potassium" => [
+                    "percentage" => 8,
+                ],
+                "iron" => [
+                    "percentage" => 10,
+                ],
+                "zinc" => [
+                    "percentage" => 10,
+                ],
+                "selenium" => [
+                    "percentage" => 50,
                 ],
             ],
         ],
