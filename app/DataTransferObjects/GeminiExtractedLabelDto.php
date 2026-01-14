@@ -2,6 +2,7 @@
 
 namespace App\DataTransferObjects;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class GeminiExtractedLabelDto
@@ -17,7 +18,7 @@ class GeminiExtractedLabelDto
         public int $servingSize,
         public string $servingUnit,
         public int $servingPerPackage,
-        public array $nutritions
+        public Collection $nutritions
     )
     {
     }
@@ -33,8 +34,7 @@ class GeminiExtractedLabelDto
                     'name' => Str::replace('_', ' ', $name),
                     ...$nutri,
                 ])
-                ->values()
-                ->toArray(),
+                ->values(),
         );
     }
 }
