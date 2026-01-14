@@ -62,7 +62,7 @@ class Capture extends Component
 
         $food->nutritions()->attach($nutritionsToAttach);
 
-        return $this->redirect(route('foods.show', $food->id));
+        return $this->redirect(route('food.label.validate', $food->id));
     }
 
     /**
