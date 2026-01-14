@@ -1,3 +1,5 @@
+@use("Illuminate\Support\Str")
+
 <form wire:submit.prevent="save" class="w-full bg-white dark:bg-zinc-900 border-2 border-zinc-900 dark:border-zinc-100 p-6 font-sans text-zinc-900 dark:text-zinc-100 shadow-[4px_4px_0px_0px_rgba(24,24,27,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
 
     <div class="flex justify-between items-start border-b-[1px] border-zinc-900 dark:border-zinc-100 pb-2 mb-2">
@@ -47,37 +49,19 @@
     {{-- Main Macros List --}}
     <div class="space-y-1 text-sm border-b-[8px] border-zinc-900 dark:border-zinc-100 pb-4 mb-4">
 
-        <x-nutrition-facts-table.nutrition-row
-            label="Total Fat"
-            :item="$this->nutritionMap->get('total fat')"
-            :multiplier="$multiplier"
-            :editable="$editable"
-            :formKey="$this->getIdFor('total fat')"
-        />
-
-        <x-nutrition-facts-table.nutrition-row
-            label="Sodium"
-            :item="$this->nutritionMap->get('sodium')"
-            :multiplier="$multiplier"
-            :editable="$editable"
-            :formKey="$this->getIdFor('sodium')"
-        />
-
-        <x-nutrition-facts-table.nutrition-row
-            label="Total Carbohydrate"
-            :item="$this->nutritionMap->get('total carbohydrate')"
-            :multiplier="$multiplier"
-            :editable="$editable"
-            :formKey="$this->getIdFor('total carbohydrate')"
-        />
-
-        <x-nutrition-facts-table.nutrition-row
-            label="Protein"
-            :item="$this->nutritionMap->get('protein')"
-            :multiplier="$multiplier"
-            :editable="$editable"
-            :formKey="$this->getIdFor('protein')"
-        />
+        @foreach (['Total fat', 'Sodium', 'Total carbohydrate', 'protein'] as $macro)
+            @php
+                $lower = Str::lower($macro);
+            @endphp
+            <x-nutrition-facts-table.nutrition-row
+                label="{{ __($macro) }}"
+                :item="$this->nutritionMap->get($lower)"
+                multiplier="{{ $multiplier }}"
+                editable="{{ $editable }}"
+                formKey="{{ $this->getIdFor($lower) }}"
+                pivotType="{{ array_key_first($this->form[$this->getIdFor($lower)]) }}"
+            />
+        @endforeach
 
     </div>
 
@@ -90,13 +74,23 @@
                 </span>
                 <span class="flex items-center gap-1">
                     @if($editable)
-                         <flux:input
-                            wire:model="form.{{ $micro->id }}"
-                            type="number"
-                            step="any"
-                            size="sm"
-                            class="!w-24 !h-8 !text-right !text-xs"
-                        />
+                        @if(array_key_first($this->form[$micro->id]) === 'percentage')
+                            <flux:input
+                                wire:model="form.{{ $micro->id }}.percentage"
+                                type="number"
+                                step="any"
+                                size="sm"
+                                class="!w-24 !h-8 !text-right !text-xs"
+                            />
+                        @else
+                            <flux:input
+                                wire:model="form.{{ $micro->id }}.value"
+                                type="number"
+                                step="any"
+                                size="sm"
+                                class="!w-24 !h-8 !text-right !text-xs"
+                            />
+                        @endif
                     @else
                         {{ $this->calculate($micro) }}
                     @endif
