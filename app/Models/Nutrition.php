@@ -20,7 +20,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Intake> $intakes
  * @property-read int|null $intakes_count
- *
  * @method static \Database\Factories\NutritionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Nutrition newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Nutrition newQuery()
@@ -33,7 +32,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Nutrition whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Nutrition whereUnit($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Nutrition whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class Nutrition extends Model

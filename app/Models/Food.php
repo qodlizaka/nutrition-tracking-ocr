@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @property-read int|null $categories_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Nutrition> $nutritions
  * @property-read int|null $nutritions_count
- *
  * @method static \Database\Factories\FoodFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Food newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Food newQuery()
@@ -33,12 +32,9 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Food whereTotalServings($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Food whereUnit($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Food whereUpdatedAt($value)
- *
  * @property FoodStatus $status
- *
  * @method static Builder<static>|Food ofStatus(\App\Enum\FoodStatus $status)
  * @method static Builder<static>|Food whereStatus($value)
- *
  * @mixin \Eloquent
  */
 class Food extends Model

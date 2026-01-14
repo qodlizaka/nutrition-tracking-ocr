@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $user
- *
  * @method static \Database\Factories\UserDetailFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserDetail newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserDetail newQuery()
@@ -29,7 +28,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserDetail whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserDetail whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserDetail whereWeight($value)
- *
+ * @property int|null $akg_id
+ * @property-read \App\Models\Akg|null $akg
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserDetail whereAkgId($value)
  * @mixin \Eloquent
  */
 class UserDetail extends Model

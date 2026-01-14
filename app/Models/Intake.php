@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Nutrition> $nutritions
  * @property-read int|null $nutritions_count
- *
  * @method static \Database\Factories\IntakeFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Intake newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Intake newQuery()
@@ -27,7 +26,6 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Intake whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Intake whereUserId($value)
  * @method static Builder<static>|Intake today()
- *
  * @mixin \Eloquent
  */
 class Intake extends Model

@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Nutrition> $nutritions
  * @property-read int|null $nutritions_count
- *
  * @method static \Database\Factories\AlgFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Alg newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Alg newQuery()
@@ -25,7 +24,6 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Alg whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Alg whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Alg whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class Alg extends Model
