@@ -59,4 +59,9 @@ class UserDetail extends Model
     {
         return $this->belongsTo(related: User::class);
     }
+
+    public function akg(): BelongsTo
+    {
+        return $this->belongsTo(related: Akg::class);
+    }
 }
