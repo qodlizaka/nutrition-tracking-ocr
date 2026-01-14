@@ -13,12 +13,12 @@ enum Gender: int
 
     public function isMale(): bool
     {
-        return $this == Gender::Male;
+        return $this === self::Male;
     }
 
     public function isFemale(): bool
     {
-        return $this == Gender::Female;
+        return $this === self::Female;
     }
 
 }
