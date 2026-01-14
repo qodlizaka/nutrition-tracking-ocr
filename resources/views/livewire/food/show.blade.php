@@ -70,6 +70,7 @@
                 :food="$this->food"
                 :multiplier="$this->measure->getMultiplier()"
                 :key="'nutrition-table-'.$this->measure->getMultiplier()"
+                :editable="false"
                 />
         </div>
     </div>
