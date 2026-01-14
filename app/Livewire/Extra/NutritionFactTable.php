@@ -16,7 +16,7 @@ class NutritionFactTable extends Component
     public array $form = [];
 
     #[Reactive]
-    public float $multiplier;
+    public float $multiplier = 1.0;
 
     public bool $editable = false;
 
@@ -28,6 +28,7 @@ class NutritionFactTable extends Component
         $this->multiplier = $this->editable ? 1.0 : $multiplier;
 
         $this->nutritions = $food->nutritions;
+        // dd($this->nutritionMap->pluck('pivot')->toArray());
 
         if ($this->editable) {
             $this->hydrateForm();
