@@ -3,11 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Actions\CalculateBmrAction;
+use App\Actions\CalculateTdeeAction;
 use App\Enum\Gender;
 use App\Enum\UserRole;
 use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -86,7 +90,19 @@ class User extends Authenticatable implements FilamentUser
     protected static function booted()
     {
         static::updated(function (User $user) {
+            $user->load(['detail']);
 
+            $age = $user->date_of_birth->age;
+
+            $akg = Akg::query()
+                ->when($age > 9, fn (Builder $query) => $query->where('gender', $user->gender))
+                ->where('min_age', '<=', $age)
+                ->where('max_age', '>=', $age)
+                ->first();
+
+            $user->detail->update([
+                'akg_id' => $akg->id,
+            ]);
         });
     }
 
