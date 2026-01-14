@@ -83,6 +83,13 @@ class User extends Authenticatable implements FilamentUser
         'remember_token',
     ];
 
+    protected static function booted()
+    {
+        static::updated(function (User $user) {
+
+        });
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -139,10 +146,5 @@ class User extends Authenticatable implements FilamentUser
     public function intakes(): HasMany
     {
         return $this->hasMany(Intake::class);
-    }
-
-    public function akg(): HasMany
-    {
-        return $this->hasMany(Akg::class);
     }
 }
