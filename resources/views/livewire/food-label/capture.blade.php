@@ -179,7 +179,7 @@
 
                     save() {
                         if (!this.photo) return;
-                        wire.saveImage(this.photo);
+                        wire.extractNutritionLabel(this.photo);
                     }
                 }
             ))
