@@ -2,15 +2,15 @@
 
 return [
     'api_key' => env('GEMINI_API_KEY'),
-    'model' => [
+    'models' => [
         'gemini-3-flash' => [
-            'url' => 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash:generateContent',
+            'url' => 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview',
         ],
         'gemini-2.5-flash' => [
-            'url' => 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent',
+            'url' => 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash',
         ],
         'gemini-2.5-flash-lite' => [
-            'url' => 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent',
+            'url' => 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite',
         ],
     ],
     'schemas' => [
