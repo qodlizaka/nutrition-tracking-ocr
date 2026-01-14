@@ -2,33 +2,83 @@
 
 namespace App\Livewire\FoodLabel;
 
+use App\Enum\FoodStatus;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Enum\AspectRatio;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Actions\CompressImageForGeminiAction;
+use App\Actions\ExtractNutritionFactsAction;
+use App\DataTransferObjects\GeminiExtractedLabelDto;
+use App\Models\Food;
+use App\Models\Nutrition;
 use Exception;
 
 class Capture extends Component
 {
     public AspectRatio $aspectRatio = AspectRatio::Square;
 
+    public function extractNutritionLabel(string $dataUrl)
+    {
+        [$filename, $image] = $this->saveImage($dataUrl);
+
+        // $apiResult = app(ExtractNutritionFactsAction::class)(base64_encode($image));
+        $apiResult = config('gemini.schemas.sample');
+
+        $extractedLabel = GeminiExtractedLabelDto::fromApiResult($apiResult);
+
+        $allNutritionData = Nutrition::all()->keyBy('name');
+
+        $food = Food::query()->create([
+            'name' => __('Food label') . ' ' . Str::random(8),
+            'image' => $filename,
+            'total_servings' => $extractedLabel->servingSize,
+            'unit' => $extractedLabel->servingUnit,
+            'status' => FoodStatus::Inactive,
+        ]);
+
+        $nutritionsToAttach = $extractedLabel->nutritions
+            ->mapWithKeys(function($nutri) use ($allNutritionData) {
+                $nutritionModel = $allNutritionData->get($nutri['name']);
+
+                $pivot = [];
+
+                $pivot['value'] = array_key_exists('value', $nutri)
+                    ? $nutri['value']
+                    : 0;
+
+                $pivot['percentage'] = array_key_exists('percentage', $nutri)
+                    ? $nutri['percentage']
+                    : 0;
+
+                if ($nutritionModel === null)
+                    return [];
+
+                return [$nutritionModel->id => $pivot];
+            });
+
+        // dd($nutritionsToAttach);
+
+        $food->nutritions()->attach($nutritionsToAttach);
+
+        return $this->redirect(route('foods.show', $food->id));
+    }
+
     /**
      * Main entry point for saving the image
      */
-    public function saveImage(CompressImageForGeminiAction $compressor, $dataUrl)
+    public function saveImage(string $dataUrl): array
     {
         $rawImage = $this->decodeAndValidateImage($dataUrl);
 
-        if (! $rawImage) return;
+        if (! $rawImage) return [];
 
-        $compressedBinary = $this->compressImage($compressor, $rawImage);
+        $compressedBinary = $this->compressImage($rawImage);
 
-        if (! $compressedBinary) return;
+        if (! $compressedBinary) return [];
 
-        $this->storeImage($compressedBinary);
-
-        $this->redirect(route('dashboard'), navigate: true);
+        return [$this->storeImage($compressedBinary), $compressedBinary];
     }
 
     /**
@@ -62,11 +112,11 @@ class Capture extends Component
     /**
      * Handle the external action to compress the image for Gemini.
      */
-    protected function compressImage(CompressImageForGeminiAction $compressor, string $rawImage): ?string
+    protected function compressImage(string $rawImage): ?string
     {
         try {
-            $compressedBase64 = $compressor($rawImage);
-            return base64_decode($compressedBase64);
+            $compressedBase64 = app(CompressImageForGeminiAction::class)($rawImage);
+            return base64_decode(string: $compressedBase64);
         } catch (Exception $e) {
             $this->addError('image', 'Image compression failed: ' . $e->getMessage());
             return null;
@@ -76,10 +126,12 @@ class Capture extends Component
     /**
      * Generate filename and write to disk.
      */
-    protected function storeImage(string $imageBinary): void
+    protected function storeImage(string $imageBinary): string
     {
-        $filename = 'images/food-label-test/' . Str::random(40) . '.jpg';
+        $filename = 'images/food-labels/' . Str::random(40) . '.jpg';
         Storage::disk('public')->put($filename, $imageBinary);
+
+        return $filename;
     }
 
     public function render()
