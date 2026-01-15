@@ -60,7 +60,7 @@ class Browser extends Component
             $q->where('name', 'like', '%'.$this->search.'%')
         );
 
-        return view('livewire.food.index', [
+        return view('livewire.food.browser', [
             'foods' => $query->latest()->paginate(16),
         ]);
     }
