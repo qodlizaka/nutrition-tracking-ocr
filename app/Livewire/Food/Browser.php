@@ -2,14 +2,16 @@
 
 namespace App\Livewire\Food;
 
+use App\Enum\FoodStatus;
 use App\Models\Food;
 use App\Models\Nutrition;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Index extends Component
+class Browser extends Component
 {
     use WithPagination;
 
@@ -20,8 +22,11 @@ class Index extends Component
 
     public array $activeNutritions = ['energy'];
 
-    public function mount(): void
+    public string $source;
+
+    public function mount(string $source = 'public'): void
     {
+        $this->source = $source;
         $this->nutritions = Nutrition::all()->keyBy('name');
     }
 
@@ -43,14 +48,20 @@ class Index extends Component
 
     public function render()
     {
-        $foods = Food::query()
-            ->with(['nutritions'])
-            ->when($this->search, fn ($q) => $q->where('name', 'like', '%'.$this->search.'%'))
-            ->latest()
-            ->paginate(16);
+        $query = Food::query()->with(['nutritions']);
+
+        match ($this->source) {
+            'mine' => $query->where('user_id', Auth::id()),
+            'public' => $query->ofStatus(FoodStatus::Active),
+            default => $query->ofStatus(FoodStatus::Active),
+        };
+
+        $query->when($this->search, fn ($q) =>
+            $q->where('name', 'like', '%'.$this->search.'%')
+        );
 
         return view('livewire.food.index', [
-            'foods' => $foods,
+            'foods' => $query->latest()->paginate(16),
         ]);
     }
 }

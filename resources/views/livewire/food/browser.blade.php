@@ -1,21 +1,6 @@
 @use('App\Enum\NutritionGroup')
 
-<div class="w-full">
-
-    <flux:breadcrumbs>
-        <flux:breadcrumbs.item href="{{ route('dashboard') }}" icon="home" />
-        <flux:breadcrumbs.item href="{{ route('foods.index') }}">{{ __('Foods') }}</flux:breadcrumbs.item>
-    </flux:breadcrumbs>
-
-    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mt-4">
-        <div>
-            <flux:heading size="xl">{{ __('Select a food') }}</flux:heading>
-            <flux:subheading>{{ __('Choose a food to add to your intake.') }}</flux:subheading>
-        </div>
-    </div>
-
-    <flux:separator class="my-6" />
-
+<div>
     <div class="mb-6 flex gap-2 w-full max-w-sm">
         <flux:input
             wire:model.live.debounce.300ms="search"
@@ -140,7 +125,6 @@
                 @endif
             </div>
         @endforelse
-
     </div>
 
     <div class="mt-8">
