@@ -21,13 +21,13 @@
         </span>
 
         @if(!$editable)
-            {{ round($displayValue, 1) }}{{ $unit }}
+            {{ round($displayValue, 4) }}{{ $unit }}
         @endif
     </div>
 
     <div class="font-bold">
         @if($editable && $formKey)
-            <div class="flex items-center">
+            <div class="flex items-center gap-1">
                 @if($pivotType === 'percentage')
                     <flux:input
                         wire:model="form.{{ $formKey }}.percentage"
@@ -45,7 +45,7 @@
                         class="!w-24 !h-8 !text-right !text-xs"
                     />
                 @endif
-                <span class="text-xs font-normal text-zinc-500">{{ $unit }}</span>
+                <span class="text-xs font-normal text-zinc-500">{{ $pivotType === 'percentage' ? '%' : $unit }}</span>
             </div>
         @endif
     </div>
