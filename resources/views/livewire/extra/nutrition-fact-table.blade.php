@@ -91,10 +91,11 @@
                                 class="!w-24 !h-8 !text-right !text-xs"
                             />
                         @endif
+                        <span class="text-xs text-zinc-500">{{ $micro->pivot?->percentage !== null ? '%' : $micro->unit }}</span>
                     @else
                         {{ $this->calculate($micro) }}
+                        <span class="text-xs text-zinc-500">{{ $micro->unit }}</span>
                     @endif
-                    <span class="text-xs text-zinc-500">{{ $micro->pivot?->percentage !== null ? '%' : $micro->unit }}</span>
                 </span>
             </div>
         @endforeach
