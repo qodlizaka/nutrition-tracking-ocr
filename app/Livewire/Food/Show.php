@@ -4,6 +4,7 @@ namespace App\Livewire\Food;
 
 use App\Measurements\Base as BaseMeasurement;
 use App\Measurements\Quantity;
+use App\Measurements\Volume;
 use App\Measurements\Weight;
 use App\Models\Food;
 use App\Models\Intake;
@@ -27,10 +28,36 @@ class Show extends Component
     {
         $this->food = $food->load(['nutritions']);
 
-        $this->measurements = collect([
-            new Weight($this->food),
+        $measurements = [
             new Quantity($this->food),
-        ])->keyBy('name');
+        ];
+
+        if ($food->unit === 'g') {
+            $measurements[] = new Weight($this->food);
+        } else {
+            $measurements = [
+                ...$measurements,
+                (new Volume($this->food))
+                    ->setName(__('Teaspoon'))
+                    ->setIcon('spoon')
+                    ->setBaseMultiplier(5),
+                (new Volume($this->food))
+                    ->setName(__('Tablespoon'))
+                    ->setIcon('spoon')
+                    ->setBaseMultiplier(15),
+                (new Volume($this->food))
+                    ->setName(__('Cup'))
+                    ->setIcon('cup-soda')
+                    ->setBaseMultiplier(250),
+                (new Volume($this->food))
+                    ->setName(__('Litre'))
+                    ->setIcon('flask-round')
+                    ->setBaseMultiplier(1000),
+            ];
+        }
+
+        $this->measurements = collect($measurements)
+            ->keyBy('name');
 
         $this->measure = $this->measurements->first();
         $this->amount = $this->measure->value;
