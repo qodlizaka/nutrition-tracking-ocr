@@ -89,6 +89,8 @@ class User extends Authenticatable implements FilamentUser
         static::updated(function (User $user) {
             $user->load(['detail']);
 
+            if ($user->detail === null) return;
+
             $age = $user->date_of_birth->age;
 
             $akg = Akg::query()
@@ -97,7 +99,7 @@ class User extends Authenticatable implements FilamentUser
                 ->where('max_age', '>=', $age)
                 ->first();
 
-            $user->detail->update([
+            $user->detail?->update([
                 'akg_id' => $akg->id,
             ]);
         });
