@@ -3,6 +3,7 @@
 namespace App\Measurements;
 
 use App\Models\Food;
+use Rector\Php70\Rector\StmtsAwareInterface\IfIssetToCoalescingRector;
 
 class Volume extends Base
 {
@@ -10,9 +11,7 @@ class Volume extends Base
 
     public string $unit = 'ml';
 
-    public string $icon = 'scale';
-
-    public float $baseMultiplier = 1;
+    public string $icon = 'cup-soda';
 
     public function getMultiplier(): float
     {
@@ -20,7 +19,7 @@ class Volume extends Base
             return 0;
         }
 
-        return ($this->value * $this->baseMultiplier) / $this->food->total_servings; // times the density of the food
+        return $this->value * ($this->baseMultiplier / $this->food->total_servings);
     }
 
     public function setBaseMultiplier(float $baseMultiplier): static
