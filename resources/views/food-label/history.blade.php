@@ -4,7 +4,8 @@
 
         <flux:breadcrumbs>
             <flux:breadcrumbs.item href="{{ route('dashboard') }}" icon="home" />
-            <flux:breadcrumbs.item href="{{ route('foods.index') }}">{{ __('Foods') }}</flux:breadcrumbs.item>
+            <flux:breadcrumbs.item>{{ __('Food label') }}</flux:breadcrumbs.item>
+            <flux:breadcrumbs.item href="{{ route('food.label.history') }}">{{ __('History') }}</flux:breadcrumbs.item>
         </flux:breadcrumbs>
 
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mt-4">
