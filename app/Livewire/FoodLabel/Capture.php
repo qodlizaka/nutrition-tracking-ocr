@@ -46,11 +46,11 @@ class Capture extends Component
 
                 $pivot['value'] = array_key_exists('value', $nutri)
                     ? $nutri['value']
-                    : 0;
+                    : null;
 
                 $pivot['percentage'] = array_key_exists('percentage', $nutri)
                     ? $nutri['percentage']
-                    : 0;
+                    : null;
 
                 if ($nutritionModel === null)
                     return [];
