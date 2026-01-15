@@ -16,9 +16,21 @@ abstract class Base implements Measurement, Wireable
 
     public float $value = 1;
 
+    public float $baseMultiplier = 1;
+
     public function __construct(
         public Food $food,
-    ) {}
+        string $name = '',
+        float $baseMultiplier = 0
+    ) {
+        if (!empty($name)) {
+            $this->name = $name;
+        }
+
+        if (!empty($baseMultiplier)) {
+            $this->baseMultiplier = $baseMultiplier;
+        }
+    }
 
     public function toLivewire(): array
     {
@@ -28,6 +40,7 @@ abstract class Base implements Measurement, Wireable
             'unit' => $this->unit,
             'icon' => $this->icon,
             'value' => $this->value,
+            'base_multiplier' => $this->baseMultiplier,
         ];
     }
 
@@ -41,6 +54,7 @@ abstract class Base implements Measurement, Wireable
         $instance->name = $payload['name'];
         $instance->unit = $payload['unit'];
         $instance->icon = $payload['icon'];
+        $instance->baseMultiplier = $payload['base_multiplier'];
 
         return $instance;
     }
