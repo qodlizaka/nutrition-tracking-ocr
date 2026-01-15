@@ -62,8 +62,8 @@
                 <div class="aspect-video w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                     @if($food->image)
                         <img src="{{ asset('storage/' . $food->image) }}"
-                             alt="{{ $food->name }}"
-                             class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
+                            alt="{{ $food->name }}"
+                            class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
                     @else
                         <div class="flex h-full w-full items-center justify-center text-zinc-300 dark:text-zinc-600">
                             <flux:icon.photo class="size-12 opacity-50" />
