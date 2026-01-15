@@ -84,13 +84,39 @@
             </div>
 
             <div x-show="photo" class="flex gap-4">
-                <flux:button variant="subtle" x-on:click="retake">
+                <flux:button variant="subtle" x-on:click="retake" x-bind:disabled="isUploading">
                     {{ __('Retake') }}
                 </flux:button>
 
-                <flux:button variant="primary" x-on:click="save" icon="check">
-                    {{ __('Use this Photo') }}
+                <flux:button variant="primary" x-on:click="save" icon="check" x-bind:disabled="isUploading">
+                    <span x-text="isUploading ? 'Uploading...' : '{{ __('Use this Photo') }}'"></span>
                 </flux:button>
+            </div>
+        </div>
+
+        <div
+            x-show="isUploading"
+            x-transition
+            class="w-full max-w-xl mt-4 px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 flex flex-col gap-2"
+        >
+            <div class="flex items-center gap-3">
+                <div class="shrink-0 text-zinc-500">
+                    <flux:icon icon="arrow-path" variant="mini" class="animate-spin w-5 h-5" />
+                </div>
+
+                <div class="w-full">
+                    <div class="flex justify-between items-center mb-1.5">
+                        <span class="text-sm font-medium text-zinc-800 dark:text-zinc-200">{{ __('Analyzing Label') }}</span>
+                        <span class="text-xs font-mono text-zinc-500" x-text="Math.round(uploadProgress) + '%'"></span>
+                    </div>
+
+                    <div class="h-1.5 w-full bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden">
+                        <div
+                            class="h-full bg-indigo-600 dark:bg-indigo-500 rounded-full transition-all duration-300 ease-out shadow-[0_0_10px_rgba(79,70,229,0.3)]"
+                            :style="`width: ${uploadProgress}%`"
+                        ></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -103,6 +129,9 @@
                     photo: null,
                     hasCamera: false,
                     currentRatio: @entangle('aspectRatio').live,
+
+                    uploadProgress: 0,
+                    isUploading: false,
 
                     ratios: {
                         @foreach(AspectRatio::cases() as $case)
@@ -170,7 +199,7 @@
                             0, 0, cropW, cropH
                         );
 
-                        this.photo = canvas.toDataURL('image/jpeg', 0.9);
+                        this.photo = canvas.toDataURL('image/jpeg', 0.85);
                     },
 
                     retake() {
@@ -179,7 +208,35 @@
 
                     save() {
                         if (!this.photo) return;
-                        wire.extractNutritionLabel(this.photo);
+
+                        this.isUploading = true;
+                        this.uploadProgress = 1;
+
+                        fetch(this.photo)
+                            .then(res => res.blob())
+                            .then(blob => {
+                                const file = new File([blob], "capture.jpg", { type: "image/jpeg" });
+
+                                @this.upload(
+                                    'photoUpload',
+                                    file,
+                                    (uploadedFilename) => {
+                                        this.uploadProgress = 100;
+
+                                        setTimeout(() => {
+                                            wire.extractNutritionLabel();
+                                        }, 500);
+                                    },
+                                    () => {
+                                        this.isUploading = false;
+                                        this.uploadProgress = 0;
+                                        alert('Upload failed. Please try again.');
+                                    },
+                                    (event) => {
+                                        this.uploadProgress = event.detail.progress;
+                                    }
+                                );
+                            });
                     }
                 }
             ))
