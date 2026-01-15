@@ -7,6 +7,7 @@ use Database\Factories\FoodFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\Storage;
 
@@ -74,5 +75,10 @@ class Food extends Model
     public function scopeOfStatus(Builder $query, FoodStatus $status): void
     {
         $query->where('status', $status);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(related: User::class);
     }
 }
