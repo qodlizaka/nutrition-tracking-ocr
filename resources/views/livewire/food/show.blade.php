@@ -86,7 +86,7 @@
                 <flux:input.group class="mt-1.5">
                     <flux:input
                         type="text"
-                        wire:model="amount"
+                        value="{{ $amount * $this->measure->getBaseMultiplier() }}"
                         min="0"
                         placeholder="0"
                         disabled
