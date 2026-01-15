@@ -5,7 +5,8 @@
     'isBold' => true,
     'indent' => false,
     'editable' => false,
-    'formKey' => null
+    'formKey' => null,
+    'pivotType' => null,
 ])
 
 @php
@@ -27,13 +28,23 @@
     <div class="font-bold">
         @if($editable && $formKey)
             <div class="flex items-center">
-                <flux:input
-                    wire:model="form.{{ $formKey }}"
-                    type="number"
-                    size="sm"
-                    step="any"
-                    class="!w-24 !h-8 !text-right !text-xs"
-                />
+                @if($pivotType === 'percentage')
+                    <flux:input
+                        wire:model="form.{{ $formKey }}.percentage"
+                        type="number"
+                        size="sm"
+                        step="any"
+                        class="!w-24 !h-8 !text-right !text-xs"
+                    />
+                @else
+                    <flux:input
+                        wire:model="form.{{ $formKey }}.value"
+                        type="number"
+                        size="sm"
+                        step="any"
+                        class="!w-24 !h-8 !text-right !text-xs"
+                    />
+                @endif
                 <span class="text-xs font-normal text-zinc-500">{{ $unit }}</span>
             </div>
         @endif
