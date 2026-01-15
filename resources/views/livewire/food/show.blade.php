@@ -123,6 +123,3 @@
         </div>
     </flux:modal>
 </div>
-
-
-
