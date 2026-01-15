@@ -35,7 +35,7 @@
         <div class="text-5xl font-black leading-none tracking-tight">
             @if($editable && $id = $this->getIdFor('energy'))
                 <flux:input
-                    wire:model="form.{{ $id }}"
+                    wire:model="form.{{ $id }}.value"
                     type="number"
                     step="0.1"
                     class="!text-4xl !font-black !w-32 text-right !border-0 !p-0 !shadow-none focus:!ring-0"
