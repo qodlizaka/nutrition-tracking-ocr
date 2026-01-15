@@ -39,6 +39,9 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/validate/{food}', ValidateFoodLabel::class)
             ->name('food.label.validate');
+
+        Route::view('/history', 'food-label.history')
+            ->name('food.label.history');
     });
 
     Route::redirect('settings', 'settings/profile');
