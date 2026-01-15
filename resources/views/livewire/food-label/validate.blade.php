@@ -62,7 +62,7 @@
                             placeholder="{{ __('Food unit') }}..." />
 
                         <flux:modal.trigger name="edit-profile">
-                            <flux:button variant="primary" class="w-full">{{ __('Next step') }}</flux:button>
+                            <flux:button wire:click="saveFood()" variant="primary" class="w-full">{{ __('Next step') }}</flux:button>
                         </flux:modal.trigger>
                     </div>
                 </div>
