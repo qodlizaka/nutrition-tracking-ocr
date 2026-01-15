@@ -12,8 +12,6 @@
             <flux:sidebar.item icon="camera" :href="route('food.label.capture')" :current="request()->routeIs('food.label.capture')">{{ __('Capture') }}</flux:sidebar.item>
             <flux:sidebar.item icon="clock" :href="route('food.label.history')" :current="request()->routeIs('food.label.history')">{{ __('History') }}</flux:sidebar.item>
         </flux:sidebar.group>
-
-        <flux:sidebar.item >{{ __('') }}</flux:sidebar.item>
     </flux:navlist.group>
 
     <div class="mt-4 px-2">
