@@ -20,17 +20,7 @@ abstract class Base implements Measurement, Wireable
 
     public function __construct(
         public Food $food,
-        string $name = '',
-        float $baseMultiplier = 0
-    ) {
-        if (!empty($name)) {
-            $this->name = $name;
-        }
-
-        if (!empty($baseMultiplier)) {
-            $this->baseMultiplier = $baseMultiplier;
-        }
-    }
+    ) {}
 
     public function toLivewire(): array
     {
