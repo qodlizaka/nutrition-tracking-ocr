@@ -64,14 +64,40 @@ abstract class Base implements Measurement, Wireable
         return __($this->name);
     }
 
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
     public function getUnit(): string
     {
         return $this->unit;
     }
 
+    public function setUnit(string $unit): static
+    {
+        $this->unit = $unit;
+
+        return $this;
+    }
+
     public function getIcon(): string
     {
         return $this->icon;
+    }
+
+    public function setIcon(string $icon): static
+    {
+        $this->icon = $icon;
+
+        return $this;
+    }
+
+    public function getValue(): float
+    {
+        return $this->value;
     }
 
     public function setValue(float $value): static
