@@ -112,10 +112,14 @@
                     <flux:icon.magnifying-glass class="size-8 text-zinc-400" />
                 </div>
                 <h3 class="mt-4 text-lg font-medium text-zinc-900 dark:text-zinc-100">
-                    {{ __('No foods found') }}
+                    {{ $this->source === 'public' ? __('No foods found') : __('No food labels found') }}
                 </h3>
                 <p class="mt-1 text-zinc-500">
-                    {{ $search ? __('Try adjusting your search terms.') : __('Get started by adding a new food.') }}
+                    {{ $search
+                        ? __('Try adjusting your search terms.')
+                        : ($this->source === 'public'
+                            ? __('Get started by adding a new food.')
+                            : __('Get started by scanning a food label.')) }}
                 </p>
 
                 @if($search)
