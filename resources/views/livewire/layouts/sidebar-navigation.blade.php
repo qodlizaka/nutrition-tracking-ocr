@@ -1,5 +1,8 @@
 <flux:sidebar.nav class="mt-4">
     <flux:navlist.group :heading="__('Platform')" class="grid">
+        @if(auth()->user()->isAdmin())
+            <flux:sidebar.item icon="home" :href="route('filament.admin.pages.dashboard')" :current="request()->routeIs('filament.admin.pages.dashboard')" wire:navigate>{{ __('Admin panel') }}</flux:sidebar.item>
+        @endif
         <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:sidebar.item>
         <flux:sidebar.item icon="settings" :href="route('settings.profile')" :current="request()->routeIs('settings.profile')" wire:navigate>{{ __('Settings') }}</flux:sidebar.item>
     </flux:navlist.group>
@@ -14,11 +17,26 @@
         </flux:sidebar.group>
     </flux:navlist.group>
 
+    <flux:navlist.group :heading="__('Tutorial')" class="grid">
+        @if(auth()->user()->isAdmin())
+            <flux:sidebar.group expandable heading="{{ __('Admin') }}" class="grid">
+                <flux:sidebar.item icon="device-phone-mobile" href="" :current="false">{{ __('Mobile') }}</flux:sidebar.item>
+                <flux:sidebar.item icon="computer-desktop" href="" :current="false">{{ __('Desktop') }}</flux:sidebar.item>
+            </flux:sidebar.group>
+        @endif
+
+        <flux:sidebar.group expandable heading="{{ __('User') }}" class="grid">
+            <flux:sidebar.item icon="device-phone-mobile" href="" :current="false">{{ __('Mobile') }}</flux:sidebar.item>
+            <flux:sidebar.item icon="computer-desktop" href="" :current="false">{{ __('Desktop') }}</flux:sidebar.item>
+        </flux:sidebar.group>
+    </flux:navlist.group>
+
     <div class="mt-4 px-2">
         <flux:input
             wire:model.live.debounce.300ms="search"
             icon="magnifying-glass"
             placeholder="{{ __('Quick search food') }}..."
+            clearable
         />
 
         @if ($search !== '')
