@@ -97,5 +97,17 @@ abstract class Base implements Measurement, Wireable
         return $this;
     }
 
+    public function getBaseMultiplier(): float
+    {
+        return $this->baseMultiplier;
+    }
+
+    public function setBaseMultiplier(float $baseMultiplier): static
+    {
+        $this->baseMultiplier = $baseMultiplier;
+
+        return $this;
+    }
+
     abstract public function getMultiplier(): float;
 }
