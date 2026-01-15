@@ -44,6 +44,7 @@ class Capture extends Component
             $filename = 'images/food-labels/' . Str::random(40) . '.jpg';
             Storage::disk('public')->put($filename, $finalImageBinary);
 
+            // $apiResult = app(ExtractNutritionFactsAction::class)(base64_encode($image));
             $apiResult = config('gemini.schemas.sample');
             $extractedLabel = GeminiExtractedLabelDto::fromApiResult($apiResult);
 
