@@ -21,7 +21,7 @@ Route::view('dashboard', 'dashboard')
 
 Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'foods'], function () {
-        Route::get('/', FoodIndex::class)
+        Route::view('/', 'foods.index')
             ->name('foods.index');
 
         Route::get('/{food}', FoodShow::class)
