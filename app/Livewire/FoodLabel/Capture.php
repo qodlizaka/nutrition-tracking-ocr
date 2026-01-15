@@ -31,6 +31,7 @@ class Capture extends Component
         $allNutritionData = Nutrition::all()->keyBy('name');
 
         $food = Food::query()->create([
+            'user_id' => Auth::id(),
             'name' => __('Food label') . ' ' . Str::random(8),
             'image' => $filename,
             'total_servings' => $extractedLabel->servingSize,
