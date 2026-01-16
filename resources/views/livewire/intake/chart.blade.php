@@ -8,8 +8,8 @@
 
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mt-4">
         <div>
-            <flux:heading size="xl">{{ __('Your Intake') }}</flux:heading>
-            <flux:subheading>{{ __('Track your daily food consumption and nutritional intake.') }}</flux:subheading>
+            <flux:heading size="xl">{{ __('Nutrition charts') }}</flux:heading>
+            <flux:subheading>{{ __('Visualize your nutritional intake over time.') }}</flux:subheading>
         </div>
     </div>
 
