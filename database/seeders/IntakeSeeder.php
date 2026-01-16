@@ -24,7 +24,10 @@ class IntakeSeeder extends Seeder
                 $intake->nutritions()->attach(
                     $nutritions->shuffle()
                         ->take(rand(15, 25))
-                        ->mapWithKeys(fn ($n) => [$n->id => ['value' => fake()->randomFloat(2, 10, 900)]])
+                        ->mapWithKeys(fn ($n) => [$n->id => [
+                            'value' => fake()->randomFloat(2, 10, 900),
+                            'created_at' => $intake->created_at,
+                        ]])
                         ->toArray()
                 );
             });
