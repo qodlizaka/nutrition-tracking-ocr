@@ -70,7 +70,7 @@ class Food extends Model
     {
         return $this->morphToMany(Nutrition::class, 'nutrientable')
             ->withPivot(['value', 'percentage'])
-            ->withTimestamps(true, false);
+            ->withTimestamps('created_at', 'updated_at');
     }
 
     public function scopeOfStatus(Builder $query, FoodStatus $status): void

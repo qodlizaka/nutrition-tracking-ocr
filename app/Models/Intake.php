@@ -39,7 +39,7 @@ class Intake extends Model
     {
         return $this->morphToMany(Nutrition::class, 'nutrientable')
             ->withPivot(['value'])
-            ->withTimestamps(true, false);
+            ->withTimestamps('created_at', 'updated_at');
     }
 
     public function scopeToday(Builder $query): void

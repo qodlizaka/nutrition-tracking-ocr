@@ -37,6 +37,7 @@ class Alg extends Model
     {
         return $this->morphToMany(Nutrition::class, 'nutrientable')
             ->withPivot(['value'])
-            ->withTimestamps(true, false);
+            ->using(Nutrientable::class)
+            ->withTimestamps('created_at', 'updated_at');
     }
 }
