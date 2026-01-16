@@ -36,6 +36,7 @@ class Alg extends Model
     public function nutritions(): MorphToMany
     {
         return $this->morphToMany(Nutrition::class, 'nutrientable')
-            ->withPivot(['value']);
+            ->withPivot(['value'])
+            ->withTimestamps(true, false);
     }
 }

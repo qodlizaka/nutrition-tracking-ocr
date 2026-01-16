@@ -48,6 +48,7 @@ class Akg extends Model
     public function nutritions(): MorphToMany
     {
         return $this->morphToMany(Nutrition::class, 'nutrientable')
-            ->withPivot(['value', 'percentage']);
+            ->withPivot(['value', 'percentage'])
+            ->withTimestamps(true, false);
     }
 }
