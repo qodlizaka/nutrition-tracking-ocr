@@ -16,6 +16,7 @@ return new class extends Migration
             $table->morphs('nutrientable');
             $table->float('value', 8)->nullable();
             $table->unsignedInteger('percentage')->nullable();
+            $table->timestamp('created_at');
         });
     }
 
