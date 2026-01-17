@@ -40,13 +40,11 @@ class Chart extends Component
             ->detail
             ->akg;
 
-        $this->userAkg->setRelation(
-            'nutritions',
-            $this->userAkg->nutritions->keyBy('id')
-        );
-
         $this->startDate = now()->subDays(7);
         $this->endDate = $this->date = now()->subDays(2);
+
+        $this->startDateString = $this->startDate->format('Y-m-d');
+        $this->endDateString = $this->dateString = $this->endDate->format('Y-m-d');
     }
 
     public function updatedStartDateString($value)
@@ -72,7 +70,10 @@ class Chart extends Component
 
     public function render()
     {
+        $akgNutritions = $this->userAkg->nutritions->keyBy('id');
+
         return view('livewire.intake.chart', [
+            'akgNutritions' => $akgNutritions,
             'chartData' => [
                 'macroNutrients' => Nutrientable::query()
                     ->select(columns: 'nutrition_id')
