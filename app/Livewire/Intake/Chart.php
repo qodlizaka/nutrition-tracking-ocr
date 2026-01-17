@@ -7,6 +7,7 @@ use App\Models\Akg;
 use App\Models\Intake;
 use App\Models\Nutrientable;
 use App\Models\Nutrition;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -15,10 +16,14 @@ class Chart extends Component
 {
     public Collection $macroNutrients;
     public Collection $microNutrients;
-    public string $startDate;
-    public string $endDate;
-    public string $date;
+    public string $startDateString;
+    public ?Carbon $startDate;
+    public string $endDateString;
+    public ?Carbon $endDate;
+    public string $dateString;
+    public ?Carbon $date;
     public Akg $userAkg;
+
 
     public function mount()
     {
@@ -39,25 +44,63 @@ class Chart extends Component
             'nutritions',
             $this->userAkg->nutritions->keyBy('id')
         );
+
+        $this->startDate = now()->subDays(7);
+        $this->endDate = $this->date = now()->subDays(2);
+    }
+
+    public function updatedStartDateString($value)
+    {
+        if ($value) {
+            $this->startDate = Carbon::createFromFormat('Y-m-d', $value);
+        }
+    }
+
+    public function updatedEndDateString($value)
+    {
+        if ($value) {
+            $this->endDate = Carbon::createFromFormat('Y-m-d', $value);
+        }
+    }
+
+    public function updatedDateString($value)
+    {
+        if ($value) {
+            $this->date = Carbon::createFromFormat('Y-m-d', $value);
+        }
     }
 
     public function render()
     {
         return view('livewire.intake.chart', [
-            'chartData' => Nutrientable::query()
-                ->select('nutrition_id')
-                ->selectRaw('DATE(created_at) as created_date')
-                ->selectRaw('SUM(value) as total_amount')
-                ->whereHasMorph('nutrientable', [Intake::class], fn ($q) =>
-                    $q->where('user_id', 3)
-                        ->whereBetween('created_at', [now()->subDays(7), now()])
-                )
-                ->groupBy('nutrition_id', 'created_date')
-                ->get()
-                ->groupBy('nutrition_id')
-                ->map(fn ($group) =>
-                    $group->pluck('total_amount', 'created_date')
-                )
+            'chartData' => [
+                'macroNutrients' => Nutrientable::query()
+                    ->select(columns: 'nutrition_id')
+                    ->whereIn('nutrition_id', $this->macroNutrients->pluck('id')->toArray())
+                    ->selectRaw(expression: 'DATE(created_at) as created_date')
+                    ->selectRaw(expression: 'SUM(value) as total_amount')
+                    ->whereHasMorph('nutrientable', [Intake::class], callback: fn ($q) =>
+                        $q->where( 'user_id', Auth::id())
+                            ->whereBetween('created_at', [$this->startDate, $this->endDate])
+                    )
+                    ->groupBy('nutrition_id', 'created_date')
+                    ->get()
+                    ->groupBy('nutrition_id')
+                    ->map(fn ($group) =>
+                        $group->pluck('total_amount', 'created_date')
+                    ),
+                'microNutrients' => Nutrientable::query()
+                    ->select('nutrition_id')
+                    ->selectRaw('SUM(value) as total_amount')
+                    ->whereIn('nutrition_id', $this->microNutrients->pluck('id')->toArray())
+                    ->whereHasMorph('nutrientable', [Intake::class], fn ($q) =>
+                        $q->where('user_id', Auth::id())
+                            ->whereDate('created_at', $this->date)
+                    )
+                    ->groupBy('nutrition_id')
+                    ->pluck('total_amount', 'nutrition_id'),
+            ]
+
         ]);
     }
 }
