@@ -3,6 +3,7 @@
 namespace App\Livewire\Intake;
 
 use App\Enum\NutritionCategory;
+use App\Enum\NutritionGroup;
 use App\Models\Akg;
 use App\Models\Intake;
 use App\Models\Nutrientable;
@@ -23,7 +24,8 @@ class Chart extends Component
     public string $dateString;
     public ?Carbon $date;
     public Akg $userAkg;
-
+    public array $activeNutritions = [];
+    public const MAX_DISPLAY = 5;
 
     public function mount()
     {
@@ -45,6 +47,21 @@ class Chart extends Component
 
         $this->startDateString = $this->startDate->format('Y-m-d');
         $this->endDateString = $this->dateString = $this->endDate->format('Y-m-d');
+
+        $this->activeNutritions = [
+            NutritionGroup::Vitamin->name => $nutritions
+                ->where('group', NutritionGroup::Vitamin)
+                ->shuffle()
+                ->take(self::MAX_DISPLAY)
+                ->pluck('name')
+                ->toArray(),
+            NutritionGroup::Mineral->name => $nutritions
+                ->where('group', NutritionGroup::Mineral)
+                ->shuffle()
+                ->take(self::MAX_DISPLAY)
+                ->pluck('name')
+                ->toArray(),
+        ];
     }
 
     public function updatedStartDateString($value)
@@ -65,6 +82,17 @@ class Chart extends Component
     {
         if ($value) {
             $this->date = Carbon::createFromFormat('Y-m-d', $value);
+        }
+    }
+
+    public function toggleNutrition(string $groupName, string $name): void
+    {
+        if (\in_array($name, $this->activeNutritions[$groupName])) {
+            $this->activeNutritions[$groupName] = array_values(array_diff($this->activeNutritions[$groupName], [$name]));
+        } else {
+            if (\count($this->activeNutritions[$groupName]) < self::MAX_DISPLAY) {
+                $this->activeNutritions[$groupName][] = $name;
+            }
         }
     }
 

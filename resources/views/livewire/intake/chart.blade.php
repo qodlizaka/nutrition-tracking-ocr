@@ -1,5 +1,7 @@
 @use("Illuminate\Support\Str")
 
+{{-- @dd($microNutrients->groupBy('group')->first()) --}}
+
 <div class="w-full">
     <flux:breadcrumbs>
         <flux:breadcrumbs.item icon="home" href="{{ route('dashboard') }}" />
@@ -91,37 +93,79 @@
         </div>
     </div>
 
+    <flux:separator class="my-6" />
+
     <div class="mt-4 grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5">
-        @foreach ($microNutrients as $nutrition)
-            <div
-                wire:key="micro-{{ $nutrition->id }}"
-                class="rounded-xl border border-zinc-200 bg-white p-4 transition-all hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
-            >
-                @php
-                    $value = $chartData['microNutrients']->get($nutrition->id) ?? 0;
-                    $limit = $akgNutritions->get($nutrition->id)?->pivot->value ?? null;
-                @endphp
+        @foreach ($microNutrients->groupBy('group') as $group)
+            @php
+                $groupEnum = $group->first()->group;
+            @endphp
 
-                <x-extra.chart.micronutrient-intake-chart
-                    :limit="$limit"
-                    :intake="$value"
-                    :label="$nutrition->name"
-                />
+            <div class="col-span-full flex justify-between items-end flex-wrap gap-4">
+                <flux:heading level="3" size="lg">{{ __($groupEnum->name) }}</flux:heading>
 
-                <div class="mt-4 text-center">
-                    <flux:subheading class="font-bold">
-                        {{ __(ucfirst($nutrition->name)) }}
-                    </flux:subheading>
+                <flux:dropdown>
+                    <flux:button icon-trailing="chevron-down">
+                        {{ __($groupEnum->name) }}
+                        <span class="ml-1 text-zinc-400 text-xs">({{ count($activeNutritions[$groupEnum->name]) }})</span>
+                    </flux:button>
 
-                    <flux:subheading>
-                        {{ round($value, 2) }}
-                        @if($limit !== null)
-                            / {{ $limit }} {{ $nutrition->unit }}
-                            ({{ $limit ? round(($value / $limit) * 100) : 100 }})%
-                        @endif
-                    </flux:subheading>
-                </div>
+                    <flux:menu keep-open>
+                        @foreach ($group as $nutri)
+                            @php
+                                $isSelected = in_array($nutri->name, $activeNutritions[$groupEnum->name]);
+                                $isLimitReached = count($activeNutritions[$groupEnum->name]) >= self::MAX_DISPLAY;
+                                $shouldDisable = $isLimitReached && !$isSelected;
+                            @endphp
+
+                            <flux:menu.checkbox
+                                wire:click="toggleNutrition('{{ $groupEnum->name }}', '{{ $nutri->name }}')"
+                                :checked="$isSelected"
+                                :disabled="$shouldDisable"
+                            >
+                                {{ __(ucfirst($nutri->name)) }}
+
+                                @if($shouldDisable)
+                                    <span class="ml-auto text-xs text-zinc-400 font-normal">{{ __('Max') }} {{ self::MAX_DISPLAY }}</span>
+                                @endif
+                            </flux:menu.checkbox>
+                        @endforeach
+                    </flux:menu>
+                </flux:dropdown>
             </div>
+            @foreach ($group as $nutrition)
+                @if(\in_array($nutrition->name, $activeNutritions[$groupEnum->name]))
+                    <div
+                        wire:key="micro-{{ $nutrition->id }}"
+                        class="rounded-xl border border-zinc-200 bg-white p-4 transition-all hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-900"
+                    >
+                        @php
+                            $value = $chartData['microNutrients']->get($nutrition->id) ?? 0;
+                            $limit = $akgNutritions->get($nutrition->id)?->pivot->value ?? null;
+                        @endphp
+
+                        <x-extra.chart.micronutrient-intake-chart
+                            :limit="$limit"
+                            :intake="$value"
+                            :label="$nutrition->name"
+                        />
+
+                        <div class="mt-4 text-center">
+                            <flux:subheading class="font-bold">
+                                {{ __(ucfirst($nutrition->name)) }}
+                            </flux:subheading>
+
+                            <flux:subheading>
+                                {{ round($value, 2) }}
+                                @if($limit !== null)
+                                    / {{ $limit }} {{ $nutrition->unit }}
+                                    ({{ $limit ? round(($value / $limit) * 100) : 100 }})%
+                                @endif
+                            </flux:subheading>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
         @endforeach
     </div>
 </div>
