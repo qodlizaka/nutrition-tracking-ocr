@@ -1,3 +1,5 @@
+@use("Illuminate\Support\Str")
+
 <div class="w-full">
 
     <flux:breadcrumbs>
@@ -15,4 +17,20 @@
 
     <flux:separator class="my-6" />
 
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        @foreach ($macroNutrients as $nutrition)
+            @php
+                $item = $chartData->get($nutrition->id);
+                $labels = $item->keys()->toArray();
+                $data = $item->values()->toArray();
+            @endphp
+
+            <livewire:extra.chart.date-range-data-chart
+                chartId="{{ Str::snake($nutrition->name) }}_chart"
+                :data="$data"
+                :labels="$labels"
+                title="{{ $nutrition->name }}"
+                :limit="$this->userAkg->nutritions->find($nutrition->id)?->pivot->value ?? null" />
+        @endforeach
+    </div>
 </div>
