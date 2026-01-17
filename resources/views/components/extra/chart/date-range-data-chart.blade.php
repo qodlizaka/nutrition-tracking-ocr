@@ -6,7 +6,13 @@
     'limit' => null,
 ])
 
+@php
+    $chartHash = md5(json_encode([$data, $labels, $limit, $title, $type]));
+@endphp
+
 <div class="w-full"
+     wire:key="{{ $chartHash }}"
+     wire:ignore
      x-data="{
         chart: null,
         initChart(data, labels, limit, title) {
@@ -17,9 +23,8 @@
 
             const ctx = this.$refs.canvas.getContext('2d');
 
-            if (this.chart) {
-                this.chart.destroy();
-            }
+            // No need to destroy old chart, because wire:key ensures
+            // we are always in a fresh DOM element if data changes.
 
             this.chart = new Chart(ctx, {
                 type: '{{ $type }}',

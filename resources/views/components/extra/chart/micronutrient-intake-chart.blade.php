@@ -5,7 +5,13 @@
     'color' => 'sky',
 ])
 
+@php
+    $chartHash = md5(json_encode([$limit, $intake, $label, $color]));
+@endphp
+
 <div {{ $attributes }}
+     wire:key="{{ $chartHash }}"
+     wire:ignore
      x-data="{
         chart: null,
         initChart(limit, intake, label, colorName) {
@@ -33,8 +39,6 @@
                     chartColors = [twColors[colorName][500], twColors[colorName][100]];
                 }
             }
-
-            if (this.chart) this.chart.destroy();
 
             this.chart = new Chart(ctx, {
                 type: 'doughnut',
