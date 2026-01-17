@@ -10,7 +10,7 @@
     $chartHash = md5(json_encode([$data, $labels, $limit, $title, $type]));
 @endphp
 
-<div class="w-full"
+<div class="w-full h-full"
      wire:key="{{ $chartHash }}"
      wire:ignore
      x-data="{
@@ -39,6 +39,8 @@
                     }]
                 },
                 options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
                     scales: {
                         x: { grid: { display: false } },
                         y: { grid: { display: false } }
@@ -81,5 +83,5 @@
         @json($title, JSON_HEX_APOS)
      )'
 >
-    <canvas x-ref="canvas"></canvas>
+    <canvas x-ref="canvas" class="w-full h-full"></canvas>
 </div>
