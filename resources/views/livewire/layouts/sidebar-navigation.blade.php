@@ -9,7 +9,7 @@
 
     <flux:navlist.group :heading="__('Intake')" class="grid">
         <flux:sidebar.item icon="utensils" :href="route('intakes.index')" :current="request()->routeIs('intakes.index')" wire:navigate>{{ __('My Intake') }}</flux:sidebar.item>
-        <flux:sidebar.item icon="chart-pie" :href="route('intakes.chart')" :current="request()->routeIs('intakes.chart')" wire:navigate>{{ __('Charts') }}</flux:sidebar.item>
+        <flux:sidebar.item icon="chart-pie" :href="route('intakes.chart')" :current="request()->routeIs('intakes.chart')">{{ __('Charts') }}</flux:sidebar.item>
         <flux:sidebar.item icon="hamburger" :href="route('foods.index')" :current="request()->routeIs('foods.index')" wire:navigate>{{ __('Foods') }}</flux:sidebar.item>
 
         <flux:sidebar.group expandable heading="{{ __('Food label') }}" class="grid">
