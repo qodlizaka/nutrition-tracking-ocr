@@ -9,8 +9,8 @@ class UserDetailStatsDto
      */
     public function __construct(
         public string $date,
-        public int $bmr,
-        public int $tdee
+        public float $bmr,
+        public float $tdee
     )
     {}
 }
