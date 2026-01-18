@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Livewire\Food\Index as FoodIndex;
 use App\Livewire\Food\Show as FoodShow;
 use App\Livewire\FoodLabel\Capture as FoodLabelCapture;
@@ -16,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
+Route::get('dashboard', DashboardController::class)
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
