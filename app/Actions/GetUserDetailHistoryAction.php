@@ -9,9 +9,6 @@ use Carbon\CarbonPeriod;
 
 class GetUserDetailHistoryAction
 {
-    /**
-     * Create a new class instance.
-     */
     public function __invoke(User $user, Carbon $startDate, Carbon $endDate)
     {
         $period = CarbonPeriod::create($startDate, '1 day', $endDate);
@@ -24,22 +21,21 @@ class GetUserDetailHistoryAction
         $changesInRange = $user->userDetails()
             ->whereBetween('created_at', [$startDate, $endDate])
             ->get()
-            ->groupBy(function ($item) {
-                return $item->created_at->format('Y-m-d');
-            });
+            ->groupBy(fn ($item) => $item->created_at->format('Y-m-d'));
 
         $chartData = [];
 
-        $bmr = (new CalculateBmrAction())($user, $latestBeforeRange) ?? 0;
-        $tdee = (new CalculateTdeeAction())($latestBeforeRange, $bmr) ?? 0;
+        $currentDetail = $latestBeforeRange;
+        $bmr = app(CalculateBmrAction::class)($user, $currentDetail);
+        $tdee = app(CalculateTdeeAction::class)($currentDetail, $bmr);
 
         foreach ($period as $date) {
             $dateString = $date->format('Y-m-d');
 
             if ($changesInRange->has($dateString)) {
-                $dailyRecord = $changesInRange->get($dateString)->last();
-                $bmr = (new CalculateBmrAction())($user, $dailyRecord);
-                $tdee = (new CalculateTdeeAction())($dailyRecord, $bmr);
+                $currentDetail = $changesInRange->get($dateString)->last();
+                $bmr = app(CalculateBmrAction::class)($user, $currentDetail);
+                $tdee = app(CalculateTdeeAction::class)($currentDetail, $bmr);
             }
 
             $chartData[] = new UserDetailStatsDto($dateString, $bmr, $tdee);
