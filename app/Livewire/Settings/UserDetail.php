@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Settings;
 
+use App\Actions\FindUserAkg;
 use App\Enum\PhysicalActivityLevel;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
@@ -46,6 +47,7 @@ class UserDetail extends Component
 
         $user->userDetails()
             ->updateOrCreate([
+                'akg_id' => (new FindUserAkg())($user)->id,
                 'weight' => $this->weight,
                 'height' => $this->height,
                 'activity_level' => $this->activityLevel,
