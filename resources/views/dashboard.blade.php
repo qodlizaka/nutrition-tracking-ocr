@@ -17,93 +17,56 @@
 
         <flux:separator class="my-6" />
 
+        @php
+            $lastItem = $userDetailHistory->last();
+            $prevItem = $userDetailHistory->count() > 1 ? $userDetailHistory->get($userDetailHistory->count() - 2) : null;
+
+            $bmrDiff = $prevItem ? $lastItem->bmr - $prevItem->bmr : 0;
+            $tdeeDiff = $prevItem ? $lastItem->tdee - $prevItem->tdee : 0;
+        @endphp
+
         <div class="mt-4 grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7">
-            <div class="rounded-xl border border-zinc-200 bg-white p-4 transition-all hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-900 flex flex-col items-center justify-center aspect-square gap-3 text-center">
-                <flux:subheading>{{ __('Intake count today') }}</flux:subheading>
-                <div class="flex flex-col">
-                    <flux:heading level="2" class="text-4xl! mb-0!">{{ $intakeCountToday }}</flux:heading>
-                    <flux:subheading>{{ __('kcal') }}</flux:subheading>
-                </div>
-            </div>
-            <div class="rounded-xl border border-zinc-200 bg-white p-4 transition-all hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-900 flex flex-col items-center justify-center aspect-square gap-3 text-center">
-                <flux:subheading>{{ __('Current weight') }}</flux:subheading>
-                <div class="flex flex-col">
-                    <flux:heading level="2" class="text-4xl! mb-0!">{{ $user->detail->weight }}</flux:heading>
-                    <flux:subheading>{{ __('kg') }}</flux:subheading>
-                </div>
-            </div>
-            <div class="rounded-xl border border-zinc-200 bg-white p-4 transition-all hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-900 flex flex-col items-center justify-center aspect-square gap-3 text-center">
-                <flux:subheading>{{ __('Current height') }}</flux:subheading>
-                <div class="flex flex-col">
-                    <flux:heading level="2" class="text-4xl! mb-0!">{{ $user->detail->height }}</flux:heading>
-                    <flux:subheading>{{ __('cm') }}</flux:subheading>
-                </div>
-            </div>
-            <div class="rounded-xl border border-zinc-200 bg-white p-4 transition-all hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-900 flex flex-col items-center justify-center aspect-square gap-3 text-center">
-                <flux:subheading class="flex items-center gap-0.5">
-                    {{ __('Today') }} BMR
 
-                    <flux:tooltip>
-                        <flux:button icon="information-circle" size="xs" variant="ghost" />
+            <x-dashboard.metric
+                :label="__('Intake count today')"
+                :value="$intakeCountToday"
+                :unit="__('kcal')"
+            />
 
-                        <flux:tooltip.content class="max-w-[20rem] space-y-2">
-                            <p>{{ __('Basal Metabolic Rate') }}</p>
-                        </flux:tooltip.content>
-                    </flux:tooltip>
-                </flux:subheading>
-                <div class="flex flex-col">
-                    <flux:heading level="2" class="text-4xl! mb-0!">{{ round($userDetailHistory->last()->bmr, 0) }}</flux:heading>
-                    <flux:subheading>{{ __('kcal') }}</flux:subheading>
+            <x-dashboard.metric
+                :label="__('Current weight')"
+                :value="$user->detail->weight"
+                :unit="__('kg')"
+            />
 
-                    @php
-                        $bmrDiff = $userDetailHistory->count() > 1 ? $userDetailHistory->last()->bmr - $userDetailHistory->get($userDetailHistory->count() - 2)->bmr : 0;
-                        $bmrTrendIcon = $bmrDiff > 0 ? 'trending-up' : ($bmrDiff < 0 ? 'trending-down' : 'minus');
-                        $bmrTrendColor = $bmrDiff > 0 ? 'text-green-500' : ($bmrDiff < 0 ? 'text-red-500' : 'text-zinc-500');
-                    @endphp
-                    <div class="flex items-center gap-1 {{ $bmrTrendColor }}">
-                        <flux:icon name="{{ $bmrTrendIcon }}" size="sm" />
-                        <flux:subheading class="!text-sm">
-                            {{ abs(round($bmrDiff, 0)) }} {{ __('kcal') }}
-                        </flux:subheading>
-                    </div>
-                </div>
-            </div>
-            <div class="rounded-xl border border-zinc-200 bg-white p-4 transition-all hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-900 flex flex-col items-center justify-center aspect-square gap-3 text-center">
-                <flux:subheading class="flex items-center gap-0.5">
-                    {{ __('Today') }} TDEE
+            <x-dashboard.metric
+                :label="__('Current height')"
+                :value="$user->detail->height"
+                :unit="__('cm')"
+            />
 
-                    <flux:tooltip>
-                        <flux:button icon="information-circle" size="xs" variant="ghost" />
+            <x-dashboard.metric
+                :label="__('Today') . ' BMR'"
+                :value="round($lastItem->bmr, 0)"
+                :unit="__('kcal')"
+                :tooltip="__('Basal Metabolic Rate')"
+                :trend="$bmrDiff"
+            />
 
-                        <flux:tooltip.content class="max-w-[20rem] space-y-2">
-                            <p>{{ __('Total Daily Energy Expenditure') }}</p>
-                        </flux:tooltip.content>
-                    </flux:tooltip>
-                </flux:subheading>
-                <div class="flex flex-col">
-                    <flux:heading level="2" class="text-4xl! mb-0!">{{ round($userDetailHistory->last()->tdee, 0) }}</flux:heading>
-                    <flux:subheading>{{ __('kcal') }}</flux:subheading>
+            <x-dashboard.metric
+                :label="__('Today') . ' TDEE'"
+                :value="round($lastItem->tdee, 0)"
+                :unit="__('kcal')"
+                :tooltip="__('Total Daily Energy Expenditure')"
+                :trend="$tdeeDiff"
+            />
 
-                    @php
-                        $tdeeDiff = $userDetailHistory->count() > 1 ? $userDetailHistory->last()->tdee - $userDetailHistory->get($userDetailHistory->count() - 2)->tdee : 0;
-                        $tdeeTrendIcon = $tdeeDiff > 0 ? 'trending-up' : ($tdeeDiff < 0 ? 'trending-down' : 'minus');
-                        $tdeeTrendColor = $tdeeDiff > 0 ? 'text-green-500' : ($tdeeDiff < 0 ? 'text-red-500' : 'text-zinc-500');
-                    @endphp
-                    <div class="flex items-center gap-1 {{ $tdeeTrendColor }}">
-                        <flux:icon name="{{ $tdeeTrendIcon }}" size="sm" />
-                        <flux:subheading class="!text-sm">
-                            {{ abs(round($tdeeDiff, 0)) }} {{ __('kcal') }}
-                        </flux:subheading>
-                    </div>
-                </div>
-            </div>
-            <div class="rounded-xl border border-zinc-200 bg-white p-4 transition-all hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-900 flex flex-col items-center justify-center aspect-square gap-3 text-center">
-                <flux:subheading>{{ __('Today') }} {{ __('calorie intake') }}</flux:subheading>
-                <div class="flex flex-col">
-                    <flux:heading level="2" class="text-4xl! mb-0!">{{ round($weeklyCalorieIntake->last(), 0) }}</flux:heading>
-                    <flux:subheading>{{ __('kcal') }}</flux:subheading>
-                </div>
-            </div>
+            <x-dashboard.metric
+                :label="__('Today') . ' ' . __('calorie intake')"
+                :value="round($weeklyCalorieIntake->last(), 0)"
+                :unit="__('kcal')"
+            />
+
         </div>
 
         <flux:separator class="my-6" />
