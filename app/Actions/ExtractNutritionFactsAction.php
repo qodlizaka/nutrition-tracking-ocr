@@ -7,7 +7,18 @@ use Exception;
 
 class ExtractNutritionFactsAction
 {
-    protected string $systemInstruction = "You are a specialized AI assistant for extracting nutritional information from images of Indonesian (BPOM standard) food labels. Your task is to accurately extract all available data and format it into the provided JSON schema. In the final JSON, only include the keys for nutrients that are explicitly present on the label. If a nutrient is not listed, omit its key. If the image provided is not a nutrition facts table, do not return any data. If the serving per package (sajian per kemasan) is not specified, assume the value is 1.";
+    protected string $systemInstruction = "You are a specialized AI assistant for extracting nutritional information from images of Indonesian (BPOM standard) food labels.
+
+    First, analyze the image quality and content:
+    1. If the image is too blurry, too dark, or the text is illegible, set 'is_readable' to false.
+    2. If the image is NOT a nutrition facts table (e.g., it is a picture of a person, a barcode, or just the front of the packaging), set 'is_nutrition_label' to false.
+
+    If either of those checks fails, set the data fields (serving_size, etc.) to null.
+
+    If the image IS valid:
+    1. Set 'is_nutrition_label' and 'is_readable' to true.
+    2. Accurately extract all available data.
+    3. If the serving per package (sajian per kemasan) is not specified, assume the value is 1.";
 
     public function __construct(
         protected GeminiRequestAction $geminiRequest

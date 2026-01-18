@@ -17,22 +17,29 @@ return [
         'nutrition_label' => [
             'type' => 'object',
             'required' => [
-                'serving_size',
-                'serving_unit',
-                'nutritions',
+                'is_nutrition_label',
+                'is_readable',
             ],
             'properties' => [
+                'is_nutrition_label' => [
+                    'type' => 'boolean',
+                    'description' => 'Set to true ONLY if the image clearly contains a nutrition facts table (Informasi Nilai Gizi).',
+                ],
+                'is_readable' => [
+                    'type' => 'boolean',
+                    'description' => 'Set to false if the text is too blurry, too dark, or cut off to be read accurately.',
+                ],
                 'serving_size' => [
                     'type' => 'number',
-                    'description' => 'The size of one serving (Takaran Saji).',
+                    'description' => 'The size of one serving (Takaran Saji). Return null if not a label.',
                 ],
                 'serving_unit' => [
                     'type' => 'string',
-                    'description' => 'The unit for the serving size, e.g., g, ml, keping.',
+                    'description' => 'The unit for the serving size. Return null if not a label.',
                 ],
                 'serving_per_package' => [
                     'type' => 'number',
-                    'description' => 'The number of servings in the package (Sajian per Kemasan).',
+                    'description' => 'Sajian per Kemasan. Return null if not a label.',
                 ],
                 'nutritions' => [
                     'type' => 'object',
