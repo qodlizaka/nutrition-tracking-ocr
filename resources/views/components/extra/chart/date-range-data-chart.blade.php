@@ -5,6 +5,7 @@
     'title' => null,
     'limit' => null,
     'min' => [],
+    'max' => [],
 ])
 
 @php
@@ -66,8 +67,16 @@
                         intersect: false,
                     },
                     scales: {
-                        x: { grid: { display: false }, min: {{ $min['x'] ?? 'undefined' }} },
-                        y: { grid: { display: false }, min: {{ $min['y'] ?? 'undefined' }} }
+                        x: {
+                            grid: { display: false },
+                            min: {{ $min['x'] ?? 'undefined' }},
+                            max: {{ $max['x'] ?? 'undefined' }}
+                        },
+                        y: {
+                            grid: { display: false },
+                            min: {{ $min['y'] ?? 'undefined' }},
+                            max: {{ $max['y'] ?? 'undefined' }}
+                        }
                     },
                     plugins: {
                         // Enable Legend to differentiate datasets
