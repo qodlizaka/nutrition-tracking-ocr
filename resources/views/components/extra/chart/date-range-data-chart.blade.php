@@ -4,6 +4,7 @@
     'type' => 'line',
     'title' => null,
     'limit' => null,
+    'min' => [],
 ])
 
 @php
@@ -65,8 +66,8 @@
                         intersect: false,
                     },
                     scales: {
-                        x: { grid: { display: false } },
-                        y: { grid: { display: false } }
+                        x: { grid: { display: false }, min: {{ $min['x'] ?? 'undefined' }} },
+                        y: { grid: { display: false }, min: {{ $min['y'] ?? 'undefined' }} }
                     },
                     plugins: {
                         // Enable Legend to differentiate datasets
