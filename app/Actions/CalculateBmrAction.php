@@ -3,17 +3,18 @@
 namespace App\Actions;
 
 use App\Models\User;
+use App\Models\UserDetail;
 
 class CalculateBmrAction
 {
     /**
      * Create a new class instance.
      */
-    public function __invoke(User $user): float
+    public function __invoke(User $user, UserDetail $detail): float
     {
         $age = $user->date_of_birth->age;
-        $weight = $user->detail->weight;
-        $height = $user->detail->height;
+        $weight = $detail->weight;
+        $height = $detail->height;
 
         if ($user->gender->isMale())
             return 88.362 + (13.397 * $weight) + (4.799 * $height) - (5.677 * $age);

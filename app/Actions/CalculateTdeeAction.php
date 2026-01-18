@@ -3,14 +3,15 @@
 namespace App\Actions;
 
 use App\Models\User;
+use App\Models\UserDetail;
 
 class CalculateTdeeAction
 {
     /**
      * Create a new class instance.
      */
-    public function __invoke(User $user, float $bmr): float
+    public function __invoke(UserDetail $detail, float $bmr): float
     {
-        return $user->detail->activity_level->getMultiplier() * $bmr;
+        return $detail->activity_level->getMultiplier() * $bmr;
     }
 }
