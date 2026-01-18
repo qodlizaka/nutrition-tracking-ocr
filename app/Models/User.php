@@ -4,8 +4,6 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Actions\CalculateBmrAction;
-use App\Actions\CalculateTdeeAction;
 use App\Enum\Gender;
 use App\Enum\UserRole;
 use Database\Factories\UserFactory;
