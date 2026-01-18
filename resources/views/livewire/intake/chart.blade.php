@@ -56,13 +56,22 @@
             >
                 @php
                     $item = $chartData['macroNutrients']->get($nutrition->id);
+
                     $labels = $item ? $item->keys()->toArray() : [];
-                    $data = $item ? $item->values()->toArray() : [];
+                    $rawValues = $item ? $item->values()->toArray() : [];
+
                     $limit = $akgNutritions->get($nutrition->id)?->pivot->value ?? null;
+
+                    $datasets = [
+                        [
+                            'label' => $nutrition->name,
+                            'data' => $rawValues,
+                        ]
+                    ];
                 @endphp
 
                 <x-extra.chart.date-range-data-chart
-                    :data="$data"
+                    :datasets="$datasets"
                     :labels="$labels"
                     :limit="$limit"
                     :title="$nutrition->name"
@@ -156,9 +165,9 @@
                             </flux:subheading>
 
                             <flux:subheading>
-                                {{ round($value, 2) }}
+                                {{ round($value, 2) }}{{ $nutrition->unit }}
                                 @if($limit !== null)
-                                    / {{ $limit }} {{ $nutrition->unit }}
+                                    / {{ $limit }}{{ $nutrition->unit }}
                                     ({{ $limit ? round(($value / $limit) * 100) : 100 }})%
                                 @endif
                             </flux:subheading>
