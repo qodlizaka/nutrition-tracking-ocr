@@ -22,7 +22,9 @@ class UserDetailFactory extends Factory
             'weight' => fake()->randomFloat(2, 20, 100),
             'height' => fake()->randomFloat(2, 100, 200),
             'activity_level' => fake()->randomElement(PhysicalActivityLevel::cases()),
-            'created_at' => now()->subDays(rand(7, 365)),
+            'created_at' => now()->subDays(rand(1, 365))
+                ->subHours(rand(0, 24))
+                ->subMinutes(rand(0, 60)),
         ];
     }
 }
