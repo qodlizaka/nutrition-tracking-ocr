@@ -18,35 +18,39 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('dashboard', DashboardController::class)
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'verified', 'has.details'])
     ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
-    Route::group(['prefix' => 'foods'], function () {
-        Route::view('/', 'foods.index')
-            ->name('foods.index');
+    Route::middleware(['has.details'])->group(function () {
 
-        Route::get('/{food}', FoodShow::class)
-            ->name('foods.show');
-    });
+        Route::group(['prefix' => 'foods'], function () {
+            Route::view('/', 'foods.index')
+                ->name('foods.index');
 
-    Route::group(['prefix' => 'intakes'], function () {
-        Route::get('/', IntakeIndex::class)
-            ->name('intakes.index');
+            Route::get('/{food}', FoodShow::class)
+                ->name('foods.show');
+        });
 
-        Route::get('/chart', IntakeChart::class)
-            ->name('intakes.chart');
-    });
+        Route::group(['prefix' => 'intakes'], function () {
+            Route::get('/', IntakeIndex::class)
+                ->name('intakes.index');
 
-    Route::group(['prefix' => 'food-label'], function () {
-        Route::get('/', FoodLabelCapture::class)
-            ->name('food.label.capture');
+            Route::get('/chart', IntakeChart::class)
+                ->name('intakes.chart');
+        });
 
-        Route::get('/validate/{food}', ValidateFoodLabel::class)
-            ->name('food.label.validate');
+        Route::group(['prefix' => 'food-label'], function () {
+            Route::get('/', FoodLabelCapture::class)
+                ->name('food.label.capture');
 
-        Route::view('/history', 'food-label.history')
-            ->name('food.label.history');
+            Route::get('/validate/{food}', ValidateFoodLabel::class)
+                ->name('food.label.validate');
+
+            Route::view('/history', 'food-label.history')
+                ->name('food.label.history');
+        });
+
     });
 
     Route::redirect('settings', 'settings/profile');
