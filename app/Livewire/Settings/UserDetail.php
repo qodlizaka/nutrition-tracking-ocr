@@ -45,7 +45,7 @@ class UserDetail extends Component
         }
 
         $user->userDetails()
-            ->updatecreate([
+            ->updateOrCreate([
                 'weight' => $this->weight,
                 'height' => $this->height,
                 'activity_level' => $this->activityLevel,
