@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Settings;
 
+use App\Enum\Gender;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
@@ -14,6 +16,10 @@ class Profile extends Component
 
     public string $email = '';
 
+    public string $date_of_birth = '';
+
+    public int $gender;
+
     /**
      * Mount the component.
      */
@@ -21,6 +27,8 @@ class Profile extends Component
     {
         $this->name = Auth::user()->name;
         $this->email = Auth::user()->email;
+        $this->date_of_birth = Auth::user()->date_of_birth->format('Y-m-d');
+        $this->gender = Auth::user()->gender->value;
     }
 
     /**
@@ -41,9 +49,17 @@ class Profile extends Component
                 'max:255',
                 Rule::unique(User::class)->ignore($user->id),
             ],
+
+            'date_of_birth' => ['required', 'date', 'date_format:Y-m-d'],
+            'gender' => ['required', 'integer', Rule::in(Gender::values())],
         ]);
 
-        $user->fill($validated);
+        $user->fill([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'date_of_birth' => Carbon::createFromFormat("Y-m-d", $validated['date_of_birth']),
+            'gender' => Gender::from($validated['gender']),
+        ]);
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;

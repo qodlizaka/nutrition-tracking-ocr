@@ -1,9 +1,30 @@
+@use("App\Enum\Gender")
+
 <section class="w-full">
     @include('partials.settings-heading')
 
     <x-settings.layout :heading="__('Profile')" :subheading="__('Update your name and email address')">
         <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6">
             <flux:input wire:model="name" :label="__('Name')" type="text" required autofocus autocomplete="name" />
+
+            <flux:input
+                wire:model="date_of_birth"
+                :label="__('Date of Birth')"
+                type="date"
+                required
+            />
+
+            {{-- Gender --}}
+            <flux:select
+                wire:model="gender"
+                :label="__('Gender')"
+                required
+                placeholder="{{ __('Choose gender') }}..."
+            >
+                @foreach (Gender::cases() as $gender)
+                    <flux:select.option value="{{ $gender->value }}" checked="{{ $this->gender === $gender->value }}">{{ __($gender->name) }}</flux:select.option>
+                @endforeach
+            </flux:select>
 
             <div>
                 <flux:input wire:model="email" :label="__('Email')" type="email" required autocomplete="email" />
