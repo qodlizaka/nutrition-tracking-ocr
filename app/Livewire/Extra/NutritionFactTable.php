@@ -33,9 +33,7 @@ class NutritionFactTable extends Component
 
         $this->nutritions = $food->nutritions;
 
-        // if ($this->editable) {
         $this->hydrateForm();
-        // }
 
         $this->userAkg = Auth::user()
             ->load(['detail.akg.nutritions'])
