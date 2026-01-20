@@ -18,7 +18,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('dashboard', DashboardController::class)
-    ->middleware(['auth', 'verified', 'has.details'])
+    ->middleware(['auth', 'has.details'])
     ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
@@ -29,7 +29,8 @@ Route::middleware(['auth'])->group(function () {
                 ->name('foods.index');
 
             Route::get('/{food}', FoodShow::class)
-                ->name('foods.show');
+                ->name('foods.show')
+                ->middleware(['verified']);
         });
 
         Route::group(['prefix' => 'intakes'], function () {
@@ -38,7 +39,7 @@ Route::middleware(['auth'])->group(function () {
 
             Route::get('/chart', IntakeChart::class)
                 ->name('intakes.chart');
-        });
+        })->middleware(['verified']);
 
         Route::group(['prefix' => 'food-label'], function () {
             Route::get('/', FoodLabelCapture::class)
@@ -49,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
 
             Route::view('/history', 'food-label.history')
                 ->name('food.label.history');
-        });
+        })->middleware(['verified']);
 
     });
 
