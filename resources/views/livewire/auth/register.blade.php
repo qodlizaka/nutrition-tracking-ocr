@@ -1,3 +1,5 @@
+@use("App\Enum\Gender")
+
 <div class="flex flex-col gap-6">
     <x-auth-header :title="__('Create an account')" :description="__('Enter your details below to create your account')" />
 
@@ -25,6 +27,26 @@
             autocomplete="email"
             placeholder="email@example.com"
         />
+
+        {{-- Date of Birth --}}
+        <flux:input
+            wire:model="date_of_birth"
+            :label="__('Date of Birth')"
+            type="date"
+            required
+        />
+
+        {{-- Gender --}}
+        <flux:select
+            wire:model="gender"
+            :label="__('Gender')"
+            required
+            placeholder="{{ __('Choose gender') }}..."
+        >
+            @foreach (Gender::cases() as $gender)
+                <flux:select.option value="{{ $gender->value }}" checked="{{ $this->gender === $gender->value }}">{{ __($gender->name) }}</flux:select.option>
+            @endforeach
+        </flux:select>
 
         <!-- Password -->
         <flux:input
