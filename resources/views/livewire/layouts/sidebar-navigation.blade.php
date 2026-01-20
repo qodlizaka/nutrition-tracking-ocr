@@ -4,7 +4,7 @@
     @endphp
     <flux:navlist.group :heading="__('Platform')" class="grid">
         @if(auth()->user()->isAdmin())
-            <flux:sidebar.item icon="home" :href="route('filament.admin.pages.dashboard')" :current="request()->routeIs('filament.admin.pages.dashboard')" :wire:navigate="$shouldNavigate">{{ __('Admin panel') }}</flux:sidebar.item>
+            <flux:sidebar.item icon="home" :href="route('filament.admin.pages.dashboard')" :current="request()->routeIs('filament.admin.pages.dashboard')">{{ __('Admin panel') }}</flux:sidebar.item>
         @endif
         <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" :wire:navigate="$shouldNavigate">{{ __('Dashboard') }}</flux:sidebar.item>
         <flux:sidebar.item icon="settings" :href="route('settings.profile')" :current="request()->routeIs('settings.profile')" :wire:navigate="$shouldNavigate">{{ __('Settings') }}</flux:sidebar.item>
