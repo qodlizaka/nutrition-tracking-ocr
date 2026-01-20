@@ -52,15 +52,19 @@
         @foreach (['Total fat', 'Sodium', 'Total carbohydrate', 'protein'] as $macro)
             @php
                 $lower = Str::lower($macro);
+                $id = $this->getIdFor($lower);
             @endphp
-            <x-nutrition-facts-table.nutrition-row
-                label="{{ __($macro) }}"
-                :item="$this->nutritionMap->get($lower)"
-                multiplier="{{ $multiplier }}"
-                editable="{{ $editable }}"
-                formKey="{{ $this->getIdFor($lower) }}"
-                pivotType="{{ array_key_first($this->form[$this->getIdFor($lower)]) }}"
-            />
+
+            @if($id && isset($this->form[$id]))
+                <x-nutrition-facts-table.nutrition-row
+                    label="{{ __($macro) }}"
+                    :item="$this->nutritionMap->get($lower)"
+                    multiplier="{{ $multiplier }}"
+                    editable="{{ $editable }}"
+                    formKey="{{ $id }}"
+                    pivotType="{{ array_key_first($this->form[$id]) }}"
+                />
+            @endif
         @endforeach
 
     </div>
