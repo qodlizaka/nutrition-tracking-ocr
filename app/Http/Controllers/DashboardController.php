@@ -6,6 +6,7 @@ use App\Actions\GetUserDetailHistoryAction;
 use App\Models\Intake;
 use App\Models\Nutrientable;
 use App\Models\Nutrition;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,39 +22,45 @@ class DashboardController extends Controller
             return redirect()->route('settings.personal-info');
         }
 
-        $startDate = now()->subDays(7);
-        $endDate = now();
+        $startDate = now()->subDays(7)->startOfDay();
+        $endDate = now()->endOfDay();
 
         $userDetailHistory = app(GetUserDetailHistoryAction::class)($user, $startDate, $endDate);
 
         $energyNutrition = Nutrition::where('name', 'energy')->first();
-
-        $weeklyCalorieIntake = collect();
+        $weeklyCalorieIntake = [];
 
         if ($energyNutrition) {
-            $weeklyCalorieIntake = Nutrientable::query()
-                ->select('nutrition_id')
+            $period = CarbonPeriod::create($startDate, '1 day', $endDate);
+
+            $intakeChanges = Nutrientable::query()
                 ->where('nutrition_id', $energyNutrition->id)
-                ->selectRaw('DATE(created_at) as created_date')
-                ->selectRaw('SUM(value) as total_amount')
-                ->whereHasMorph('nutrientable', [Intake::class], callback: fn ($q) =>
-                    $q->where('user_id', $user->id) // Use $user->id directly, slightly cleaner than Auth::id() inside closure
+                ->whereHasMorph('nutrientable', [Intake::class], fn ($q) =>
+                    $q->where('user_id', $user->id)
                       ->whereBetween('created_at', [$startDate, $endDate])
                 )
-                ->groupBy('nutrition_id', 'created_date')
-                ->get()
-                ->groupBy('nutrition_id')
-                ->map(fn ($group) =>
-                    $group->pluck('total_amount', 'created_date')
-                )
-                ->flatten();
+                ->selectRaw('DATE(created_at) as date')
+                ->selectRaw('SUM(value) as total')
+                ->groupBy('date')
+                ->pluck('total', 'date');
+
+            foreach ($period as $date) {
+                $dateString = $date->format('Y-m-d');
+
+                $dailyTotal = $intakeChanges->get($dateString, 0);
+
+                $weeklyCalorieIntake[] = [
+                    'date' => $dateString,
+                    'total' => (int) $dailyTotal,
+                ];
+            }
         }
 
         return view('dashboard', [
             'user' => $user,
             'intakeCountToday' => $user->intakes()->whereDate('created_at', now())->count(),
             'userDetailHistory' => collect($userDetailHistory),
-            'weeklyCalorieIntake' => $weeklyCalorieIntake,
+            'weeklyCalorieIntake' => collect($weeklyCalorieIntake),
         ]);
     }
 }
