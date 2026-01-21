@@ -64,7 +64,7 @@
 
                 <x-dashboard.metric
                     :label="__('Today') . ' ' . __('calorie intake')"
-                    :value="round($weeklyCalorieIntake->last(), 0)"
+                    :value="round($weeklyCalorieIntake->last()['total'], 0)"
                     :unit="__('kcal')"
                 />
 
@@ -102,7 +102,7 @@
                             ],
                             [
                                 'label' => __('Calorie'),
-                                'data' => $weeklyCalorieIntake->toArray(),
+                                'data' => $weeklyCalorieIntake->pluck('total')->toArray(),
                             ]
                         ];
                         $labels = $userDetailHistory->pluck('date');
