@@ -47,9 +47,8 @@
             <div class="mt-2 flex flex-col space-y-1">
                 @forelse ($foods as $food)
                     <a
-                        href="#"
+                        href="{{ route('foods.show', $food->id) }}"
                         class="group flex items-center justify-between rounded-lg px-2 py-2 text-left transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800"
-                        :wire:navigate="$shouldNavigate"
                     >
                         <div class="min-w-0 flex-1">
                             <p class="truncate text-sm font-medium text-zinc-800 dark:text-zinc-200">
