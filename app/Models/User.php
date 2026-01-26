@@ -70,6 +70,7 @@ class User extends Authenticatable implements FilamentUser
         'role',
         'date_of_birth',
         'gender',
+        'email_verified_at',
     ];
 
     /**
