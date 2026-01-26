@@ -9,6 +9,7 @@ use App\Filament\Resources\UserResource\Pages\EditUser;
 use App\Filament\Resources\UserResource\Pages\ListUsers;
 use App\Filament\Resources\UserResource\RelationManagers\UserDetailsRelationManager;
 use App\Models\User;
+use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -20,6 +21,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\RecordActionsPosition;
@@ -99,6 +101,10 @@ class UserResource extends Resource
                     ->sortable()
                     ->formatStateUsing(fn (float $state): string => Number::format($state, 2).' cm')
                     ->label(__('Height')),
+                IconColumn::make('email_verified_at')
+                    ->icon(fn($state) => $state !== null ? 'heroicon-o-check-circle' : 'heroicon-o-x-circle')
+                    ->color(fn($state) => $state !== null ? 'success' : 'danger')
+                    ->label(__('Verified')),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -117,6 +123,13 @@ class UserResource extends Resource
                 ActionGroup::make([
                     EditAction::make(),
                     DeleteAction::make(),
+                    Action::make('verify_user')
+                        ->label(__('Verify user'))
+                        ->action(function(User $record) {
+                            $record->update(['email_verified_at' => now()]);
+                        })
+                        ->icon('heroicon-o-check-circle')
+                        ->color('success'),
                 ]),
             ], RecordActionsPosition::BeforeCells)
             ->toolbarActions([
