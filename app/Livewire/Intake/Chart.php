@@ -43,7 +43,7 @@ class Chart extends Component
             ->akg;
 
         $this->startDate = now()->subDays(7);
-        $this->endDate = $this->date = now()->subDays(2);
+        $this->endDate = $this->date = now();
 
         $this->startDateString = $this->startDate->format('Y-m-d');
         $this->endDateString = $this->dateString = $this->endDate->format('Y-m-d');
