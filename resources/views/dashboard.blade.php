@@ -31,7 +31,7 @@
                 <x-dashboard.metric
                     :label="__('Intake count today')"
                     :value="$intakeCountToday"
-                    :unit="__('kcal')"
+                    unit=""
                 />
 
                 <x-dashboard.metric
