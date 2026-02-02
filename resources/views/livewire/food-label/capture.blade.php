@@ -237,7 +237,18 @@
                                 file,
                                 (uploadedFilename) => {
                                     this.uploadProgress = 100;
-                                    setTimeout(() => wire.extractNutritionLabel(), 300);
+
+                                    setTimeout(() => {
+                                        wire.extractNutritionLabel()
+                                            .then(() => {
+                                                this.isUploading = false;
+                                            })
+                                            .catch((error) => {
+                                                console.error(error);
+                                                this.isUploading = false;
+                                                alert('An error occurred during processing.');
+                                            });
+                                    }, 300);
                                 },
                                 () => {
                                     this.isUploading = false;
