@@ -212,7 +212,7 @@
                         0, 0, cropW, cropH
                     );
 
-                    this.photo = canvas.toDataURL('image/jpeg', 0.9);
+                    this.photo = canvas.toDataURL('image/jpeg', 1);
                 },
 
                 retake() {

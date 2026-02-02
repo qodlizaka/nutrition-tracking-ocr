@@ -20,7 +20,7 @@ class CompressImageForGeminiAction
 
         $image->scaleDown(width: 1024, height: 1024);
 
-        $encoded = $image->toJpeg(quality: 80);
+        $encoded = $image->toJpeg(quality: 85);
 
         return base64_encode((string) $encoded);
     }
