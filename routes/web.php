@@ -11,7 +11,9 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Settings\UserDetail;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,6 +22,18 @@ Route::get('/', function () {
 Route::get('dashboard', DashboardController::class)
     ->middleware(['auth', 'has.details'])
     ->name('dashboard');
+
+Route::get('guidelines', function () {
+    $path = public_path('guidelines_md/' . config('app.locale') . '.md');
+
+    if (!File::exists($path)) abort(404);
+
+    $markdown = File::get($path);
+    $htmlContent = Str::markdown($markdown);
+
+    return view('guidelines', ['content' => $htmlContent]);
+})
+->name('guidelines');
 
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['has.details'])->group(function () {
