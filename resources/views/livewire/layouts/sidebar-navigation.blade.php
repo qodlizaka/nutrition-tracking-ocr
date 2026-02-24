@@ -22,17 +22,7 @@
     </flux:navlist.group>
 
     <flux:navlist.group :heading="__('Tutorial')" class="grid">
-        @if(auth()->user()->isAdmin())
-            <flux:sidebar.group expandable heading="{{ __('Admin') }}" class="grid">
-                <flux:sidebar.item icon="device-phone-mobile" href="" :current="false" wire:navigate="$shouldNavigate">{{ __('Mobile') }}</flux:sidebar.item>
-                <flux:sidebar.item icon="computer-desktop" href="" :current="false" wire:navigate="$shouldNavigate">{{ __('Desktop') }}</flux:sidebar.item>
-            </flux:sidebar.group>
-        @endif
-
-        <flux:sidebar.group expandable heading="{{ __('User') }}" class="grid">
-            <flux:sidebar.item icon="device-phone-mobile" href="" :current="false" wire:navigate="$shouldNavigate">{{ __('Mobile') }}</flux:sidebar.item>
-            <flux:sidebar.item icon="computer-desktop" href="" :current="false" wire:navigate="$shouldNavigate">{{ __('Desktop') }}</flux:sidebar.item>
-        </flux:sidebar.group>
+        <flux:sidebar.item icon="youtube" href="" :current="false">{{ __('User') }}</flux:sidebar.item>
     </flux:navlist.group>
 
     <div class="mt-4 px-2">
