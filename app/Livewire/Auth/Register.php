@@ -13,7 +13,7 @@ use Illuminate\Validation\Rules\Password;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('components.layouts.auth')]
+#[Layout('components.layouts.auth', ['title' => 'Register'])]
 class Register extends Component
 {
     public string $name = '';
