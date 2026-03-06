@@ -5,9 +5,11 @@ namespace App\Livewire\Settings;
 use App\Actions\FindUserAkg;
 use App\Enum\PhysicalActivityLevel;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
+#[Layout('components.layouts.app', ['title' => 'Personal Info'])]
 class UserDetail extends Component
 {
     #[Validate('required|numeric|min:1|max:500')]
