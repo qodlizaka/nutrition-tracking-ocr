@@ -47,7 +47,7 @@
                 />
 
                 <x-dashboard.metric
-                    :label="__('Today') . ' BMR'"
+                    :label="__('Today BMR')"
                     :value="round($lastItem->bmr, 0)"
                     :unit="__('kcal')"
                     :tooltip="__('Basal Metabolic Rate')"
@@ -55,7 +55,7 @@
                 />
 
                 <x-dashboard.metric
-                    :label="__('Today') . ' TDEE'"
+                    :label="__('Today TDEE')"
                     :value="round($lastItem->tdee, 0)"
                     :unit="__('kcal')"
                     :tooltip="__('Total Daily Energy Expenditure')"
@@ -63,7 +63,7 @@
                 />
 
                 <x-dashboard.metric
-                    :label="__('Today') . ' ' . __('calorie intake')"
+                    :label="__('Today Calorie Intake')"
                     :value="round($weeklyCalorieIntake->last()['total'], 0)"
                     :unit="__('kcal')"
                 />
