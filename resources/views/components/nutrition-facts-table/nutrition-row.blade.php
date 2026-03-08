@@ -14,14 +14,16 @@
     $unit = $item->unit ?? 'g';
 @endphp
 
-<div class="flex justify-between items-center border-b border-zinc-200 dark:border-zinc-700 py-1.5 last:border-0">
+<div class="flex justify-between items-center border-b border-zinc-200 dark:border-zinc-700 py-1.5 last:border-0" data-testid="nutrition-row-container-{{ $formKey }}">
     <div class="{{ $indent ? 'pl-4' : '' }}">
-        <span class="{{ $isBold ? 'font-black' : '' }}">
+        <span class="{{ $isBold ? 'font-black' : '' }}" data-testid="nutrition-row-label-{{ $formKey }}">
             {{ $label }}
         </span>
 
         @if(!$editable)
-            {{ round($displayValue, 4) }}{{ $unit }}
+            <span data-testid="nutrition-row-static-value-{{ $formKey }}">
+                {{ round($displayValue, 4) }}{{ $unit }}
+            </span>
         @endif
     </div>
 
@@ -35,6 +37,7 @@
                         size="sm"
                         step="any"
                         class="!w-24 !h-8 !text-right !text-xs"
+                        data-testid="nutrition-row-percentage-input-{{ $formKey }}"
                     />
                 @else
                     <flux:input
@@ -43,6 +46,7 @@
                         size="sm"
                         step="any"
                         class="!w-24 !h-8 !text-right !text-xs"
+                        data-testid="nutrition-row-value-input-{{ $formKey }}"
                     />
                 @endif
                 <span class="text-xs font-normal text-zinc-500">{{ $pivotType === 'percentage' ? '%' : $unit }}</span>

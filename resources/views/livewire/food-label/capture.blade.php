@@ -1,7 +1,7 @@
 @use('App\Enum\AspectRatio')
 
-<div class="w-full">
-    <flux:breadcrumbs>
+<div class="w-full" data-testid="capture-main-container">
+    <flux:breadcrumbs data-testid="capture-breadcrumbs">
         <flux:breadcrumbs.item href="{{ route('dashboard') }}" icon="home" />
         <flux:breadcrumbs.item>{{ __('Food label') }}</flux:breadcrumbs.item>
         <flux:breadcrumbs.item href="{{ route('food.label.capture') }}">{{ __('Capture') }}</flux:breadcrumbs.item>
@@ -9,7 +9,7 @@
 
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mt-4">
         <div>
-            <flux:heading size="xl">{{ __('Capture food label') }}</flux:heading>
+            <flux:heading size="xl" data-testid="capture-heading">{{ __('Capture food label') }}</flux:heading>
             <flux:subheading>{{ __('Take a picture or upload a file to extract nutritional information.') }}</flux:subheading>
         </div>
     </div>
@@ -18,16 +18,19 @@
 
     <div
         class="flex flex-col items-center justify-center space-y-6"
-        x-data="cameraData($wire)"
+        x-data="cameraData()"
         x-init="startCamera()"
+        data-testid="capture-camera-workspace"
     >
-        <flux:radio.group wire:model.live="aspectRatio" variant="segmented" size="sm" class="mb-2">
+        <flux:radio.group wire:model="aspectRatio" variant="segmented" size="sm" class="mb-2" data-testid="capture-ratio-group">
             @foreach(AspectRatio::cases() as $ratio)
                 <flux:radio
+                    wire:key="ratio-{{ $ratio->value }}"
                     value="{{ $ratio->value }}"
                     icon="{{ $ratio->icon() }}"
                     label="{{ $ratio->label() }}"
                     class="min-w-24"
+                    data-testid="capture-ratio-radio-{{ $ratio->value }}"
                     x-on:click="currentRatio = '{{ $ratio->value }}'; setTimeout(() => { if(photo) processFile(lastFileSrc) }, 50)"
                 />
             @endforeach
@@ -36,6 +39,7 @@
         <div
             class="relative w-full max-w-xl bg-black rounded-xl overflow-hidden shadow-lg border border-zinc-200 dark:border-zinc-700 transition-all duration-300 ease-in-out group"
             :class="classes[currentRatio]"
+            data-testid="capture-viewport-container"
         >
             <video
                 x-ref="video"
@@ -43,9 +47,10 @@
                 autoplay
                 playsinline
                 class="w-full h-full object-cover"
+                data-testid="capture-video-stream"
             ></video>
 
-            <div x-show="!photo && hasCamera" class="absolute inset-0 pointer-events-none p-4 sm:p-6 z-10 flex flex-col justify-between">
+            <div x-show="!photo && hasCamera" class="absolute inset-0 pointer-events-none p-4 sm:p-6 z-10 flex flex-col justify-between" data-testid="capture-camera-overlay">
                 <div class="flex justify-between w-full">
                     <div class="w-8 h-8 sm:w-12 sm:h-12 border-t-4 border-l-4 border-white/80 rounded-tl-lg drop-shadow-md"></div>
                     <div class="w-8 h-8 sm:w-12 sm:h-12 border-t-4 border-r-4 border-white/80 rounded-tr-lg drop-shadow-md"></div>
@@ -64,19 +69,20 @@
                 x-show="photo"
                 :src="photo"
                 class="w-full h-full object-cover"
+                data-testid="capture-photo-preview"
             />
 
-            <canvas x-ref="canvas" class="hidden"></canvas>
+            <canvas x-ref="canvas" class="hidden" data-testid="capture-processing-canvas"></canvas>
 
-            <div x-show="!hasCamera && !photo" class="absolute inset-0 flex items-center justify-center text-zinc-400 bg-zinc-900">
+            <div x-show="!hasCamera && !photo" class="absolute inset-0 flex items-center justify-center text-zinc-400 bg-zinc-900" data-testid="capture-waiting-state">
                 <span>{{ __('Waiting for camera or file...') }}</span>
             </div>
         </div>
 
-        <div x-show="isUploading" x-transition.opacity class="w-full max-w-xl">
+        <div x-show="isUploading" x-transition.opacity class="w-full max-w-xl" data-testid="capture-upload-progress-container">
             <div class="flex items-center justify-between mb-2">
                 <span class="text-sm font-medium text-zinc-900 dark:text-white">{{ __('Uploading image...') }}</span>
-                <span class="text-xs text-zinc-500 dark:text-zinc-400 tabular-nums" x-text="Math.round(uploadProgress) + '%'"></span>
+                <span class="text-xs text-zinc-500 dark:text-zinc-400 tabular-nums" x-text="Math.round(uploadProgress) + '%'" data-testid="capture-upload-percentage"></span>
             </div>
             <div class="h-2 w-full bg-zinc-200 dark:bg-zinc-700 rounded-full overflow-hidden">
                 <div
@@ -96,38 +102,39 @@
                         accept="image/*"
                         x-on:change="handleFileSelect($event)"
                         placeholder="Upload from gallery"
+                        data-testid="capture-file-input"
                     />
                 </div>
 
                 <div x-show="hasCamera" class="w-full sm:w-auto">
-                    <flux:button variant="primary" class="w-full" x-on:click="capture" icon="camera">
+                    <flux:button variant="primary" class="w-full" x-on:click="capture" icon="camera" data-testid="capture-take-photo-button">
                         {{ __('Take Photo') }}
                     </flux:button>
                 </div>
             </div>
 
             <div x-show="photo" class="flex gap-4 w-full justify-center">
-                <flux:button variant="subtle" x-on:click="retake" x-bind:disabled="isUploading">
+                <flux:button variant="subtle" x-on:click="retake" x-bind:disabled="isUploading" data-testid="capture-retake-button">
                     {{ __('Retake') }}
                 </flux:button>
 
-                <flux:button variant="primary" x-on:click="save" icon="check" x-bind:disabled="isUploading">
+                <flux:button variant="primary" x-on:click="save" icon="check" x-bind:disabled="isUploading" data-testid="capture-save-button">
                     <span x-text="isUploading ? 'Processing...' : '{{ __('Use this Photo') }}'"></span>
                 </flux:button>
             </div>
 
-            <flux:error name="photoUpload" />
+            <flux:error name="photoUpload" data-testid="capture-error-message" />
         </div>
     </div>
 
     <script>
         document.addEventListener('alpine:init', () => {
-            Alpine.data('cameraData', (wire) => ({
+            Alpine.data('cameraData', () => ({
                 stream: null,
                 photo: null,
                 lastFileSrc: null,
                 hasCamera: false,
-                currentRatio: @entangle('aspectRatio').live,
+                currentRatio: @entangle('aspectRatio'),
 
                 uploadProgress: 0,
                 isUploading: false,
@@ -232,14 +239,14 @@
                         .then(blob => {
                             const file = new File([blob], "capture.jpg", { type: "image/jpeg" });
 
-                            @this.upload(
+                            this.$wire.upload(
                                 'photoUpload',
                                 file,
                                 (uploadedFilename) => {
                                     this.uploadProgress = 100;
 
                                     setTimeout(() => {
-                                        wire.extractNutritionLabel()
+                                        this.$wire.extractNutritionLabel()
                                             .then(() => {
                                                 this.isUploading = false;
                                             })
