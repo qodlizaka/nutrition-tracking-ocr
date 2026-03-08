@@ -27758,6 +27758,13 @@ namespace App\Filament\Resources\UserResource\RelationManagers {
             }
     }
 
+namespace App\Filament\Pages {
+    /**
+     */
+    class Dashboard extends \Filament\Pages\Dashboard {
+            }
+    }
+
 namespace Filament\Widgets {
     /**
      */
@@ -28013,10 +28020,6 @@ namespace Illuminate\Testing {
 namespace App\Livewire\Food {
     /**
      */
-    class Index extends \Livewire\Component {
-            }
-    /**
-     */
     class Show extends \Livewire\Component {
             }
     }
@@ -28026,12 +28029,20 @@ namespace App\Livewire\Intake {
      */
     class Index extends \Livewire\Component {
             }
+    /**
+     */
+    class Chart extends \Livewire\Component {
+            }
     }
 
 namespace App\Livewire\FoodLabel {
     /**
      */
     class Capture extends \Livewire\Component {
+            }
+    /**
+     */
+    class Validate extends \Livewire\Component {
             }
     }
 
