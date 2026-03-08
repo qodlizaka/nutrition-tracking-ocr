@@ -1,20 +1,20 @@
-<div class="w-full">
+<div class="w-full" data-testid="intake-index-main-container">
 
-    <flux:breadcrumbs>
+    <flux:breadcrumbs data-testid="intake-index-breadcrumbs">
         <flux:breadcrumbs.item href="{{ route('dashboard') }}" icon="home" />
         <flux:breadcrumbs.item href="{{ route('intakes.index') }}">{{ __('Intake') }}</flux:breadcrumbs.item>
     </flux:breadcrumbs>
 
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mt-4">
         <div>
-            <flux:heading size="xl">{{ __('Your Intake') }}</flux:heading>
+            <flux:heading size="xl" data-testid="intake-index-heading">{{ __('Your Intake') }}</flux:heading>
             <flux:subheading>{{ __('Track your daily food consumption and nutritional intake.') }}</flux:subheading>
         </div>
     </div>
 
     <flux:separator class="my-6" />
 
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6" data-testid="intake-index-controls">
 
         <div class="flex items-center gap-2 w-full sm:max-w-md">
             <flux:button
@@ -23,6 +23,7 @@
                 variant="subtle"
                 square
                 aria-label="Previous Day"
+                data-testid="intake-index-previous-day-button"
             />
 
             <div class="flex-1">
@@ -31,6 +32,7 @@
                     wire:model.live="date"
                     max="{{ now()->format('Y-m-d') }}"
                     class="w-full"
+                    data-testid="intake-index-date-input"
                 />
             </div>
 
@@ -41,16 +43,17 @@
                 square
                 :disabled="\Carbon\Carbon::parse($date)->isToday()"
                 aria-label="Next Day"
+                data-testid="intake-index-next-day-button"
             />
         </div>
 
-        <flux:dropdown>
-            <flux:button icon-trailing="chevron-down">
+        <flux:dropdown data-testid="intake-index-nutrition-dropdown">
+            <flux:button icon-trailing="chevron-down" data-testid="intake-index-nutrition-dropdown-trigger">
                 {{ __('Nutrition') }}
-                <span class="ml-1 text-zinc-400 text-xs">({{ count($activeNutritions) }})</span>
+                <span class="ml-1 text-zinc-400 text-xs" data-testid="intake-index-nutrition-active-count">({{ count($activeNutritions) }})</span>
             </flux:button>
 
-            <flux:menu keep-open>
+            <flux:menu keep-open data-testid="intake-index-nutrition-menu">
                 @foreach ($nutritions as $nutri)
                     @php
                         $isSelected = in_array($nutri->id, $activeNutritions);
@@ -59,9 +62,11 @@
                     @endphp
 
                     <flux:menu.checkbox
+                        wire:key="filter-nutri-{{ $nutri->id }}"
                         wire:click="toggleNutrition({{ $nutri->id }})"
                         :checked="$isSelected"
                         :disabled="$shouldDisable"
+                        data-testid="intake-index-nutrition-checkbox-{{ $nutri->id }}"
                     >
                         {{ ucfirst($nutri->name) }}
 
@@ -74,19 +79,20 @@
         </flux:dropdown>
     </div>
 
-    <x-table.index>
+    <x-table.index data-testid="intake-index-table">
         <x-slot name="header">
-            <x-table.heading>No.</x-table.heading>
+            <x-table.heading data-testid="intake-index-th-no">No.</x-table.heading>
 
             <x-table.heading
                 sortable
                 wire:click="sort('created_at')"
                 :direction="$sortBy === 'created_at' ? $sortDirection : null"
+                data-testid="intake-index-th-time"
             >
                 {{ __('Time') }}
             </x-table.heading>
 
-            <x-table.heading>{{ __('Notes') }}</x-table.heading>
+            <x-table.heading data-testid="intake-index-th-notes">{{ __('Notes') }}</x-table.heading>
 
             @foreach ($this->nutritions as $nutri)
                 @if(in_array($nutri->id, $activeNutritions))
@@ -95,9 +101,11 @@
                     @endphp
 
                     <x-table.heading
+                        wire:key="th-nutri-{{ $nutri->id }}"
                         sortable
                         wire:click="sort('{{ $sortKey }}')"
                         :direction="$sortBy === '{{ $sortKey }}' ? $sortDirection : null"
+                        data-testid="intake-index-th-nutri-{{ $nutri->id }}"
                     >
                         {{ __($nutri->name) }}
                     </x-table.heading>
@@ -106,22 +114,22 @@
         </x-slot>
 
         @forelse ($intakes as $intake)
-            <x-table.row wire:key="{{ $intake->id }}">
-                <x-table.cell>
+            <x-table.row wire:key="intake-row-{{ $intake->id }}" data-testid="intake-index-row-{{ $intake->id }}">
+                <x-table.cell data-testid="intake-index-cell-no-{{ $intake->id }}">
                     {{ $loop->iteration + ($intakes->currentPage() - 1) * $intakes->perPage() }}
                 </x-table.cell>
 
-                <x-table.cell>
+                <x-table.cell data-testid="intake-index-cell-time-{{ $intake->id }}">
                     {{ $intake->created_at->format('H:i') }}
                 </x-table.cell>
 
-                <x-table.cell>
+                <x-table.cell data-testid="intake-index-cell-notes-{{ $intake->id }}">
                     {{ $intake->notes ?? '-' }}
                 </x-table.cell>
 
                 @foreach ($this->nutritions as $nutri)
                     @if(in_array($nutri->id, $activeNutritions))
-                        <x-table.cell>
+                        <x-table.cell wire:key="cell-{{ $intake->id }}-nutri-{{ $nutri->id }}" data-testid="intake-index-cell-nutri-{{ $intake->id }}-{{ $nutri->id }}">
                             {{ $intake->nutritions->find($nutri->id)?->pivot->value ?? '-' }}
                         </x-table.cell>
                     @endif
@@ -129,8 +137,8 @@
 
             </x-table.row>
         @empty
-            <x-table.row>
-                <x-table.cell colspan="{{ 2 + count($activeNutritions) }}" class="text-center py-12">
+            <x-table.row data-testid="intake-index-empty-row">
+                <x-table.cell colspan="{{ 3 + count($activeNutritions) }}" class="text-center py-12" data-testid="intake-index-empty-cell">
                     <div class="flex flex-col items-center justify-center text-zinc-500">
                         <flux:icon.no-symbol class="size-12" />
 
@@ -142,7 +150,7 @@
         @endforelse
     </x-table.index>
 
-    <div class="mt-4">
+    <div class="mt-4" data-testid="intake-index-pagination">
         {{ $intakes->withQueryString()->links('pagination::tailwind') }}
     </div>
 

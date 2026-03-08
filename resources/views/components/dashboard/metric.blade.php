@@ -28,30 +28,30 @@
 
 <div {{ $attributes->merge(['class' => 'rounded-xl border border-zinc-200 bg-white p-4 transition-all hover:shadow-sm dark:border-zinc-700 dark:bg-zinc-900 flex flex-col items-center justify-center aspect-square gap-3 text-center']) }}>
 
-    <flux:subheading class="flex items-center gap-0.5">
+    <flux:subheading class="flex items-center gap-0.5" data-testid="{{ $attributes->get('data-testid') }}-label">
         {{ $label }}
 
         @if($tooltip)
             <flux:tooltip>
-                <flux:button icon="information-circle" size="xs" variant="ghost" />
+                <flux:button icon="information-circle" size="xs" variant="ghost" data-testid="{{ $attributes->get('data-testid') }}-tooltip-trigger" />
                 <flux:tooltip.content class="max-w-[20rem] space-y-2">
-                    <p>{{ $tooltip }}</p>
+                    <p data-testid="{{ $attributes->get('data-testid') }}-tooltip-content">{{ $tooltip }}</p>
                 </flux:tooltip.content>
             </flux:tooltip>
         @endif
     </flux:subheading>
 
     <div class="flex flex-col">
-        <flux:heading level="2" class="text-4xl! mb-0!">{{ $value }}</flux:heading>
+        <flux:heading level="2" class="text-4xl! mb-0!" data-testid="{{ $attributes->get('data-testid') }}-value">{{ $value }}</flux:heading>
 
         @if($unit)
-            <flux:subheading>{{ $unit }}</flux:subheading>
+            <flux:subheading data-testid="{{ $attributes->get('data-testid') }}-unit">{{ $unit }}</flux:subheading>
         @endif
 
         @if($trend !== null)
-            <div class="flex items-center gap-1 {{ $trendColor }}">
+            <div class="flex items-center gap-1 {{ $trendColor }}" data-testid="{{ $attributes->get('data-testid') }}-trend">
                 <flux:icon name="{{ $trendIcon }}" size="sm" />
-                <flux:subheading class="!text-sm">
+                <flux:subheading class="!text-sm" data-testid="{{ $attributes->get('data-testid') }}-trend-value">
                     {{ $trendValue }} {{ $unit }}
                 </flux:subheading>
             </div>
