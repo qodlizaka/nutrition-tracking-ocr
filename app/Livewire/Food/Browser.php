@@ -35,7 +35,7 @@ class Browser extends Component
         if (\in_array($name, $this->activeNutritions)) {
             $this->activeNutritions = array_values(array_diff($this->activeNutritions, [$name]));
         } else {
-            if (\count($this->activeNutritions) < 4) {
+            if (\count($this->activeNutritions) < 5) {
                 $this->activeNutritions[] = $name;
             }
         }
