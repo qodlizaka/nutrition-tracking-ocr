@@ -118,6 +118,7 @@ class Show extends Component
     {
         $this->measure->setValue($this->amount ?? 0);
 
-        return view('livewire.food.show');
+        return view('livewire.food.show')
+            ->title($this->food->name);
     }
 }

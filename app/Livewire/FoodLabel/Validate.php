@@ -33,6 +33,7 @@ class Validate extends Component
 
     public function render()
     {
-        return view('livewire.food-label.validate');
+        return view('livewire.food-label.validate')
+            ->title(__('Validate Food Label') . ' - ' . $this->food->name);
     }
 }
