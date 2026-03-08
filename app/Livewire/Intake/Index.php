@@ -33,7 +33,7 @@ class Index extends Component
 
         $this->date = today()->format('Y-m-d');
 
-        $this->activeNutritions = $this->nutritions->take(10)->pluck('id')->toArray();
+        $this->activeNutritions = $this->nutritions->take(5)->pluck('id')->toArray();
     }
 
     public function updatedDate()
