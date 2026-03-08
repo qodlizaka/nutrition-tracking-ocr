@@ -111,6 +111,7 @@
     "Create an account": "Buat akun",
     "Enter your details below to create your account": "Masukkan detail Anda di bawah ini untuk membuat akun",
     "Name": "Nama",
+    "name": "nama",
     "Full name": "Nama lengkap",
     "Create account": "Buat akun",
     "Already have an account?": "Sudah punya akun?",
@@ -289,5 +290,9 @@
     "Intake count today": "Jumlah asupan hari ini",
     "Today BMR": "BMR hari ini",
     "Today TDEE": "TDEE hari ini",
-    "Today Calorie Intake": "Asupan Kalori hari ini"
+    "Today Calorie Intake": "Asupan Kalori hari ini",
+    "Amount Per Serving": "Jumlah Per Porsi",
+    "Calories": "Kalori",
+    "Base": "Dasar",
+    "per serving": "per porsi"
 }
