@@ -25,6 +25,8 @@ class Show extends Component
 
     public string $notes = '';
 
+    public string $consumedAt;
+
     public function mount(Food $food): void
     {
         $this->food = $food->load(['nutritions']);
@@ -62,6 +64,8 @@ class Show extends Component
 
         $this->measure = $this->measurements->first();
         $this->amount = $this->measure->value;
+
+        $this->consumedAt = now()->format('Y-m-d\TH:i');
     }
 
     public function setMeasure(string $name): void
@@ -107,6 +111,7 @@ class Show extends Component
         $intake = Intake::create([
             'user_id' => Auth::id(),
             'notes' => empty($this->notes) ? '-' : $this->notes,
+            'consumed_at' => $this->consumedAt,
         ]);
 
         $intake->nutritions()->attach($nutritions);
