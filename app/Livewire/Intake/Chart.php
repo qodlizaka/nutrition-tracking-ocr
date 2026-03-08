@@ -48,20 +48,13 @@ class Chart extends Component
         $this->startDateString = $this->startDate->format('Y-m-d');
         $this->endDateString = $this->dateString = $this->endDate->format('Y-m-d');
 
-        $this->activeNutritions = [
-            NutritionGroup::Vitamin->name => $nutritions
-                ->where('group', NutritionGroup::Vitamin)
-                ->shuffle()
+        foreach ($this->microNutrients->groupBy('group') as $group) {
+            $groupName = $group->first()->group->name;
+            $this->activeNutritions[$groupName] = $group
                 ->take(self::MAX_DISPLAY)
                 ->pluck('name')
-                ->toArray(),
-            NutritionGroup::Mineral->name => $nutritions
-                ->where('group', NutritionGroup::Mineral)
-                ->shuffle()
-                ->take(self::MAX_DISPLAY)
-                ->pluck('name')
-                ->toArray(),
-        ];
+                ->toArray();
+        }
     }
 
     public function updatedStartDateString($value)
@@ -129,7 +122,6 @@ class Chart extends Component
                     ->groupBy('nutrition_id')
                     ->pluck('total_amount', 'nutrition_id'),
             ]
-
         ]);
     }
 }
