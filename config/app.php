@@ -123,4 +123,5 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'youtube_tutorial_url' => env('YOUTUBE_TUTORIAL_URL', 'https://youtu.be/3Np164RPCzg')
 ];
