@@ -295,5 +295,7 @@
     "Amount Per Serving": "Jumlah Per Porsi",
     "Calories": "Kalori",
     "Base": "Dasar",
-    "per serving": "per porsi"
+    "per serving": "per porsi",
+    "Date of Birth": "Tanggal Lahir",
+    "Gender": "Jenis Kelamin"
 }
