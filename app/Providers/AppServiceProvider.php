@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Actions\ExtractNutritionFactsAction;
 use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
@@ -13,7 +14,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        if ($this->app->environment('local')) {
+            $this->app->bind(ExtractNutritionFactsAction::class, fn() => new class {
+                public function __invoke($imageBase64, $mimeType = 'image/jpeg')
+                {
+                    return config('gemini.schemas.sample');
+                }
+            });
+        }
     }
 
     /**
