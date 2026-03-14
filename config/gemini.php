@@ -202,6 +202,8 @@ return [
             ],
         ],
         'sample' => [
+            "is_nutrition_label" => true,
+            "is_readable" => true,
             "serving_size" => 200,
             "serving_unit" => "ml",
             "serving_per_package" => 5,
