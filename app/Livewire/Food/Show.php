@@ -66,6 +66,7 @@ class Show extends Component
         $this->amount = $this->measure->value;
 
         $this->consumedAt = now()->format('Y-m-d\TH:i');
+        $this->notes = __('Consumed') . ' ' . $this->food->name;
     }
 
     public function setMeasure(string $name): void
