@@ -17,7 +17,7 @@
 
         <flux:separator class="my-6" />
 
-        @if(auth()->user()->hasVerifiedEmail())
+        @if(auth()->user())
             @php
                 $lastItem = $userDetailHistory->last();
                 $prevItem = $userDetailHistory->count() > 1 ? $userDetailHistory->get($userDetailHistory->count() - 2) : null;
