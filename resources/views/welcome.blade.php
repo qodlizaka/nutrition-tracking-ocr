@@ -36,7 +36,7 @@
                     </span>
                     <flux:text>
                         {{ __('Watch the') }}
-                        <flux:link href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" variant="primary" class="font-medium !text-[#f53003] dark:!text-[#FF4433]">
+                        <flux:link href="{{ config('app.youtube_tutorial_url') }}" target="_blank" variant="primary" class="font-medium !text-[#f53003] dark:!text-[#FF4433]">
                             {{ __('Tutorial') }}
                         </flux:link>
                         <flux:icon.arrow-up-right variant="micro" class="inline" />
