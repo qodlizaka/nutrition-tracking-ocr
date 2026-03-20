@@ -24,7 +24,7 @@
                 label="{{ __('Activity level') }}"
                 wire:model.live="activityLevel">
 
-                <flux:select.option value="null">
+                <flux:select.option value="">
                     {{ __('Choose activity level') }}...
                 </flux:select.option>
                 @foreach (PhysicalActivityLevel::cases() as $activity)
