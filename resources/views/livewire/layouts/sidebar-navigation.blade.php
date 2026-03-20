@@ -22,7 +22,7 @@
     </flux:navlist.group>
 
     <flux:navlist.group :heading="__('Tutorial')" class="grid" data-testid="sidebar-group-tutorial">
-        <flux:sidebar.item icon="youtube" href="" :current="false" data-testid="sidebar-item-tutorial">{{ __('User') }}</flux:sidebar.item>
+        <flux:sidebar.item icon="youtube" href="{{ config('app.youtube_tutorial_url') }}" :current="false" data-testid="sidebar-item-tutorial">{{ __('User') }}</flux:sidebar.item>
     </flux:navlist.group>
 
     <div class="mt-4 px-2" data-testid="sidebar-quick-search-container">
