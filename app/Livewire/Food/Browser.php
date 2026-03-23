@@ -61,7 +61,7 @@ class Browser extends Component
         );
 
         return view('livewire.food.browser', [
-            'foods' => $query->latest()->paginate(16),
+            'foods' => $query->paginate(16),
         ]);
     }
 }
