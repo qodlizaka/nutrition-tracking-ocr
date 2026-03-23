@@ -54,15 +54,19 @@
             </flux:button>
 
             <flux:menu keep-open data-testid="intake-index-nutrition-menu">
+                @php
+                    $currentCount = count($activeNutritions);
+                    $isLimitReached = $currentCount >= 5;
+                @endphp
+
                 @foreach ($nutritions as $nutri)
                     @php
                         $isSelected = in_array($nutri->id, $activeNutritions);
-                        $isLimitReached = count($activeNutritions) >= 5;
                         $shouldDisable = $isLimitReached && !$isSelected;
                     @endphp
 
                     <flux:menu.checkbox
-                        wire:key="filter-nutri-{{ $nutri->id }}"
+                        wire:key="nutri-checkbox-{{ $nutri->id }}-{{ $isSelected ? 'on' : 'off' }}"
                         wire:click="toggleNutrition({{ $nutri->id }})"
                         :checked="$isSelected"
                         :disabled="$shouldDisable"
