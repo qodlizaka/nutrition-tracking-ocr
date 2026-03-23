@@ -33,7 +33,7 @@ class Index extends Component
 
         $this->date = today()->format('Y-m-d');
 
-        $this->activeNutritions = $this->nutritions->take(5)->pluck('id')->toArray();
+        $this->activeNutritions = $this->nutritions->take(4)->pluck('id')->toArray();
     }
 
     public function updatedDate()
@@ -61,7 +61,7 @@ class Index extends Component
     {
         if (\in_array($id, $this->activeNutritions)) {
             if (\count($this->activeNutritions) > 1) {
-                $this->activeNutritions = \array_diff($this->activeNutritions, [$id]);
+                $this->activeNutritions = \array_values(\array_diff($this->activeNutritions, [$id]));
             }
         } else {
             if (\count($this->activeNutritions) < 5) {
