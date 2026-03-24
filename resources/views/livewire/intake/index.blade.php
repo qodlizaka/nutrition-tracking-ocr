@@ -66,10 +66,11 @@
                     @endphp
 
                     <flux:menu.checkbox
-                        wire:key="nutri-checkbox-{{ $nutri->id }}-{{ $isSelected ? 'on' : 'off' }}"
+                        wire:key="nutri-checkbox-{{ $nutri->id }}"
                         wire:click="toggleNutrition({{ $nutri->id }})"
                         :checked="$isSelected"
                         :disabled="$shouldDisable"
+                        class="{{ $shouldDisable ? 'pointer-events-none' : '' }}"
                         data-testid="intake-index-nutrition-checkbox-{{ $nutri->id }}"
                     >
                         {{ ucfirst($nutri->name) }}
