@@ -35,7 +35,10 @@ class GeminiRequestAction
                     ->post($url, $payload);
 
                 if ($response->ok()) {
-                    return $this->parseResponse($response->json(), $endpointType);
+                    return [
+                        $response->json(),
+                        $this->parseResponse($response->json(), $endpointType),
+                    ];
                 }
 
                 Log::warning("Gemini Model Failed ({$endpointType}): {$key}", [
