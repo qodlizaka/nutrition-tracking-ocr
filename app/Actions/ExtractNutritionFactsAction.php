@@ -61,6 +61,10 @@ class ExtractNutritionFactsAction
             ]
         ];
 
-        return ($this->geminiRequest)($payload, 'generateContent');
+        [$rawResponse, $parsedResponse] = ($this->geminiRequest)($payload, 'generateContent');
+
+        app(LogGeminiResponse::class)($imageBase64, $payload, $rawResponse, $parsedResponse);
+
+        return $parsedResponse;
     }
 }
