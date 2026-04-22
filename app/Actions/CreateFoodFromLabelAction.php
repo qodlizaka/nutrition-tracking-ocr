@@ -14,7 +14,6 @@ class CreateFoodFromLabelAction
     public function execute(GeminiExtractedLabelDto $extractedLabel, string $imagePath): Food
     {
         return DB::transaction(function () use ($extractedLabel, $imagePath) {
-            // Create the food
             $food = Food::create([
                 'user_id' => Auth::id(),
                 'name' => __('Food label') . ' - ' . now()->format('M d, H:i'),
@@ -24,8 +23,6 @@ class CreateFoodFromLabelAction
                 'status' => FoodStatus::Inactive,
             ]);
 
-            // Prepare pivot data
-            // Optimization: Cache nutrition IDs if this runs frequently, or keep fetching all if table is small (<100 rows)
             $allNutritionData = Nutrition::all()->keyBy('name');
 
             $nutritionsToAttach = $extractedLabel->nutritions
