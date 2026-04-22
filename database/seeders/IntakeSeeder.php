@@ -18,7 +18,7 @@ class IntakeSeeder extends Seeder
         $testUser = User::findOrFail(3);
         $userAkg = $testUser->detail->akg->nutritions->keyBy('id');
 
-        $intakeCount = 1500;
+        $intakeCount = 2500;
 
         Intake::factory($intakeCount)
             ->state(['user_id' => $testUser->id])
