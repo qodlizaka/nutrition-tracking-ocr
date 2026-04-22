@@ -1,0 +1,806 @@
+[
+    {
+        "name": "Umum",
+        "energy": 2150,
+        "nutritions": [
+            {
+                "name": "total fat",
+                "value": 67
+            },
+            {
+                "name": "saturated fat",
+                "value": 20
+            },
+            {
+                "name": "protein",
+                "value": 60
+            },
+            {
+                "name": "total carbohydrate",
+                "value": 325
+            },
+            {
+                "name": "sugar",
+                "value": 0
+            },
+            {
+                "name": "sodium",
+                "value": 1500
+            },
+            {
+                "name": "vitamin a",
+                "value": 600
+            },
+            {
+                "name": "vitamin d",
+                "value": 15
+            },
+            {
+                "name": "vitamin e",
+                "value": 15
+            },
+            {
+                "name": "vitamin k",
+                "value": 60
+            },
+            {
+                "name": "vitamin b1",
+                "value": 1.4
+            },
+            {
+                "name": "vitamin b2",
+                "value": 1.6
+            },
+            {
+                "name": "vitamin b3",
+                "value": 15
+            },
+            {
+                "name": "vitamin b5",
+                "value": 5
+            },
+            {
+                "name": "vitamin b6",
+                "value": 1.3
+            },
+            {
+                "name": "folate",
+                "value": 400
+            },
+            {
+                "name": "vitamin b12",
+                "value": 2.4
+            },
+            {
+                "name": "biotin",
+                "value": 30
+            },
+            {
+                "name": "choline",
+                "value": 450
+            },
+            {
+                "name": "vitamin c",
+                "value": 90
+            },
+            {
+                "name": "calcium",
+                "value": 1100
+            },
+            {
+                "name": "phosphorus",
+                "value": 700
+            },
+            {
+                "name": "magnesium",
+                "value": 350
+            },
+            {
+                "name": "potassium",
+                "value": 4700
+            },
+            {
+                "name": "manganese",
+                "value": 2000
+            },
+            {
+                "name": "copper",
+                "value": 800
+            },
+            {
+                "name": "chromium",
+                "value": 26
+            },
+            {
+                "name": "iron",
+                "value": 22
+            },
+            {
+                "name": "iodine",
+                "value": 150
+            },
+            {
+                "name": "zinc",
+                "value": 13
+            },
+            {
+                "name": "selenium",
+                "value": 30
+            },
+            {
+                "name": "fluoride",
+                "value": 2.5
+            }
+        ]
+    },
+    {
+        "name": "Usia 0-6 bulan",
+        "energy": 550,
+        "nutritions": [
+            {
+                "name": "total fat",
+                "value": 34
+            },
+            {
+                "name": "saturated fat",
+                "value": 0
+            },
+            {
+                "name": "protein",
+                "value": 12
+            },
+            {
+                "name": "total carbohydrate",
+                "value": 58
+            },
+            {
+                "name": "sugar",
+                "value": 0
+            },
+            {
+                "name": "sodium",
+                "value": 120
+            },
+            {
+                "name": "vitamin a",
+                "value": 375
+            },
+            {
+                "name": "vitamin d",
+                "value": 5
+            },
+            {
+                "name": "vitamin e",
+                "value": 4
+            },
+            {
+                "name": "vitamin k",
+                "value": 5
+            },
+            {
+                "name": "vitamin b1",
+                "value": 0.3
+            },
+            {
+                "name": "vitamin b2",
+                "value": 0.3
+            },
+            {
+                "name": "vitamin b3",
+                "value": 2
+            },
+            {
+                "name": "vitamin b5",
+                "value": 1.7
+            },
+            {
+                "name": "vitamin b6",
+                "value": 0.1
+            },
+            {
+                "name": "folate",
+                "value": 65
+            },
+            {
+                "name": "vitamin b12",
+                "value": 0.4
+            },
+            {
+                "name": "biotin",
+                "value": 5
+            },
+            {
+                "name": "choline",
+                "value": 125
+            },
+            {
+                "name": "vitamin c",
+                "value": 40
+            },
+            {
+                "name": "calcium",
+                "value": 200
+            },
+            {
+                "name": "phosphorus",
+                "value": 100
+            },
+            {
+                "name": "magnesium",
+                "value": 30
+            },
+            {
+                "name": "potassium",
+                "value": 500
+            },
+            {
+                "name": "manganese",
+                "value": 5.5
+            },
+            {
+                "name": "copper",
+                "value": 200
+            },
+            {
+                "name": "chromium",
+                "value": 0
+            },
+            {
+                "name": "iron",
+                "value": 2.5
+            },
+            {
+                "name": "iodine",
+                "value": 90
+            },
+            {
+                "name": "zinc",
+                "value": 2.75
+            },
+            {
+                "name": "selenium",
+                "value": 5
+            },
+            {
+                "name": "fluoride",
+                "value": 0
+            }
+        ]
+    },
+    {
+        "name": "Usia 7-11 bulan",
+        "energy": 725,
+        "nutritions": [
+            {
+                "name": "total fat",
+                "value": 36
+            },
+            {
+                "name": "saturated fat",
+                "value": 0
+            },
+            {
+                "name": "protein",
+                "value": 18
+            },
+            {
+                "name": "total carbohydrate",
+                "value": 82
+            },
+            {
+                "name": "sugar",
+                "value": 0
+            },
+            {
+                "name": "sodium",
+                "value": 200
+            },
+            {
+                "name": "vitamin a",
+                "value": 400
+            },
+            {
+                "name": "vitamin d",
+                "value": 5
+            },
+            {
+                "name": "vitamin e",
+                "value": 5
+            },
+            {
+                "name": "vitamin k",
+                "value": 10
+            },
+            {
+                "name": "vitamin b1",
+                "value": 0.4
+            },
+            {
+                "name": "vitamin b2",
+                "value": 0.4
+            },
+            {
+                "name": "vitamin b3",
+                "value": 4
+            },
+            {
+                "name": "vitamin b5",
+                "value": 1.8
+            },
+            {
+                "name": "vitamin b6",
+                "value": 0.3
+            },
+            {
+                "name": "folate",
+                "value": 80
+            },
+            {
+                "name": "vitamin b12",
+                "value": 0.5
+            },
+            {
+                "name": "biotin",
+                "value": 6
+            },
+            {
+                "name": "choline",
+                "value": 150
+            },
+            {
+                "name": "vitamin c",
+                "value": 50
+            },
+            {
+                "name": "calcium",
+                "value": 250
+            },
+            {
+                "name": "phosphorus",
+                "value": 250
+            },
+            {
+                "name": "magnesium",
+                "value": 55
+            },
+            {
+                "name": "potassium",
+                "value": 700
+            },
+            {
+                "name": "manganese",
+                "value": 600
+            },
+            {
+                "name": "copper",
+                "value": 220
+            },
+            {
+                "name": "chromium",
+                "value": 6
+            },
+            {
+                "name": "iron",
+                "value": 7
+            },
+            {
+                "name": "iodine",
+                "value": 120
+            },
+            {
+                "name": "zinc",
+                "value": 3
+            },
+            {
+                "name": "selenium",
+                "value": 10
+            },
+            {
+                "name": "fluoride",
+                "value": 0.4
+            }
+        ]
+    },
+    {
+        "name": "Usia 1-3 tahun",
+        "energy": 1125,
+        "nutritions": [
+            {
+                "name": "total fat",
+                "value": 44
+            },
+            {
+                "name": "saturated fat",
+                "value": 0
+            },
+            {
+                "name": "protein",
+                "value": 26
+            },
+            {
+                "name": "total carbohydrate",
+                "value": 155
+            },
+            {
+                "name": "sugar",
+                "value": 0
+            },
+            {
+                "name": "sodium",
+                "value": 1000
+            },
+            {
+                "name": "vitamin a",
+                "value": 400
+            },
+            {
+                "name": "vitamin d",
+                "value": 15
+            },
+            {
+                "name": "vitamin e",
+                "value": 6
+            },
+            {
+                "name": "vitamin k",
+                "value": 15
+            },
+            {
+                "name": "vitamin b1",
+                "value": 0.6
+            },
+            {
+                "name": "vitamin b2",
+                "value": 0.7
+            },
+            {
+                "name": "vitamin b3",
+                "value": 6
+            },
+            {
+                "name": "vitamin b5",
+                "value": 2
+            },
+            {
+                "name": "vitamin b6",
+                "value": 0.5
+            },
+            {
+                "name": "folate",
+                "value": 160
+            },
+            {
+                "name": "vitamin b12",
+                "value": 0.9
+            },
+            {
+                "name": "biotin",
+                "value": 8
+            },
+            {
+                "name": "choline",
+                "value": 200
+            },
+            {
+                "name": "vitamin c",
+                "value": 40
+            },
+            {
+                "name": "calcium",
+                "value": 650
+            },
+            {
+                "name": "phosphorus",
+                "value": 500
+            },
+            {
+                "name": "magnesium",
+                "value": 60
+            },
+            {
+                "name": "potassium",
+                "value": 3000
+            },
+            {
+                "name": "manganese",
+                "value": 1200
+            },
+            {
+                "name": "copper",
+                "value": 340
+            },
+            {
+                "name": "chromium",
+                "value": 11
+            },
+            {
+                "name": "iron",
+                "value": 8
+            },
+            {
+                "name": "iodine",
+                "value": 120
+            },
+            {
+                "name": "zinc",
+                "value": 4
+            },
+            {
+                "name": "selenium",
+                "value": 17
+            },
+            {
+                "name": "fluoride",
+                "value": 0.6
+            }
+        ]
+    },
+    {
+        "name": "Ibu Hamil",
+        "energy": 2510,
+        "nutritions": [
+            {
+                "name": "total fat",
+                "value": 84
+            },
+            {
+                "name": "saturated fat",
+                "value": 20
+            },
+            {
+                "name": "protein",
+                "value": 76
+            },
+            {
+                "name": "total carbohydrate",
+                "value": 345
+            },
+            {
+                "name": "sugar",
+                "value": 0
+            },
+            {
+                "name": "sodium",
+                "value": 1500
+            },
+            {
+                "name": "vitamin a",
+                "value": 816
+            },
+            {
+                "name": "vitamin d",
+                "value": 15
+            },
+            {
+                "name": "vitamin e",
+                "value": 15
+            },
+            {
+                "name": "vitamin k",
+                "value": 55
+            },
+            {
+                "name": "vitamin b1",
+                "value": 1.4
+            },
+            {
+                "name": "vitamin b2",
+                "value": 1.7
+            },
+            {
+                "name": "vitamin b3",
+                "value": 16
+            },
+            {
+                "name": "vitamin b5",
+                "value": 6
+            },
+            {
+                "name": "vitamin b6",
+                "value": 1.7
+            },
+            {
+                "name": "folate",
+                "value": 600
+            },
+            {
+                "name": "vitamin b12",
+                "value": 2.6
+            },
+            {
+                "name": "biotin",
+                "value": 30
+            },
+            {
+                "name": "choline",
+                "value": 450
+            },
+            {
+                "name": "vitamin c",
+                "value": 90
+            },
+            {
+                "name": "calcium",
+                "value": 1300
+            },
+            {
+                "name": "phosphorus",
+                "value": 700
+            },
+            {
+                "name": "magnesium",
+                "value": 350
+            },
+            {
+                "name": "potassium",
+                "value": 4700
+            },
+            {
+                "name": "manganese",
+                "value": 2000
+            },
+            {
+                "name": "copper",
+                "value": 1000
+            },
+            {
+                "name": "chromium",
+                "value": 30
+            },
+            {
+                "name": "iron",
+                "value": 34
+            },
+            {
+                "name": "iodine",
+                "value": 220
+            },
+            {
+                "name": "zinc",
+                "value": 16
+            },
+            {
+                "name": "selenium",
+                "value": 35
+            },
+            {
+                "name": "fluoride",
+                "value": 2.5
+            }
+        ]
+    },
+    {
+        "name": "Ibu Menyusui",
+        "energy": 2615,
+        "nutritions": [
+            {
+                "name": "total fat",
+                "value": 87
+            },
+            {
+                "name": "saturated fat",
+                "value": 20
+            },
+            {
+                "name": "protein",
+                "value": 76
+            },
+            {
+                "name": "total carbohydrate",
+                "value": 360
+            },
+            {
+                "name": "sugar",
+                "value": 0
+            },
+            {
+                "name": "sodium",
+                "value": 1500
+            },
+            {
+                "name": "vitamin a",
+                "value": 850
+            },
+            {
+                "name": "vitamin d",
+                "value": 15
+            },
+            {
+                "name": "vitamin e",
+                "value": 19
+            },
+            {
+                "name": "vitamin k",
+                "value": 55
+            },
+            {
+                "name": "vitamin b1",
+                "value": 1.4
+            },
+            {
+                "name": "vitamin b2",
+                "value": 1.8
+            },
+            {
+                "name": "vitamin b3",
+                "value": 15
+            },
+            {
+                "name": "vitamin b5",
+                "value": 7
+            },
+            {
+                "name": "vitamin b6",
+                "value": 1.8
+            },
+            {
+                "name": "folate",
+                "value": 500
+            },
+            {
+                "name": "vitamin b12",
+                "value": 2.8
+            },
+            {
+                "name": "biotin",
+                "value": 35
+            },
+            {
+                "name": "choline",
+                "value": 500
+            },
+            {
+                "name": "vitamin c",
+                "value": 100
+            },
+            {
+                "name": "calcium",
+                "value": 1300
+            },
+            {
+                "name": "phosphorus",
+                "value": 700
+            },
+            {
+                "name": "magnesium",
+                "value": 310
+            },
+            {
+                "name": "potassium",
+                "value": 5100
+            },
+            {
+                "name": "manganese",
+                "value": 2600
+            },
+            {
+                "name": "copper",
+                "value": 1300
+            },
+            {
+                "name": "chromium",
+                "value": 45
+            },
+            {
+                "name": "iron",
+                "value": 33
+            },
+            {
+                "name": "iodine",
+                "value": 250
+            },
+            {
+                "name": "zinc",
+                "value": 15
+            },
+            {
+                "name": "selenium",
+                "value": 40
+            },
+            {
+                "name": "fluoride",
+                "value": 2.5
+            }
+        ]
+    }
+]
