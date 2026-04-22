@@ -105,6 +105,6 @@ class Index extends Component
 
         return view('livewire.intake.index', [
             'intakes' => $query->paginate(10),
-        ]);
+        ])->title(__('My intakes'));
     }
 }

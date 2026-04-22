@@ -122,6 +122,6 @@ class Chart extends Component
                     ->groupBy('nutrition_id')
                     ->pluck('total_amount', 'nutrition_id'),
             ]
-        ]);
+        ])->title(__('My intakes chart'));
     }
 }

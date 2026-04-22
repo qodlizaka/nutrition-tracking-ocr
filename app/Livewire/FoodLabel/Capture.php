@@ -82,6 +82,6 @@ class Capture extends Component
 
     public function render()
     {
-        return view('livewire.food-label.capture');
+        return view('livewire.food-label.capture')->title(__('Capture nutrition label'));
     }
 }
