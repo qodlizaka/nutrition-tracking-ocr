@@ -19,7 +19,7 @@ class IntakeFactory extends Factory
         return [
             'notes' => fake()->words(rand(2, 5), true),
             'created_at' => now()
-                ->subDays(rand(30, 90))
+                ->subDays(rand(-30, 90))
                 ->subHours(rand(0, 24))
                 ->subMinutes(rand(0, 60)),
         ];
