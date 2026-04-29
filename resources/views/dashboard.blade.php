@@ -28,7 +28,7 @@
                 $lastCalorie = $weeklyCalorieIntake->last();
             @endphp
 
-            <div class="mt-4 grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6" data-testid="dashboard-metrics-grid">
+            <div class="my-4 grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6" data-testid="dashboard-metrics-grid">
 
                 <x-dashboard.metric
                     :label="__('Intake count today')"
@@ -77,6 +77,8 @@
                 />
 
             </div>
+
+            <flux:text>{{ __('Disclaimer: calculated BMR and TDEE values may not be accurate, consult with healthcare professional for more accurate assessment.') }}</flux:text>
 
             <flux:separator class="my-6" />
 
