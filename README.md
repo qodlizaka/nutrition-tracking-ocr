@@ -21,9 +21,9 @@ Nutrition Tracking OCR is a web application designed to automate and monitor dai
 ## Screenshots
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/67e42ddf-5f76-46bb-b813-45bf60e5ed64" />
-
+<br>
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/5fcf9beb-f157-4dbc-8b53-f55a3db0fe1c" />
-
+<br>
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/b42ea1df-73b8-44a5-b9c7-e17de965519d" />
 
 ## Prerequisites
