@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             ->state([
                 'name' => 'Norhalisah',
                 'email' => 'norhalisah673@gmail.com',
-                'password' => bcrypt('Halisah.Zaka.2330'),
+                'password' => bcrypt(env('ADMIN_PASSWORD')),
                 'role' => UserRole::Admin,
                 'gender' => Gender::Female,
                 'date_of_birth' => Carbon::createFromDate(2003, 11, 30),
@@ -33,10 +33,21 @@ class UserSeeder extends Seeder
             ->state([
                 'name' => 'Qodli Zaka',
                 'email' => 'qodlizaka513@gmail.com',
-                'password' => bcrypt('Halisah.Zaka.2330'),
+                'password' => bcrypt(env('ADMIN_PASSWORD')),
                 'role' => UserRole::Admin,
                 'gender' => Gender::Male,
                 'date_of_birth' => Carbon::createFromDate(2004, 3, 23),
+            ])
+            ->create();
+
+        User::factory()
+            ->state([
+                'name' => 'Admin',
+                'email' => env('ADMIN_EMAIL'),
+                'password' => bcrypt(env('ADMIN_PASSWORD')),
+                'role' => UserRole::Admin,
+                'gender' => Gender::Male,
+                'date_of_birth' => Carbon::createFromDate(1999, 9, 9),
             ])
             ->create();
 

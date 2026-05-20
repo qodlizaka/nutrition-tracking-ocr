@@ -29,6 +29,7 @@ Nutrition Tracking OCR is a web application designed to automate and monitor dai
 ## Prerequisites
 
 This project uses Laravel Sail for local development. You must have the following installed:
+
 * [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 * [Git](https://git-scm.com/)
 * A valid [Google Gemini API Key](https://aistudio.google.com/app/apikey)
@@ -38,46 +39,61 @@ This project uses Laravel Sail for local development. You must have the followin
 Follow these steps to deploy the application locally using Docker.
 
 1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/qodlizaka/nutrition-tracking-ocr.git](https://github.com/qodlizaka/nutrition-tracking-ocr.git)
-   cd nutrition-tracking-ocr
-   ```
+
+```bash
+git clone [https://github.com/qodlizaka/nutrition-tracking-ocr.git](https://github.com/qodlizaka/nutrition-tracking-ocr.git)
+cd nutrition-tracking-ocr
+```
 
 2. **Configure environment variables:**
-   ```bash
-   cp .env.example .env
-   ```
-   Open the `.env` file and append your Gemini API key:
-   ```env
-   GEMINI_API_KEY=your_actual_api_key_here
-   ```
+
+```bash
+cp .env.example .env
+```
+
+Open the `.env` file and append your Gemini API key:
+
+```env
+GEMINI_API_KEY=your_actual_api_key_here
+```
+
+Don't forget to set up admin email & password:
+
+```sh
+ADMIN_EMAIL=prefered@email.com
+ADMIN_PASSWORD=admin_password
+```
 
 3. **Install Composer dependencies:**
-   ```bash
-   docker run --rm \
-       -u "$(id -u):$(id -g)" \
-       -v "$(pwd):/var/www/html" \
-       -w /var/www/html \
-       laravelsail/php82-composer:latest \
-       composer install --ignore-platform-reqs
-   ```
+
+```bash
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php82-composer:latest \
+    composer install --ignore-platform-reqs
+```
 
 4. **Initialize Docker containers:**
-   ```bash
-   ./vendor/bin/sail up -d
-   ```
+
+```bash
+./vendor/bin/sail up -d
+```
 
 5. **Generate the application key and execute migrations:**
-   ```bash
-   ./vendor/bin/sail artisan key:generate
-   ./vendor/bin/sail artisan migrate
-   ```
+
+```bash
+./vendor/bin/sail artisan key:generate
+./vendor/bin/sail artisan migrate
+```
 
 6. **Install NPM packages and compile frontend assets:**
-   ```bash
-   ./vendor/bin/sail npm install
-   ./vendor/bin/sail npm run dev
-   ```
+
+```bash
+./vendor/bin/sail npm install
+./vendor/bin/sail npm run dev
+```
 
 ## Usage
 
